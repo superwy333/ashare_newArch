@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.BizAreaFieldMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.BizAreaField" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="biz_id" property="bizId" jdbcType="BIGINT" />
+    <result column="form_area_id" property="formAreaId" jdbcType="BIGINT" />
+    <result column="form_field_id" property="formFieldId" jdbcType="BIGINT" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field_01" property="extField01" jdbcType="VARCHAR" />
+    <result column="ext_field_02" property="extField02" jdbcType="VARCHAR" />
+    <result column="ext_field_03" property="extField03" jdbcType="VARCHAR" />
+    <result column="ext_field_04" property="extField04" jdbcType="VARCHAR" />
+    <result column="ext_field_05" property="extField05" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMap_tw" type="com.zynsun.platform.edoc.model.BizAreaFieldModel" extends="BaseResultMap">
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    biz_area_field.id, biz_area_field.biz_id, biz_area_field.form_area_id, biz_area_field.form_field_id, biz_area_field.create_by, biz_area_field.create_time, biz_area_field.last_modify_by,
+    biz_area_field.last_modify_time, biz_area_field.deleted, biz_area_field.version, biz_area_field.ext_field_01, biz_area_field.ext_field_02, biz_area_field.ext_field_03, biz_area_field.ext_field_04,
+    biz_area_field.ext_field_05
+  </sql>
+
+  <select id="selectFieldByBizIdAndAreaId" resultMap="BaseResultMap_tw" parameterType="com.zynsun.platform.edoc.domain.BizAreaField">
+    select
+      <include refid="Base_Column_List" /> , form_field.form_field_name AS formFieldName
+    from biz_area_field
+    INNER JOIN form_field  on form_field.id = biz_area_field.form_field_id
+    <where>
+      biz_area_field.biz_id = #{bizId} and biz_area_field.form_area_id = #{formAreaId}
+    </where>
+  </select>
+
+  <delete id="deleteBizAreaField" parameterType="com.zynsun.platform.edoc.domain.BizAreaField">
+     delete from biz_area_field
+     <where>
+       biz_id=#{bizId} and form_area_id=#{formAreaId}
+     </where>
+  </delete>
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.ArchiveHeaderMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.ArchiveHeader" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="header_name" property="headerName" jdbcType="VARCHAR" />
+    <result column="header_code" property="headerCode" jdbcType="VARCHAR" />
+    <result column="section_flag" property="sectionFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, header_name, header_code, section_flag, remarks, deleted, create_by, create_time,
+    last_modify_by, last_modify_time, version
+  </sql>
+
+  <resultMap id="ArchiveHeaderModel" type="com.zynsun.platform.edoc.model.ArchiveHeaderModel" extends="BaseResultMap">
+
+  </resultMap>
+
+  <resultMap id="ArchiveHeaderModelForArchiveMove" type="com.zynsun.platform.edoc.model.ArchiveHeaderModel">
+    <result column="header_name" property="headerName" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCodes" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyNames" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="findArchiveHeaderModelList" parameterType="com.zynsun.platform.edoc.domain.ArchiveHeader" resultMap="ArchiveHeaderModel">
+    SELECT <include refid="Base_Column_List"/>
+    FROM archive_header
+    WHERE deleted=0
+    <if test="archiveHeader.headerName!=null and archiveHeader.headerName!=''">
+      and header_name like concat(concat('%',#{archiveHeader.headerName}),'%')
+    </if>
+    <if test="archiveHeader.headerCode!=null and archiveHeader.headerCode!=''">
+      and header_code like concat(concat('%',#{archiveHeader.headerCode}),'%')
+    </if>
+  </select>
+
+  <select id="findArchiveHeaderByCompanyId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT ah.id, ah.header_name, ah.header_code, ah.section_flag, ah.remarks, ah.deleted, ah.create_by, ah.create_time,
+    ah.last_modify_by, ah.last_modify_time, ah.version
+    FROM archive_header ah
+    LEFT JOIN archive_company ac ON ah.id = ac.archive_id
+    WHERE ah.deleted = 0 AND ac.deleted = 0
+    AND ac.company_id = #{companyId}
+  </select>
+
+
+  <select id="findArchiveInfo" parameterType="java.lang.String" resultMap="ArchiveHeaderModelForArchiveMove">
+    select ah.header_name,ac.company_code,ac.company_name from archive_header ah
+    LEFT JOIN archive_company ac ON ah.id = ac.archive_id
+    where ah.deleted = 0 and ac.deleted= 0 and ac.company_id = #{companyId}
+  </select>
+
+
+
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.AreaFieldMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.AreaField" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="form_area_id" property="formAreaId" jdbcType="BIGINT" />
+    <result column="form_field_id" property="formFieldId" jdbcType="BIGINT" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field_01" property="extField01" jdbcType="VARCHAR" />
+    <result column="ext_field_02" property="extField02" jdbcType="VARCHAR" />
+    <result column="ext_field_03" property="extField03" jdbcType="VARCHAR" />
+    <result column="ext_field_04" property="extField04" jdbcType="VARCHAR" />
+    <result column="ext_field_05" property="extField05" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, form_area_id, form_field_id, create_by, create_time, last_modify_by, last_modify_time, 
+    deleted, version, ext_field_01, ext_field_02, ext_field_03, ext_field_04, ext_field_05
+  </sql>
+
+  <delete id="deleteByAreaId">
+    DELETE FROM area_field WHERE form_area_id = #{id}
+  </delete>
+</mapper>

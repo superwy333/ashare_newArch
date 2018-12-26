@@ -1,0 +1,28 @@
+subprojects {
+
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'idea'
+
+	group = 'com.zynsun'
+	version = '1.0.RELEASE'
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+	repositories {
+		mavenCentral()
+	}
+
+	tasks.withType(JavaCompile) {
+		options.encoding = "UTF-8"
+	}
+	task allDepInsight(type: DependencyInsightReportTask) << {}
+
+
+
+
+
+	//[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+}
+
+

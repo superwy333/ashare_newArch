@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zynsun.platform.edoc.mapper.BillContractInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.BillContractInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="edoc_no" jdbcType="VARCHAR" property="edocNo" />
+    <result column="con_name" jdbcType="VARCHAR" property="conName" />
+    <result column="con_code" jdbcType="VARCHAR" property="conCode" />
+    <result column="con_version" jdbcType="VARCHAR" property="conVersion" />
+    <result column="con_type" jdbcType="VARCHAR" property="conType" />
+    <result column="con_ou_subject" jdbcType="VARCHAR" property="conOuSubject" />
+    <result column="con_op_subject" jdbcType="VARCHAR" property="conOpSubject" />
+    <result column="con_submit_time" jdbcType="DATE" property="conSubmitTime" />
+    <result column="con_begin_time" jdbcType="DATE" property="conBeginTime" />
+    <result column="con_end_time" jdbcType="DATE" property="conEndTime" />
+    <result column="con_value" jdbcType="DECIMAL" property="conValue" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_modify_by" jdbcType="VARCHAR" property="lastModifyBy" />
+    <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
+    <result column="deleted" jdbcType="TINYINT" property="deleted" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+    <result column="ext_field1" jdbcType="VARCHAR" property="extField1" />
+    <result column="ext_field2" jdbcType="VARCHAR" property="extField2" />
+    <result column="ext_field3" jdbcType="VARCHAR" property="extField3" />
+    <result column="ext_field4" jdbcType="VARCHAR" property="extField4" />
+    <result column="ext_field5" jdbcType="VARCHAR" property="extField5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, edoc_no, con_name, con_code, con_version, con_type, con_ou_subject, con_op_subject, 
+    con_submit_time, con_begin_time, con_end_time, con_value, remarks, create_by, create_time, 
+    last_modify_by, last_modify_time, deleted, version, ext_field1, ext_field2, ext_field3, 
+    ext_field4, ext_field5
+  </sql>
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.AccountingLocMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.AccountingLoc" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="store_id" property="storeId" jdbcType="BIGINT" />
+    <result column="loc_no" property="locNo" jdbcType="VARCHAR" />
+    <result column="loc_name" property="locName" jdbcType="VARCHAR" />
+    <result column="status_id" property="statusId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="max_qyt" property="maxQyt" jdbcType="INTEGER" />
+    <result column="max_weight" property="maxWeight" jdbcType="REAL" />
+    <result column="max_volume" property="maxVolume" jdbcType="REAL" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="modelResultMap" type="com.zynsun.platform.edoc.model.AccountingLocModel" extends="BaseResultMap">
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, store_id, loc_no, loc_name, status_id, type_id, max_qyt, max_weight, max_volume, 
+    remarks, create_by, create_time, last_modify_by, last_modify_time, deleted, version, 
+    ext_field1, ext_field2, ext_field3, ext_field4, ext_field5
+  </sql>
+
+  <sql id="Base_Column_List_Loc" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    loc.id, loc.store_id, loc.loc_no, loc.loc_name, loc.status_id, loc.type_id, loc.max_qyt, loc.max_weight, loc.max_volume,
+    loc.remarks, loc.create_by, loc.create_time, loc.last_modify_by, loc.last_modify_time, loc.deleted, loc.version,
+    loc.ext_field1, loc.ext_field2, loc.ext_field3, loc.ext_field4, loc.ext_field5
+  </sql>
+
+  <select id="selectLocPage" resultMap="modelResultMap" parameterType="com.zynsun.platform.edoc.model.AccountingLocModel">
+    SELECT <include refid="Base_Column_List_Loc"/>, fs.store_name
+    FROM accounting_loc loc
+    LEFT JOIN accounting_file_store fs ON fs.id = loc.store_id
+    <where>
+      loc.deleted=0
+      <if test="accountingLocModel.locNo!=null and accountingLocModel.locNo !=''">
+        AND loc.loc_no = #{accountingLocModel.locNo}
+      </if>
+      <if test="accountingLocModel.locName!=null and accountingLocModel.locName !=''">
+        AND loc.loc_name like CONCAT ('%',#{accountingLocModel.locName},'%')
+      </if>
+    </where>
+
+  </select>
+</mapper>

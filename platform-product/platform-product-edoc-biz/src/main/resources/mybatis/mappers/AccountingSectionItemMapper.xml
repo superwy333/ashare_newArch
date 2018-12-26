@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.AccountingSectionItemMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.AccountingSectionItem" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="accounting_section" property="accountingSection" jdbcType="VARCHAR" />
+    <result column="edoc_no" property="edocNo" jdbcType="VARCHAR" />
+    <result column="edoc_id" property="edocId" jdbcType="VARCHAR" />
+    <result column="attachment_num" property="attachmentNum" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, accounting_section, edoc_no, edoc_id, attachment_num, remarks, deleted, create_by, 
+    create_time, last_modify_by, last_modify_time, version
+  </sql>
+</mapper>

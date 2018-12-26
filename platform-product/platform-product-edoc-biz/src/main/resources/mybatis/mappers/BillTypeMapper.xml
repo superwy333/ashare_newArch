@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.BillTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.BillType" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="name_en" property="nameEn" jdbcType="VARCHAR" />
+    <result column="ocr_type" property="ocrType" jdbcType="VARCHAR" />
+    <result column="ocr_area" property="ocrArea" jdbcType="VARCHAR" />
+    <result column="is_cover" property="isCover" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="DECIMAL" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="process_definition_key" property="processDefinitionKey" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, code, parent_id, parent_ids, name, name_en, remarks,is_cover, sort,process_definition_key, deleted, create_by,
+    create_time, last_modify_by, last_modify_time, version
+  </sql>
+
+
+  <sql id="Base_Column_List_BTS" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    bt.id, bt.code, bt.parent_id, bt.parent_ids, bt.name, bt.name_en, bt.ocr_type, bt.ocr_area,bt.process_definition_key, bt.is_cover, bt.remarks,
+    bt.sort, bt.deleted, bt.create_by, bt.create_time, bt.last_modify_by, bt.last_modify_time,bt.version
+  </sql>
+
+  <sql id="Bill_Type_Column_List">
+     bill.id, bill.code, bill.parent_id, bill.parent_ids, bill.name, bill.name_en, bill.ocr_type, bill.ocr_area,bill.process_definition_key, bill.is_cover, bill.remarks,
+    bill.sort, bill.deleted, bill.create_by, bill.create_time, bill.last_modify_by, bill.last_modify_time,bill.version,
+
+    parentBill.id AS parent_id, parentBill.name AS parent_name, parentBill.code AS parent_code
+  </sql>
+  <resultMap id="BillTypeModelsResultMap" type="com.zynsun.platform.edoc.model.BillTypeModel"
+             extends="BaseResultMap">
+    <association property="parent" javaType="com.zynsun.platform.edoc.domain.BillType">
+      <id column="parent_id" jdbcType="BIGINT" property="id" />
+      <result column="parent_name" property="name" jdbcType="VARCHAR" />
+      <result column="parent_code" property="code" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+
+
+
+  <select id="findBillTypeByBizId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List_BTS" />
+    FROM bill_type bt left JOIN biz_type_style bts ON bt.id=bts.bill_type_id
+    <where>
+      bt.deleted=0 and bts.deleted=0 AND bts.biz_type_id=#{bizId}
+    </where>
+  </select>
+
+  <!-- 通过代码查询 -->
+  <select id="selectByBillTypeCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM bill_type
+    WHERE deleted = 0
+    AND code = #{billTypeCode}
+  </select>
+
+  <select id="selectBillTypeModel" resultMap="BillTypeModelsResultMap" parameterType="java.lang.Long">
+    select
+    <include refid="Bill_Type_Column_List"/>
+    from bill_type bill
+    LEFT JOIN bill_type parentBill ON bill.parent_id = parentBill.id
+    where bill.deleted = 0 AND bill.id = #{id}
+  </select>
+
+  <select id="selectBillTypesByBizCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT DISTINCT
+    <include refid="Base_Column_List_BTS"/>
+    FROM
+      bill_type bt
+    LEFT JOIN biz_type_style s
+    ON bt.id = s.bill_type_id
+    LEFT JOIN biz_type b
+    ON b.id = s.biz_type_id
+    WHERE bt.deleted = 0
+    <if test="bizTypeCode != null and bizTypeCode != ''">
+      AND b.code = #{bizTypeCode}
+    </if>
+  </select>
+</mapper>

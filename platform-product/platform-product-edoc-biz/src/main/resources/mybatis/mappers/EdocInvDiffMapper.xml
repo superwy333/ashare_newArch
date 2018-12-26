@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.EdocInvDiffMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.EdocInvDiff" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="inv_column" property="invColumn" jdbcType="VARCHAR" />
+    <result column="old_val" property="oldVal" jdbcType="VARCHAR" />
+    <result column="new_val" property="newVal" jdbcType="VARCHAR" />
+    <result column="inv_id" property="invId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, deleted, version, create_by, create_time, last_modify_by, last_modify_time, inv_column, 
+    old_val, new_val, inv_id
+  </sql>
+
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.zynsun.platform.edoc.model.InvDiffColumnModel">
+    select
+    <include refid="Base_Column_List"/>
+    from edoc_inv_diff
+    <where>
+      deleted='0' and inv_id=#{invDiffColumnModel.invId}
+    </where>
+    ORDER by create_time DESC
+  </select>
+</mapper>

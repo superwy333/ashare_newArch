@@ -1,0 +1,2 @@
+loginContextFilter=com.zynsun.openplatform.dubbo.filter.LoginContextFilter
+platformContextFilter=com.zynsun.openplatform.dubbo.filter.PlatformContextFilter

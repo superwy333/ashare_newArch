@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.OperationRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.OperationRecord">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="record_id" property="recordId" jdbcType="BIGINT"/>
+        <result column="record_operation" property="recordOperation" jdbcType="VARCHAR"/>
+        <result column="record_operator" property="recordOperator" jdbcType="VARCHAR"/>
+        <result column="record_operation_time" property="recordOperationTime" jdbcType="VARCHAR"/>
+        <result column="record_operation_code" property="recordOperationCode" jdbcType="VARCHAR"/>
+        <result column="record_status_flag" property="recordStatusFlag" jdbcType="VARCHAR"/>
+        <result column="record_table" property="recordTable" jdbcType="VARCHAR"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <resultMap id="edocReportModelResultMapNew" type="com.zynsun.platform.edoc.model.EdocReportModel">
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="status" property="statusFlag" jdbcType="VARCHAR"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, record_id, record_operation, record_operator, record_operation_time, remarks, create_by, create_time,
+        last_modify_by, last_modify_time, deleted, version,record_operation_code, record_status_flag, record_table
+    </sql>
+
+    <select id="selectEdocReportNew" resultMap="edocReportModelResultMapNew" parameterType="java.util.HashMap">
+        SELECT
+        <if test="flag !=null and flag !='' and flag=='queryAll'">
+            t.*
+        </if>
+        <if test="flag !=null and flag !='' and flag=='queryCount'">
+            count(*) as num
+        </if>
+        <if test="flag !=null and flag !='' and flag=='querySingleName'">
+            t.record_operator as operator,count(1) as num
+        </if>
+            FROM
+                operation_record t
+            WHERE
+                t.deleted=0
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(t.record_operation_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(t.record_operation_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="type !=null and type !=''">
+            and t.record_operation_code = #{type}
+        </if>
+        <if test="flag !=null and flag !='' and flag=='querySingleName'">
+            group by t.record_operator
+        </if>
+    </select>
+
+
+
+
+
+</mapper>

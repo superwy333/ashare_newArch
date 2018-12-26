@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<excels>
+    <!-- excel标签参看:ExcelDefinition,Field标签参看:FieldValue -->
+    <excel id="importWaitCertInv" class="com.zynsun.platform.edoc.dto.InvoiceDTO" sheetname="导入待认证发票模版" enableStyle="true">
+        <field name="invCode" title="发票代码*"/>
+        <field name="invNo" title="发票号码"/>
+        <field name="checkCertifiteTime" title="认证时间*"/>
+        <field name="actCertificationValue" title="实际认证金额*"/>
+    </excel>
+</excels>

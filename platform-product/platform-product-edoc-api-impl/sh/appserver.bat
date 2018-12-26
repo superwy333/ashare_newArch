@@ -1,0 +1,1 @@
+java -classpath ./conf -Djava.ext.dirs=./lib com.zynsun.platform.dubbo.CertAppServer

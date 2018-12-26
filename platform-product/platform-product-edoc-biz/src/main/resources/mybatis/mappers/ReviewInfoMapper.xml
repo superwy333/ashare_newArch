@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.ReviewInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.ReviewInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="edoc_header_id" property="edocHeaderId" jdbcType="VARCHAR"/>
+        <result column="review_status" property="reviewStatus" jdbcType="VARCHAR"/>
+        <result column="review_message" property="reviewMessage" jdbcType="VARCHAR"/>
+        <result column="review_name" property="reviewName" jdbcType="VARCHAR"/>
+        <result column="review_code" property="reviewCode" jdbcType="VARCHAR"/>
+        <result column="review_time" property="reviewTime" jdbcType="VARCHAR"/>
+        <result column="is_processed" property="isProcessed" jdbcType="VARCHAR"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+        <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
+        <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
+        <result column="ext_field3" property="extField3" jdbcType="VARCHAR"/>
+        <result column="ext_field4" property="extField4" jdbcType="VARCHAR"/>
+        <result column="ext_field5" property="extField5" jdbcType="VARCHAR"/>
+        <result column="review_source" property="reviewSource" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="ModelResultMap" type="com.zynsun.platform.edoc.model.ReviewInfoModel">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="edoc_header_id" property="edocHeaderId" jdbcType="VARCHAR"/>
+        <result column="review_status" property="reviewStatus" jdbcType="VARCHAR"/>
+        <result column="review_message" property="reviewMessage" jdbcType="VARCHAR"/>
+        <result column="review_name" property="reviewName" jdbcType="VARCHAR"/>
+        <result column="review_code" property="reviewCode" jdbcType="VARCHAR"/>
+        <result column="review_time" property="reviewTime" jdbcType="VARCHAR"/>
+        <result column="is_processed" property="isProcessed" jdbcType="VARCHAR"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+        <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
+        <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
+        <result column="ext_field3" property="extField3" jdbcType="VARCHAR"/>
+        <result column="ext_field4" property="extField4" jdbcType="VARCHAR"/>
+        <result column="ext_field5" property="extField5" jdbcType="VARCHAR"/>
+
+        <result column="edoc_no" property="edocNo" jdbcType="VARCHAR"/>
+        <result column="edoc_type" property="edocType" jdbcType="VARCHAR"/>
+        <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
+        <result column="edoc_task_status" property="edocTaskStatus" jdbcType="VARCHAR"/>
+        <result column="review_source" property="reviewSource" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, edoc_header_id, review_status, review_message, review_name, review_code, review_time,
+        is_processed, remarks, create_by, create_time,
+        last_modify_by, last_modify_time, deleted, version, ext_field1, ext_field2, ext_field3,
+        ext_field4, ext_field5,review_source
+    </sql>
+
+    <sql id="Base_Column_List_Re">
+        re.id, re.edoc_header_id, re.review_status, re.review_message, re.review_name, re.review_code, re.review_time,
+        re.is_processed, re.remarks, re.create_by, re.create_time,
+        re.last_modify_by, re.last_modify_time, re.deleted, re.version, re.ext_field1, re.ext_field2, re.ext_field3,
+        re.ext_field4, re.ext_field5,re.review_source
+    </sql>
+
+    <select id="selectReviewInfoPage" resultMap="ModelResultMap"
+            parameterType="com.zynsun.platform.edoc.model.ReviewInfoModel">
+        SELECT <include refid="Base_Column_List_Re"/>,h.edoc_no,h.company_name,h.edoc_task_status,h.edoc_type FROM review_info re
+        LEFT JOIN edoc_header h on re.edoc_header_id = h.id
+        <where>
+            re.deleted=0 and h.deleted=0
+            <if test="reviewInfoModel.edocNo !=null and reviewInfoModel.edocNo !=''">
+                AND h.edoc_no like concat(concat('%',#{reviewInfoModel.edocNo}),'%')
+            </if>
+            <if test="reviewInfoModel.isProcessed !=null and reviewInfoModel.isProcessed !=''">
+                AND re.is_processed =#{reviewInfoModel.isProcessed}
+            </if>
+            <if test="reviewInfoModel.edocTaskStatus !=null and reviewInfoModel.edocTaskStatus !=''">
+                AND h.edoc_task_status =#{reviewInfoModel.edocTaskStatus}
+            </if>
+            <if test="reviewInfoModel.companyName !=null and reviewInfoModel.companyName !=''">
+                AND h.company_name like concat(concat('%',#{reviewInfoModel.companyName}),'%')
+            </if>
+            <if test="reviewInfoModel.reviewStatus !=null and reviewInfoModel.reviewStatus !=''">
+                AND re.review_status =#{reviewInfoModel.reviewStatus}
+            </if>
+            <if test="reviewInfoModel.reviewTimeStart !=null and reviewInfoModel.reviewTimeStart !=''">
+                AND re.review_time >= #{reviewInfoModel.reviewTimeStart}
+            </if>
+            <if test="reviewInfoModel.reviewTimeEnd !=null and reviewInfoModel.reviewTimeEnd !=''">
+                <![CDATA[and   re.review_time <=#{reviewInfoModel.reviewTimeEnd}]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectReviewInfos" resultMap="ModelResultMap"
+            parameterType="com.zynsun.platform.edoc.model.ReviewInfoModel">
+        SELECT <include refid="Base_Column_List_Re"/>,h.edoc_no,h.company_name,h.edoc_task_status,h.edoc_type FROM review_info re
+        LEFT JOIN edoc_header h on re.edoc_header_id = h.id
+        <where>
+            re.deleted=0 and h.deleted=0
+            <if test="reviewInfoModel.edocNo !=null and reviewInfoModel.edocNo !=''">
+                AND h.edoc_no like concat(concat('%',#{reviewInfoModel.edocNo}),'%')
+            </if>
+            <if test="reviewInfoModel.isProcessed !=null and reviewInfoModel.isProcessed !=''">
+                AND re.is_processed =#{reviewInfoModel.isProcessed}
+            </if>
+            <if test="reviewInfoModel.edocTaskStatus !=null and reviewInfoModel.edocTaskStatus !=''">
+                AND h.edoc_task_status =#{reviewInfoModel.edocTaskStatus}
+            </if>
+            <if test="reviewInfoModel.companyName !=null and reviewInfoModel.companyName !=''">
+                AND h.company_name like concat(concat('%',#{reviewInfoModel.companyName}),'%')
+            </if>
+            <if test="reviewInfoModel.reviewStatus !=null and reviewInfoModel.reviewStatus !=''">
+                AND re.review_status =#{reviewInfoModel.reviewStatus}
+            </if>
+            <if test="reviewInfoModel.reviewTimeStart !=null and reviewInfoModel.reviewTimeStart !=''">
+                AND re.review_time >= #{reviewInfoModel.reviewTimeStart}
+            </if>
+            <if test="reviewInfoModel.reviewTimeEnd !=null and reviewInfoModel.reviewTimeEnd !=''">
+                <![CDATA[and   re.review_time <=#{reviewInfoModel.reviewTimeEnd}]]>
+            </if>
+        </where>
+    </select>
+
+
+
+
+
+</mapper>

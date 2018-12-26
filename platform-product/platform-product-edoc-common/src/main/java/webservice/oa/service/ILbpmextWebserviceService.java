@@ -1,0 +1,12 @@
+/**
+ * ILbpmextWebserviceService.java
+ *
+ * This file was auto-generated from WSDL
+ * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
+ */
+
+package webservice.oa.service;
+
+public interface ILbpmextWebserviceService extends java.rmi.Remote {
+    public java.lang.String approveProcess(java.lang.String arg0) throws java.rmi.RemoteException, webservice.oa.service.Exception;
+}

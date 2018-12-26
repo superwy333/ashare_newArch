@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.AccountingBoxItemMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.AccountingBoxItem" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="accounting_box" property="accountingBox" jdbcType="VARCHAR" />
+    <result column="accounting_section" property="accountingSection" jdbcType="VARCHAR" />
+    <result column="edoc_id" property="edocId" jdbcType="VARCHAR" />
+    <result column="attachment_num" property="attachmentNum" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="fonds_code" property="fondsCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, accounting_box, accounting_section, edoc_id, attachment_num, remarks, deleted, 
+    create_by, create_time, last_modify_by, last_modify_time, version, fonds_code
+  </sql>
+
+  <select id="findEdocIdByAccountingBoxId" parameterType="Long" resultType="String">
+    select bi.edoc_id from accounting_box_item bi
+    LEFT JOIN accounting_box b on bi.accounting_box = b.id
+    where b.id = #{id}
+    and b.box_flag = 0
+    and b.deleted = 0
+    and bi.deleted = 0
+  </select>
+
+  <select id="findSectionIdByAccountingBoxId" parameterType="Long" resultType="String">
+    select bi.accounting_section from accounting_box_item bi
+    LEFT JOIN accounting_box b on bi.accounting_box = b.id
+    where b.id = #{id}
+    and b.box_flag = 0
+    and b.deleted = 0
+    and bi.deleted = 0
+  </select>
+
+</mapper>

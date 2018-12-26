@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.AccountingArchivesMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.AccountingArchives" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="files_no" property="filesNo" jdbcType="VARCHAR" />
+    <result column="edoc_no" property="edocNo" jdbcType="VARCHAR" />
+    <result column="expense_person_code" property="expensePersonCode" jdbcType="VARCHAR" />
+    <result column="expense_person_name" property="expensePersonName" jdbcType="VARCHAR" />
+    <result column="expense_date" property="expenseDate" jdbcType="TIMESTAMP" />
+    <result column="voucher_code" property="voucherCode" jdbcType="VARCHAR" />
+    <result column="voucher_date" property="voucherDate" jdbcType="VARCHAR" />
+    <result column="attachment_count" property="attachmentCount" jdbcType="INTEGER" />
+    <result column="file_classify" property="fileClassify" jdbcType="VARCHAR" />
+    <result column="file_date" property="fileDate" jdbcType="TIMESTAMP" />
+    <result column="file_storage_period" property="fileStoragePeriod" jdbcType="VARCHAR" />
+    <result column="file_secret_level" property="fileSecretLevel" jdbcType="VARCHAR" />
+    <result column="office_id" property="officeId" jdbcType="VARCHAR" />
+    <result column="office_name" property="officeName" jdbcType="VARCHAR" />
+    <result column="records_box_no" property="recordsBoxNo" jdbcType="INTEGER" />
+    <result column="records_no" property="recordsNo" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="safe_box_code" property="safeBoxCode" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, files_no, edoc_no, expense_person_code, expense_person_name, expense_date, voucher_code, 
+    voucher_date, attachment_count, file_classify, file_date, file_storage_period, file_secret_level, 
+    office_id, office_name, records_box_no, records_no, version, status, remarks, deleted, 
+    create_by, create_time, last_modify_by, last_modify_time,safe_box_code
+  </sql>
+
+
+  <select id="findAccountingArchives" parameterType="com.zynsun.platform.edoc.model.AccountingArchivesModel" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from accounting_archives
+    where deleted = 0
+    <if test="accountingArchivesModel.filesNo!=null and accountingArchivesModel.filesNo!=''">
+      and files_no like concat(concat('%',#{accountingArchivesModel.filesNo}),'%')
+    </if>
+    ORDER BY file_date ASC
+  </select>
+</mapper>

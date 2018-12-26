@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="IAutomaticTaskWebserviceService" targetNamespace="http://webservice.nhImg.fsext.kmss.landray.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://webservice.nhImg.fsext.kmss.landray.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.nhImg.fsext.kmss.landray.com/" xmlns:tns="http://webservice.nhImg.fsext.kmss.landray.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:complexType name="Exception">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="message" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="Exception" type="tns:Exception"/>
+<xsd:element name="getAutomaticTask" type="tns:getAutomaticTask"/>
+<xsd:complexType name="getAutomaticTask">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="sysId" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="getAutomaticTaskResponse" type="tns:getAutomaticTaskResponse"/>
+<xsd:complexType name="getAutomaticTaskResponse">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="return" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:schema>
+
+  </wsdl:types>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAutomaticTask">
+    <wsdl:part element="tns:getAutomaticTask" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAutomaticTaskResponse">
+    <wsdl:part element="tns:getAutomaticTaskResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IAutomaticTaskWebservice">
+    <wsdl:operation name="getAutomaticTask">
+      <wsdl:input message="tns:getAutomaticTask" name="getAutomaticTask">
+    </wsdl:input>
+      <wsdl:output message="tns:getAutomaticTaskResponse" name="getAutomaticTaskResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IAutomaticTaskWebserviceServiceSoapBinding" type="tns:IAutomaticTaskWebservice">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getAutomaticTask">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAutomaticTask">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAutomaticTaskResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IAutomaticTaskWebserviceService">
+    <wsdl:port binding="tns:IAutomaticTaskWebserviceServiceSoapBinding" name="IAutomaticTaskWebservicePort">
+      <soap:address location="http://testcoa.newhopegroup.com:8080/sys/webservice/automaticTaskWebservice"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

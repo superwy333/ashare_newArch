@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.EdocImageMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.EdocImage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="image_parent_id" property="imageParentId" jdbcType="BIGINT" />
+    <result column="edoc_header_id" property="edocHeaderId" jdbcType="BIGINT" />
+    <result column="image_name" property="imageName" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="image_root_path" property="imageRootPath" jdbcType="VARCHAR" />
+    <result column="image_format" property="imageFormat" jdbcType="VARCHAR" />
+    <result column="image_source" property="imageSource" jdbcType="VARCHAR" />
+    <result column="page_no" property="pageNo" jdbcType="BIGINT" />
+    <result column="is_replace" property="isReplace" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="edoc_image_type" property="edocImageType" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="ModelResultMap" type="com.zynsun.platform.edoc.model.EdocImageModel" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="image_parent_id" property="imageParentId" jdbcType="BIGINT" />
+    <result column="edoc_header_id" property="edocHeaderId" jdbcType="BIGINT" />
+    <result column="image_name" property="imageName" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="image_root_path" property="imageRootPath" jdbcType="VARCHAR" />
+    <result column="image_format" property="imageFormat" jdbcType="VARCHAR" />
+    <result column="image_source" property="imageSource" jdbcType="VARCHAR" />
+    <result column="page_no" property="pageNo" jdbcType="BIGINT" />
+    <result column="is_replace" property="isReplace" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="edoc_image_type" property="edocImageType" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, image_parent_id, edoc_header_id, image_name, image_url, image_root_path, image_format,image_source,
+    page_no, is_replace, remarks, edoc_image_type,
+    create_by, create_time, last_modify_by, last_modify_time, deleted, version, ext_field1, 
+    ext_field2, ext_field3, ext_field4, ext_field5
+  </sql>
+
+  <update id="delImagesByEdocHeaderId">
+    update edoc_image set deleted = #{deleteFlag} where edoc_image.edoc_header_id = #{edocHeaderId}
+  </update>
+
+  <select id="queryMaxPageNoByEdocHeaderId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    SELECT IFNULL(MAX(cast(page_no as UNSIGNED INTEGER)),0)
+    FROM edoc_image
+    WHERE deleted = 0 and edoc_header_id=#{edocHeaderId}
+  </select>
+
+  <select id="selectImagesByEdocHeaderId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from edoc_image img
+    WHERE
+    img.edoc_header_id = #{edocHeaderId}
+    AND img.deleted = 0
+    <choose>
+      <when test="docType!=null and docType == 1">
+        AND img.image_format = 'jpg'
+      </when>
+      <when test="docType!=null and docType == 2">
+        AND img.image_format != 'jpg'
+      </when>
+    </choose>
+    ORDER By img.page_no
+  </select>
+
+  <select id="selectEdocImage" resultMap="BaseResultMap" parameterType="com.zynsun.platform.edoc.domain.EdocImage">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM edoc_image
+    <where>
+      deleted = 0
+      <if test="edocImage.edocHeaderId != null">
+        AND edoc_header_id = #{edocImage.edocHeaderId}
+      </if>
+      <if test="edocImage.pageNo != null and edocImage.pageNo != ''">
+        AND page_no = #{edocImage.pageNo}
+      </if>
+      <if test="edocImage.id != null and edocImage.id != ''">
+        AND id = #{edocImage.id}
+      </if>
+      <if test="edocImage.isReplace != null and edocImage.isReplace != ''">
+        AND is_replace = #{edocImage.isReplace}
+      </if>
+      <if test="edocImage.imageName != null and edocImage.imageName != ''">
+        AND image_name = #{edocImage.imageName}
+      </if>
+      <if test="edocImage.imageFormat != null and edocImage.imageFormat != ''">
+        AND image_format = #{edocImage.imageFormat}
+      </if>
+    </where>
+    ORDER  by cast(page_no as signed)
+  </select>
+
+  <select id="selectEdocImageByPage" resultMap="ModelResultMap" parameterType="com.zynsun.platform.edoc.model.EdocImageModel">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM edoc_image
+    <where>
+      deleted = 0
+      <if test="edocImage.edocHeaderId != null">
+        AND edoc_header_id = #{edocImage.edocHeaderId}
+      </if>
+      <if test="edocImage.pageNo != null and edocImage.pageNo != ''">
+        AND page_no = #{edocImage.pageNo}
+      </if>
+      <if test="edocImage.id != null and edocImage.id != ''">
+        AND id = #{edocImage.id}
+      </if>
+      <if test="edocImage.isReplace != null and edocImage.isReplace != ''">
+        AND is_replace = #{edocImage.isReplace}
+      </if>
+      <if test="edocImage.imageName != null and edocImage.imageName != ''">
+        AND image_name = #{edocImage.imageName}
+      </if>
+      <if test="edocImage.imageFormat != null and edocImage.imageFormat != ''">
+        AND image_format = #{edocImage.imageFormat}
+      </if>
+    </where>
+    ORDER  by cast(page_no as signed)
+  </select>
+
+
+
+
+  <select id="selectAllImages" parameterType="Long" resultMap="BaseResultMap" >
+    SELECT * FROM edoc_image WHERE image_parent_id=#{imageParentId}
+  </select>
+
+  <select id="selectEdocImageByParentId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM edoc_image
+    <where>
+      deleted = 0 and image_parent_id=#{imageParentId}
+    </where>
+    ORDER  by cast(page_no as signed)
+  </select>
+
+  <update id="updateEdocImage" parameterType="com.zynsun.platform.edoc.domain.EdocImage">
+    UPDATE edoc_image SET page_no=#{pageNo},image_parent_id=#{imageParentId} WHERE id=#{id}
+  </update>
+
+  <select id="selectAllImagesByEdocHeaderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT * FROM edoc_image WHERE deleted = 0 and edoc_header_id = #{edocHeaderId}  ORDER  by cast(page_no as signed)
+  </select>
+
+  <select id="selectVouncherById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from edoc_image
+    WHERE deleted = 0 and ext_field1 = #{id}
+  </select>
+</mapper>

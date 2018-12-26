@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<properties resource="config/generatorConfig.properties"/>
+	<classPathEntry location="${classPath}" />
+
+	<context id="Mysql2Tables" targetRuntime="MyBatis3">
+	
+		<!-- 这里引入通用Mapper3插件 -->   
+    	<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <!-- <property name="mapper" value="tk.mybatis.mapper.common.BaseMapper"/> -->
+            <property name="mappers" value="com.zynsun.openplatform.mapper.IMapper"/>
+            <property name="caseSensitive" value="false"/> <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+        </plugin>
+	
+		<!-- 过滤掉注释
+		<commentGenerator>
+      		<property name="suppressAllComments" value="true" />
+      		<property name="suppressDate" value="true" />
+    	</commentGenerator>
+        -->
+		
+		<!-- 数据链接 -->
+		<jdbcConnection driverClass="${driverClass}"
+			connectionURL="${connectionURL}" 
+			userId="${userId}"
+			password="${password}">
+		</jdbcConnection>
+
+		<!-- 根据数据库字段长度自动匹配，默认为false：bigdecimal,long,int,short ,为true时始终使用bigdecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		
+		<!-- Entity类的生成 -->
+		<javaModelGenerator targetPackage="${modelPackage}" targetProject="${path}/src/main/java">
+			<property name="rootClass" value="com.zynsun.openplatform.domain.BaseDomain"/>
+			<property name="enableSubPackages" value="true" /> <!-- 是否允许在targetPackage目录下建子目录 -->
+			<property name="trimStrings" value="false" />
+		</javaModelGenerator>
+
+		<!-- Mapper文件生成 -->
+		<sqlMapGenerator targetPackage="${sqlMapperPackage}" targetProject="${path}/src/main/resources">
+			<property name="enableSubPackages" value="false" /> <!-- 是否允许在targetPackage目录下建子目录 -->
+		</sqlMapGenerator>
+
+		<!-- DAO生成 --><!-- 是否允许在targetPackage目录下建子目录 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="${daoMapperPackage}" targetProject="${path}/src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+		</javaClientGenerator>
+
+		<table schema="" tableName="edoc_header" domainObjectName="EdocHeader"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+			<columnOverride column="id" javaType="Long" />
+		</table>
+
+		<table schema="" tableName="bill_account_info" domainObjectName="BillAccountInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+			<columnOverride column="id" javaType="Long" />
+		</table>
+
+		<table schema="" tableName="bill_contract_info" domainObjectName="BillContractInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+			<columnOverride column="id" javaType="Long" />
+		</table>
+
+		<table schema="" tableName="bill_digital_data_info" domainObjectName="BillDigitalDataInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+			<columnOverride column="id" javaType="Long" />
+		</table>
+
+		<table schema="" tableName="edoc_image" domainObjectName="EdocImage"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+			<columnOverride column="id" javaType="Long" />
+		</table>
+
+		<table schema="" tableName="bill_manual_info" domainObjectName="BillManualInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+			<columnOverride column="id" javaType="Long" />
+		</table>
+
+		<table schema="" tableName="invoice" domainObjectName="Invoice"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+			<columnOverride column="id" javaType="Long" />
+		</table>
+
+		<table schema="" tableName="invoice_item" domainObjectName="InvoiceItem"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+			<columnOverride column="id" javaType="Long" />
+		</table>
+
+		<!-- 对应的数据库的哪张表,多个表的话就写多个table
+		<table schema="" tableName="${tableName}" domainObjectName="${domainName}"
+			enableCountByExample="true" enableUpdateByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="true">
+			<columnOverride column="id" javaType="Long" />
+		</table>
+		 -->
+         
+        <!--<table tableName="bill_batch" domainObjectName="BillBatch"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false">
+        </table>
+
+		<table tableName="bill_check" domainObjectName="BillCheck"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="edoc_header" domainObjectName="EdocHeader"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="edoc_image" domainObjectName="EdocImage"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+
+		<table tableName="bill_type_attr" domainObjectName="BillTypeAttr"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="bill_type_style" domainObjectName="BillTypeStyle"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="bill_type_ui" domainObjectName="BillTypeUi"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="biz_type" domainObjectName="BizType"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="biz_type_style" domainObjectName="BizTypeStyle"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="invoice" domainObjectName="Invoice"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="invoice_check" domainObjectName="InvoiceCheck"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="invoice_item" domainObjectName="InvoiceItem"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="review_info" domainObjectName="ReviewInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="invoice_item" domainObjectName="InvoiceItem"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="invoice_item" domainObjectName="InvoiceItem"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="cs_version_info" domainObjectName="CsVersionInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="client_log_info" domainObjectName="ClientLogInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="bill_type" domainObjectName="BillType"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>-->
+		<!--<table tableName="edoc_auth" domainObjectName="EdocAuth"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="image_attachment" domainObjectName="ImageAttachment"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">-->
+		<!--<table tableName="image_batch_no" domainObjectName="ImageBatchNo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">-->
+		<!--<table tableName="image_log_version" domainObjectName="ImageLogVersion"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+
+		</table>-->
+		<table tableName="bill_contract_info" domainObjectName="BillContractInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<!--<table tableName="edoc_header" domainObjectName="EdocHeader"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="edoc_image" domainObjectName="EdocImage"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="bill_type" domainObjectName="BillType"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="bill_type_attr" domainObjectName="BillTypeAttr"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="bill_type_style" domainObjectName="BillTypeStyle"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="biz_type" domainObjectName="BizType"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="biz_type_style" domainObjectName="BizTypeStyle"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="image_log_version" domainObjectName="ImageLogVersion"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="img_batch_no" domainObjectName="ImgBatchNo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+		<table tableName="invoice" domainObjectName="Invoice"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="invoice_check" domainObjectName="InvoiceCheck"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="invoice_item" domainObjectName="InvoiceItem"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="proof_info" domainObjectName="ProofInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+
+		<table tableName="review_info" domainObjectName="ReviewInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="review_inter" domainObjectName="ReviewInter"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>-->
+		<!--<table tableName="accounting_box_item" domainObjectName="AccountingBoxItem"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>-->
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.AccountingSectionMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.AccountingSection" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="fonds_code" property="fondsCode" jdbcType="VARCHAR" />
+    <result column="office_name" property="officeName" jdbcType="VARCHAR" />
+    <result column="office_id" property="officeId" jdbcType="VARCHAR" />
+    <result column="bill_num" property="billNum" jdbcType="INTEGER" />
+    <result column="records_no" property="recordsNo" jdbcType="VARCHAR" />
+    <result column="records_title" property="recordsTitle" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="volumes" property="volumes" jdbcType="INTEGER" />
+    <result column="volumes_no" property="volumesNo" jdbcType="INTEGER" />
+    <result column="attachment_sum" property="attachmentSum" jdbcType="INTEGER" />
+    <result column="filing_person_id" property="filingPersonId" jdbcType="VARCHAR" />
+    <result column="filing_person_name" property="filingPersonName" jdbcType="VARCHAR" />
+    <result column="filing_date" property="filingDate" jdbcType="TIMESTAMP" />
+    <result column="records_box_no" property="recordsBoxNo" jdbcType="INTEGER" />
+    <result column="filed_person_id" property="filedPersonId" jdbcType="VARCHAR" />
+    <result column="filed_person_name" property="filedPersonName" jdbcType="VARCHAR" />
+    <result column="filed_date" property="filedDate" jdbcType="TIMESTAMP" />
+    <result column="file_secret_level" property="fileSecretLevel" jdbcType="VARCHAR" />
+    <result column="file_storage_period" property="fileStoragePeriod" jdbcType="VARCHAR" />
+    <result column="file_location" property="fileLocation" jdbcType="VARCHAR" />
+    <result column="file_flag" property="fileFlag" jdbcType="CHAR" />
+    <result column="bander" property="bander" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="biz_type" property="bizType" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+    <result column="edoc_image_exists" property="edocImageExists" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <resultMap id="sectionModel" type="com.zynsun.platform.edoc.model.AccountingSectionModel" extends="BaseResultMap">
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, fonds_code, office_name, office_id, bill_num, records_no, records_title, start_date,
+    end_date, volumes, volumes_no, attachment_sum, filing_person_id, filing_person_name,
+    filing_date, records_box_no, filed_person_id, filed_person_name, filed_date, file_secret_level, 
+    file_storage_period, file_location, file_flag, bander, remarks, deleted, create_by, 
+    create_time, last_modify_by, last_modify_time, version,biz_type,edoc_image_exists
+  </sql>
+
+  <select id="selectByID" resultMap="sectionModel">
+    SELECT a.*,u.user_name
+    from accounting_section a left join sys_user u on a.create_by = u.login_name  AND (u.deleted = 0 or u.deleted is null)
+    where a.file_flag=0 and a.deleted = 0 and a.id = #{model.id}
+  </select>
+
+  <select id="findAccountingSections" parameterType="com.zynsun.platform.edoc.model.AccountingSectionModel" resultMap="sectionModel">
+    SELECT  DISTINCT a.*,u.user_name
+    from accounting_section a left join sys_user u on a.create_by = u.login_name  AND (u.deleted = 0 or u.deleted is null)
+    where a.file_flag=0 and a.deleted = 0
+    <if test="model.recordsNo!=null and model.recordsNo !=''">
+      and a.records_no like concat(concat('%',#{model.recordsNo}),'%')
+    </if>
+    <if test="model.officeId!=null and model.officeId !=''">
+      and a.office_id like concat(concat('%',#{model.officeId}),'%')
+    </if>
+    <if test="model.officeName!=null and model.officeName !=''">
+      and a.office_name like concat(concat('%',#{model.officeName}),'%')
+    </if>
+    <if test="model.bizType!=null and model.bizType !=''">
+      and a.biz_type = #{model.bizType}
+    </if>
+    <if test="model.edocImageExists!=null and model.edocImageExists !=''">
+      and a.edoc_image_exists = #{model.edocImageExists}
+    </if>
+    <if test="model.archiveGroupFlag == 'no'">
+      AND (
+      ${tools.setCondition('a.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+      OR ${tools.setDP('a.office_id', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+    </if>
+    order by a.office_id,a.biz_type,a.end_date,a.volumes_no
+  </select>
+
+  <select id="findBookNo" statementType="CALLABLE" parameterType="java.util.Map" resultType="java.lang.String">
+    {call book_no(#{dataType,mode=IN,jdbcType=VARCHAR},#{bookType,mode=IN,jdbcType=VARCHAR},#{book_code,mode=OUT,jdbcType=VARCHAR}
+    ,#{companyCode,mode=IN,jdbcType=VARCHAR},#{startDate,mode=IN,jdbcType=VARCHAR},#{endDate,mode=IN,jdbcType=VARCHAR})}
+  </select>
+
+  <select id="findSectionsByBoxId" parameterType="Long" resultMap="sectionModel">
+    SELECT  DISTINCT a.*,u.user_name
+    from accounting_section a left join sys_user u on a.create_by = u.login_name  AND (u.deleted = 0 or u.deleted is null)
+    left join accounting_box_item abi on a.id = abi.accounting_section and abi.deleted = 0
+    LEFT  JOIN accounting_box ab on abi.accounting_box = ab.id and ab.deleted = 0 /*and ab.box_flag = 0*/
+    where a.file_flag=1 and a.deleted = 0
+    and ab.id = #{id}
+  </select>
+
+</mapper>

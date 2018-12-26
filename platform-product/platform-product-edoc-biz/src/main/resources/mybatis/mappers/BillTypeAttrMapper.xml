@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.BillTypeAttrMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.BillTypeAttr" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="bill_type_id" property="billTypeId" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="name_en" property="nameEn" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="length" property="length" jdbcType="INTEGER" />
+    <result column="is_null" property="isNull" jdbcType="CHAR" />
+    <result column="valid_regex" property="validRegex" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, bill_type_id, code, name, name_en, type, length, is_null, valid_regex, remarks, deleted, create_by,
+    create_time, last_modify_by, last_modify_time, version
+  </sql>
+
+  <sql id="Base_Column_List_BTA" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    bta.id, bta.bill_type_id, bta.code, bta.name, bta.name_en, bta.type, bta.length, bta.is_null,bta.valid_regex, bta.remarks, bta.deleted, bta.create_by,
+    bta.create_time, bta.last_modify_by, bta.last_modify_time, bta.version
+  </sql>
+
+  <select id="findBillAttrByBillId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List_BTA" />
+    FROM bill_type bt left JOIN bill_type_attr bta ON bt.id=bta.bill_type_id
+    <where>
+      bt.deleted=0 and bta.deleted=0 AND bt.id=#{billId}
+    </where>
+  </select>
+
+  <select id="selectByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM bill_type_attr
+    WHERE deleted = 0
+    AND code = #{code}
+  </select>
+</mapper>

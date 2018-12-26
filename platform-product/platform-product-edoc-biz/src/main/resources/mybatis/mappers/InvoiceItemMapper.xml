@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.InvoiceItemMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.InvoiceItem" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="inv_id" property="invId" jdbcType="BIGINT" />
+    <result column="edoc_image_id" property="edocImageId" jdbcType="BIGINT" />
+    <result column="edoc_header_id" property="edocHeaderId" jdbcType="BIGINT" />
+    <result column="line_no" property="lineNo" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="item_spec" property="itemSpec" jdbcType="VARCHAR" />
+    <result column="item_price" property="itemPrice" jdbcType="VARCHAR" />
+    <result column="item_quantity" property="itemQuantity" jdbcType="VARCHAR" />
+    <result column="item_tax" property="itemTax" jdbcType="VARCHAR" />
+    <result column="item_tax_rate" property="itemTaxRate" jdbcType="VARCHAR" />
+    <result column="item_amount" property="itemAmount" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+    <result column="item_total" property="itemTotal" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, inv_id, edoc_image_id, edoc_header_id, line_no, item_name, item_spec, item_price,
+    item_quantity, item_tax, item_tax_rate, item_amount, unit, remarks, create_by, create_time, 
+    last_modify_by, last_modify_time, deleted, version, ext_field1, ext_field2, ext_field3, 
+    ext_field4, ext_field5,item_total
+  </sql>
+
+  <delete id="deleteInvoiceItemByEdocHeaderId">
+    update invoice_item set deleted = 1 where edoc_header_id = #{edocHeaderId}
+  </delete>
+
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.zynsun.platform.edoc.model.InvoiceItemModel">
+    select
+    <include refid="Base_Column_List"/>
+    from invoice_item
+    <where>
+      deleted = 0
+      <if test="invoiceItemModel.invId !=null and invoiceItemModel.invId !=''">
+        and inv_id =#{invoiceItemModel.invId}
+      </if>
+      <if test="invoiceItemModel.lineNo !=null and invoiceItemModel.lineNo !=''">
+        and line_no  =#{invoiceItemModel.lineNo}
+      </if>
+      <if test="invoiceItemModel.itemName !=null and invoiceItemModel.scannerName !=''">
+        and item_name  like concat(concat('%',#{invoiceItemModel.scannerName}),'%')
+      </if>
+      <if test="invoiceItemModel.itemSpec !=null and invoiceItemModel.itemSpec !=''">
+        and item_spec = #{invoiceItemModel.itemSpec}
+      </if>
+    </where>
+  </select>
+
+  <update id="deleteInvoiceItemByInvoiceId">
+    update invoice_item set deleted = 1 where inv_id = #{invoiceId} and deleted=0
+  </update>
+
+  <select id="editInvItemByInvItemId" resultMap="BaseResultMap" parameterType="com.zynsun.platform.edoc.model.InvoiceItemModel">
+    select
+    <include refid="Base_Column_List"/>
+    from invoice_item
+    <where>
+      deleted = 0
+      <if test="invoiceItemModel.id !=null and invoiceItemModel.id !=''">
+        and id =#{invoiceItemModel.id}
+      </if>
+      <if test="invoiceItemModel.invId !=null and invoiceItemModel.invId !=''">
+        and inv_id =#{invoiceItemModel.invId}
+      </if>
+      <if test="invoiceItemModel.lineNo !=null and invoiceItemModel.lineNo !=''">
+        and line_no  =#{invoiceItemModel.lineNo}
+      </if>
+      <if test="invoiceItemModel.itemName !=null and invoiceItemModel.scannerName !=''">
+        and item_name  like concat(concat('%',#{invoiceItemModel.scannerName}),'%')
+      </if>
+      <if test="invoiceItemModel.itemSpec !=null and invoiceItemModel.itemSpec !=''">
+        and item_spec = #{invoiceItemModel.itemSpec}
+      </if>
+    </where>
+  </select>
+
+</mapper>

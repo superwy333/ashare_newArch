@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+                            http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+                            http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- dubbo基本配置 -->
+    <dubbo:reference id="aacUserCliFacade" interface="com.zynsun.platform.aac.service.AacUserCliFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="10000" url="${dubbo.aac.url}"
+    />
+    <dubbo:reference id="aacPrivilegeCliFacade" interface="com.zynsun.platform.aac.service.AacPrivilegeCliFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="10000" url="${dubbo.aac.url}"
+    />
+    <dubbo:reference id="wfProcessFacade" interface="com.zynsun.platform.workflow.facade.WfProcessFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="10000" url="${dubbo.workflow.url}"
+    />
+    <dubbo:reference id="wfProcessManageFacade" interface="com.zynsun.platform.workflow.facade.WfProcessManageFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="10000"
+                     url="${dubbo.workflow.url}"
+    />
+    <dubbo:reference id="wfTaskFacade" interface="com.zynsun.platform.workflow.facade.WfTaskFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="10000"
+                     url="${dubbo.workflow.url}"
+    />
+    <dubbo:reference id="wfViewerFacade" interface="com.zynsun.platform.workflow.facade.WfViewerFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="10000"
+                     url="${dubbo.workflow.url}"
+    />
+    <dubbo:reference id="dataDictCliFacade" interface="com.zynsun.platform.basic.service.DataDictCliFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="10000" url="${dubbo.basic.url}"
+    />
+
+    <dubbo:reference id="vendorCliFacade" interface="com.zynsun.platform.amd.facade.VendorCliFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="30000" url="${dubbo.amd.url}"/>
+
+    <dubbo:reference id="companyCliFacade" interface="com.zynsun.platform.amd.facade.CompanyCliFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="30000" url="${dubbo.amd.url}"/>
+
+    <dubbo:reference id="kafkaMessageFacade" interface="com.zynsun.platform.quartz.facade.KafkaMessageFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="30000" url="${dubbo.quartz.url}"/>
+    <dubbo:reference id="expDetailFacade" interface="com.zynsun.platform.express.facade.ExpDetailFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="30000" url="${dubbo.express.url}"/>
+
+    <dubbo:reference id="fitCheckTaskFacade" interface="com.zynsun.platform.express.facade.FitCheckTaskFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="30000" url="${dubbo.express.url}"/>
+
+    <dubbo:reference id="mdLegalCompanyFacade" interface="com.zynsun.platform.masterdata.service.MdLegalCompanyFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="30000" url="${dubbo.masterdata.url}"/>
+
+    <dubbo:reference id="sysUserFacade" interface="com.zynsun.platform.masterdata.service.SysUserFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="30000" url="${dubbo.masterdata.url}"/>
+
+    <dubbo:reference id="fitCheckTaskHistoryFacade" interface="com.zynsun.platform.express.facade.FitCheckTaskHistoryFacade"
+                     check="false" retries="0" version="${dubbo.service.version}" timeout="30000" url="${dubbo.express.url}"/>
+
+
+    <!--<dubbo:consumer filter="edocIdentityFilter"/>-->
+    <dubbo:consumer filter="platformContextFilter"/>
+
+</beans>

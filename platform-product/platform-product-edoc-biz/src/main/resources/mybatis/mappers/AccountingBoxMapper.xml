@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.AccountingBoxMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.model.AccountingBoxModel" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="box_no" property="boxNo" jdbcType="VARCHAR" />
+    <result column="bill_header_id" property="billHeaderId" jdbcType="VARCHAR" />
+    <result column="section_id" property="sectionId" jdbcType="VARCHAR" />
+    <result column="box_status" property="boxStatus" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="box_flag" property="boxFlag" jdbcType="CHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR"/>
+    <result column="start_date" property="startDate" jdbcType="VARCHAR"/>
+    <result column="end_date" property="endDate" jdbcType="VARCHAR"/>
+    <result column="volumes_no" property="volumesNo" jdbcType="VARCHAR"/>
+    <result column="fonds_code" property="fondsCode" jdbcType="VARCHAR"/>
+    <result column="biz_type" property="bizType" jdbcType="VARCHAR"/>
+
+  </resultMap>
+  <sql id="Base_Column_List_T" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    t.id, t.box_no, t.bill_header_id, t.section_id, t.box_status, t.version, t.status, t.remarks, t.deleted,
+    t.create_by, t.create_time, t.last_modify_by, t.last_modify_time, t.box_flag,t.company_name,t.company_code,
+    t.start_date,t.end_date,t.volumes_no,t.fonds_code,t.biz_type
+  </sql>
+
+  <select id="findAccountingBoxs" parameterType="com.zynsun.platform.edoc.model.AccountingBoxModel" resultMap="BaseResultMap">
+      select
+     <include refid="Base_Column_List_T" />,u.user_name
+    from accounting_box t left join sys_user u on u.login_name = t.create_by  AND (u.deleted = 0 or u.deleted is null)
+    where t.box_flag = #{accountingBoxModel.boxFlag}
+    and t.box_status = 1 and t.deleted = 0
+    <if test="accountingBoxModel.boxNo!=null and accountingBoxModel.boxNo!=''">
+      and t.box_no like concat(concat('%',#{accountingBoxModel.boxNo}),'%')
+    </if>
+    <if test="accountingBoxModel.companyName!=null and accountingBoxModel.companyName!=''">
+      and t.company_name like concat(concat('%',#{accountingBoxModel.companyName}),'%')
+    </if>
+  </select>
+
+  <select id="findSectionBoxs" parameterType="com.zynsun.platform.edoc.model.AccountingBoxModel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List_T" />,u.user_name
+    from accounting_box t left join sys_user u on u.login_name = t.create_by  AND (u.deleted = 0 or u.deleted is null)
+    where t.box_flag = #{accountingBoxModel.boxFlag}
+    and t.box_status = 2 and t.deleted = 0
+    <if test="accountingBoxModel.boxNo!=null and accountingBoxModel.boxNo!=''">
+      and t.box_no like concat(concat('%',#{accountingBoxModel.boxNo}),'%')
+    </if>
+    <if test="accountingBoxModel.companyCode!=null and accountingBoxModel.companyCode!=''">
+      and t.company_code like concat(concat('%',#{accountingBoxModel.companyCode}),'%')
+    </if>
+    <if test="accountingBoxModel.companyName!=null and accountingBoxModel.companyName!=''">
+      and t.company_name like concat(concat('%',#{accountingBoxModel.companyName}),'%')
+    </if>
+    <if test="accountingBoxModel.bizType!=null and accountingBoxModel.bizType!=''">
+      and t.biz_type = #{accountingBoxModel.bizType}
+    </if>
+    <if test="accountingBoxModel.archiveGroupFlag == 'no'">
+      AND (
+      ${tools.setCondition('t.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+      OR ${tools.setDP('t.company_code', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+    </if>
+  </select>
+
+
+  <select id="findAccountingBoxByIds"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List_T" />,u.user_name
+    from accounting_box t left join sys_user u on u.login_name = t.create_by  AND (u.deleted = 0 or u.deleted is null)
+    where
+    t.deleted = 0 and t.box_flag = 0
+    and t.id in
+    <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </select>
+
+  <select id="findAccountingBoxByBoxNo"  parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List_T" />,u.user_name
+    from accounting_box t left join sys_user u on u.login_name = t.create_by  AND (u.deleted = 0 or u.deleted is null)
+    where t.box_flag = 0
+    and t.box_status = #{boxStatus}
+    and t.deleted = 0
+    and t.box_no = #{boxNo}
+  </select>
+
+  <select id="findAccountingBoxByBoxNoAlreadyArchive"  parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List_T" />,u.user_name
+    from accounting_box t left join sys_user u on u.login_name = t.create_by  AND (u.deleted = 0 or u.deleted is null)
+    where t.box_flag = 1
+    /*and t.box_status = 2*/
+    and t.deleted = 0
+    and t.box_no = #{boxNo}
+  </select>
+
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.FormFieldMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.FormField" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="form_field_name" property="formFieldName" jdbcType="VARCHAR" />
+    <result column="form_field_code" property="formFieldCode" jdbcType="VARCHAR" />
+    <result column="form_field_display_type" property="formFieldDisplayType" jdbcType="INTEGER" />
+    <result column="form_field_data_type" property="formFieldDataType" jdbcType="VARCHAR" />
+    <result column="display" property="display" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="editable" property="editable" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field_01" property="extField01" jdbcType="VARCHAR" />
+    <result column="ext_field_02" property="extField02" jdbcType="VARCHAR" />
+    <result column="ext_field_03" property="extField03" jdbcType="VARCHAR" />
+    <result column="ext_field_04" property="extField04" jdbcType="VARCHAR" />
+    <result column="ext_field_05" property="extField05" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    form_field.id, form_field.form_field_name, form_field.form_field_code, form_field.form_field_display_type, form_field.form_field_data_type,
+    form_field.display, form_field.sort, form_field.editable, form_field.create_by, form_field.create_time, form_field.last_modify_by, form_field.last_modify_time,
+    form_field.deleted, form_field.version, form_field.ext_field_01, form_field.ext_field_02, form_field.ext_field_03, form_field.ext_field_04, form_field.ext_field_05
+  </sql>
+
+  <sql id="Area_Field_Column_List">
+    area_field.id , area_field.form_field_name
+  </sql>
+
+  <select id="findFormFields" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from form_field
+    INNER JOIN area_field  on area_field.form_field_id = form_field.id
+    <where>
+      area_field.form_area_id = #{formAreaId}
+    </where>
+  </select>
+
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="String">
+    SELECT <include refid="Base_Column_List"/>
+    from form_field
+    <where>
+      deleted=0
+      AND form_field_code = #{formFieldCode}
+    </where>
+  </select>
+</mapper>

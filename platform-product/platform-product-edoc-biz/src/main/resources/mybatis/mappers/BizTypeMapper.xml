@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.BizTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.BizType" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="name_en" property="nameEn" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="sort" property="sort" jdbcType="DECIMAL" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code, parent_id, parent_ids, name, name_en, version, sort, remarks, deleted,
+    create_by, create_time, last_modify_by, last_modify_time
+  </sql>
+
+  <sql id="Biz_Type_Column_List">
+    biz.id, biz.code, biz.parent_id, biz.parent_ids, biz.name, biz.name_en, biz.version, biz.sort, biz.remarks, biz.deleted,
+    biz.create_by, biz.create_time, biz.last_modify_by, biz.last_modify_time,
+    parentBiz.id AS parent_id, parentBiz.name AS parent_name, parentBiz.code AS parent_code,
+    bill.id AS bill_type_id, bill.code AS bill_code, bill.parent_id AS bill_parent_id,
+    bill.parent_ids AS bill_parent_ids, bill.name AS bill_name, bill.name_en AS bill_name_en
+  </sql>
+
+  <sql id="Biz_Type_And_FormTemp_Column_List">
+
+  </sql>
+
+  <resultMap id="BizTypeModelsResultMap" type="com.zynsun.platform.edoc.model.BizTypeModel"
+             extends="BaseResultMap">
+    <association property="parentBizType" javaType="com.zynsun.platform.edoc.domain.BizType">
+      <id column="parent_id" jdbcType="BIGINT" property="id" />
+      <result column="parent_name" property="name" jdbcType="VARCHAR" />
+      <result column="parent_code" property="code" jdbcType="VARCHAR" />
+  </association>
+    <collection property="billTypeList" ofType="com.zynsun.platform.edoc.domain.BillType">
+      <id column="bill_type_id" property="id" jdbcType="BIGINT"/>
+      <result column="bill_code" property="code" jdbcType="VARCHAR"/>
+      <result column="bill_parent_id" property="parentId" jdbcType="VARCHAR"/>
+      <result column="bill_parent_ids" property="parentIds" jdbcType="VARCHAR"/>
+      <result column="bill_name" property="name" jdbcType="VARCHAR"/>
+      <result column="bill_name_en" property="nameEn" jdbcType="VARCHAR"/>
+    </collection>
+  </resultMap>
+
+
+
+  <select id="findBizsByRoleIds" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sys_role_biz rb RIGHT JOIN biz_type bt ON rb.biz_id=bt.id
+    <where>
+      rb.role_id IN
+      <foreach collection="roleIds" item="roleId" index="index" open="(" close=")" separator=",">
+        #{roleId}
+      </foreach>
+      AND bt.deleted=0
+    </where>
+  </select>
+
+  <select id="findBizTypes" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from biz_type biz
+    <where>
+      biz.deleted=0
+    </where>
+  </select>
+
+<!--  <select id="findBizTypeById" resultMap="com.zynsun.platform.edoc.domain.BizType" parameterType="java.lang.Long">
+    select
+    <include refid="Base_Column_List"/>
+    from biz_type biz
+    <where>
+      biz.deleted=0 and biz.id=#{id}
+    </where>
+  </select>-->
+
+  <!-- 通过代码查询 -->
+  <select id="selectByBizTypeCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM biz_type
+    WHERE deleted = 0
+    AND code = #{bizTypeCode}
+  </select>
+
+
+  <select id="selectBizTypeModel" resultMap="BizTypeModelsResultMap" parameterType="java.lang.Long">
+    select
+    <include refid="Biz_Type_Column_List"/>
+    from biz_type biz
+    left join biz_type_style style on biz.id = style.biz_type_id
+    left JOIN bill_type bill ON style.bill_type_id = bill.id
+    LEFT JOIN biz_type parentBiz ON biz.parent_id = parentBiz.id
+    WHERE biz.deleted = 0 AND biz.id = #{id}
+  </select>
+
+  <select id="selectFromTepByBizTypeCode" resultType="com.zynsun.platform.edoc.model.BizTypeModelDTO">
+    SELECT
+      form_template.form_template AS formTemplate
+    FROM biz_type
+    LEFT JOIN form_template on biz_type.id = form_template.biz_id
+    WHERE biz_type.code=#{code} and biz_type.deleted = #{deleted}
+  </select>
+
+</mapper>

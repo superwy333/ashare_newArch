@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.BillTypeUiMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.BillTypeUi" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="style_id" property="styleId" jdbcType="BIGINT" />
+    <result column="attr_id" property="attrId" jdbcType="BIGINT" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="group_symbol" property="groupSymbol" jdbcType="VARCHAR" />
+    <result column="line_no" property="lineNo" jdbcType="INTEGER" />
+    <result column="sequence_no" property="sequenceNo" jdbcType="INTEGER" />
+    <result column="input_type" property="inputType" jdbcType="VARCHAR" />
+    <result column="input_type_name" property="inputTypeName" jdbcType="VARCHAR" />
+    <result column="input_width" property="inputWidth" jdbcType="INTEGER" />
+    <result column="input_height" property="inputHeight" jdbcType="INTEGER" />
+    <result column="value_pattern" property="valuePattern" jdbcType="VARCHAR" />
+    <result column="pattern_wrong_tip" property="patternWrongTip" jdbcType="VARCHAR" />
+    <result column="value_option" property="valueOption" jdbcType="VARCHAR" />
+    <result column="is_required" property="isRequired" jdbcType="CHAR" />
+    <result column="recognition_position" property="recognitionPosition" jdbcType="VARCHAR" />
+    <result column="recognition_type" property="recognitionType" jdbcType="VARCHAR" />
+    <result column="recognition_result" property="recognitionResult" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, style_id, attr_id, group_name, group_symbol, line_no, sequence_no, input_type, 
+    input_type_name, input_width, input_height, value_pattern, pattern_wrong_tip, value_option, 
+    is_required, recognition_position, recognition_type, recognition_result, remarks, 
+    deleted, create_by, create_time, last_modify_by, last_modify_time, version
+  </sql>
+</mapper>

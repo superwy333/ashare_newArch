@@ -1,0 +1,1500 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.EdocHeaderMapper">
+    <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.EdocHeader">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="edoc_no" property="edocNo" jdbcType="VARCHAR"/>
+        <result column="edoc_voucher_no" property="edocVoucherNo" jdbcType="VARCHAR"/>
+        <result column="edoc_type" property="edocType" jdbcType="VARCHAR"/>
+        <result column="company_code" property="companyCode" jdbcType="VARCHAR"/>
+        <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
+        <result column="edoc_task_status" property="edocTaskStatus" jdbcType="VARCHAR"/>
+        <result column="edoc_physical_status" property="edocPhysicalStatus" jdbcType="VARCHAR"/>
+        <result column="edoc_is_matched" property="edocIsMatched" jdbcType="CHAR"/>
+        <result column="edoc_source" property="edocSource" jdbcType="CHAR"/>
+        <result column="json_data" property="jsonData" jdbcType="VARCHAR"/>
+        <result column="is_locked" property="isLocked" jdbcType="CHAR"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+        <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
+        <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
+        <result column="seal" property="seal" jdbcType="VARCHAR"/>
+        <result column="ext_field3" property="extField3" jdbcType="VARCHAR"/>
+        <result column="ext_field4" property="extField4" jdbcType="VARCHAR"/>
+        <result column="ext_field5" property="extField5" jdbcType="VARCHAR"/>
+        <result column="fonds_code" property="fondsCode" jdbcType="VARCHAR"/>
+        <result column="public_type" property="publicType" jdbcType="VARCHAR"/>
+        <result column="upload_type" property="uploadType" jdbcType="VARCHAR"/>
+        <result column="edoc_archive_status" property="edocArchiveStatus" jdbcType="INTEGER"/>
+        <result column="edoc_cert_status" property="edocCertStatus" jdbcType="INTEGER"/>
+        <result column="edoc_voucher_status" property="edocVoucherStatus" jdbcType="INTEGER"/>
+
+        <result column="processId" property="processId" jdbcType="VARCHAR"/>
+        <result column="fdModelName" property="fdModelName" jdbcType="VARCHAR"/>
+
+        <result column="sys_flag" property="sysFlag" jdbcType="VARCHAR"/>
+        <result column="upload_finished" property="uploadFinished" jdbcType="VARCHAR"/>
+        <result column="scan_finished" property="scanFinished" jdbcType="VARCHAR"/>
+        <result column="edoc_physical_receiver" property="edocPhysicalReceiver" jdbcType="VARCHAR"/>
+        <result column="scan_flag" property="scanFlag" jdbcType="VARCHAR"/>
+        <result column="biz_no" property="bizNo" jdbcType="VARCHAR"/>
+        <result column="edoc_tax_code" property="edocTaxCode" jdbcType="VARCHAR"/>
+        <result column="is_abnormal" property="isAbnormal" jdbcType="VARCHAR"/>
+        <result column="abnormal_type" property="abnormalType" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="BillImagesResultMap" type="com.zynsun.platform.edoc.model.EdocHeaderModel" extends="BaseModelResultMap">
+        <collection property="edocImageList" ofType="com.zynsun.platform.edoc.model.EdocImageModel">
+            <id column="imageId" property="imageId" jdbcType="BIGINT" />
+            <!--<result column="image_parent_id" property="imageParentId" jdbcType="BIGINT" />-->
+            <result column="edoc_header_id" property="edocHeaderId" jdbcType="BIGINT" />
+            <result column="image_name" property="imageName" jdbcType="VARCHAR" />
+            <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+            <result column="image_root_path" property="imageRootPath" jdbcType="VARCHAR" />
+            <result column="image_format" property="imageFormat" jdbcType="VARCHAR" />
+            <result column="page_no" property="pageNo" jdbcType="BIGINT" />
+            <result column="is_replace" property="isReplace" jdbcType="VARCHAR" />
+            <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+            <result column="edoc_image_type" property="edocImageType" jdbcType="VARCHAR" />
+            <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+            <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+            <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+            <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+            <result column="deleted" property="deleted" jdbcType="TINYINT" />
+            <result column="version" property="version" jdbcType="BIGINT" />
+            <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+            <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+            <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+            <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+            <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="BaseModelResultMap" type="com.zynsun.platform.edoc.model.EdocHeaderModel">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="edoc_no" property="edocNo" jdbcType="VARCHAR"/>
+        <result column="edoc_type" property="edocType" jdbcType="VARCHAR"/>
+        <result column="public_type" property="publicType" jdbcType="VARCHAR"/>
+        <result column="upload_type" property="uploadType" jdbcType="VARCHAR"/>
+        <result column="edoc_task_status" property="edocTaskStatus" jdbcType="VARCHAR"/>
+        <result column="edoc_is_matched" property="edocIsMatched" jdbcType="CHAR"/>
+        <result column="edoc_physical_status" property="edocPhysicalStatus" jdbcType="VARCHAR"/>
+        <result column="edoc_source" property="edocSource" jdbcType="CHAR"/>
+        <result column="is_locked" property="isLocked" jdbcType="CHAR"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+        <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
+        <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
+        <result column="ext_field3" property="extField3" jdbcType="VARCHAR"/>
+        <result column="ext_field4" property="extField4" jdbcType="VARCHAR"/>
+        <result column="ext_field5" property="extField5" jdbcType="VARCHAR"/>
+        <result column="NAME_" property="taskName" jdbcType="VARCHAR"/>
+        <result column="ID_" property="taskId" jdbcType="VARCHAR"/>
+        <result column="TASK_DEF_KEY_" property="taskKey" jdbcType="VARCHAR"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="DESCRIPTION_" property="description" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_KEY_" property="businessKey" jdbcType="VARCHAR"/>
+        <result column="SUSPENSION_STATE_" property="suspensionState" jdbcType="VARCHAR"/>
+        <result column="executionId" property="executionId" jdbcType="VARCHAR"/>
+        <result column="json_data" property="jsonData" jdbcType="VARCHAR"/>
+        <result column="form_template" property="formTemplateJson" jdbcType="VARCHAR"/>
+
+        <result column="PROC_INST_ID_" property="processInstanceId" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_KEY_" property="businessKey" jdbcType="VARCHAR"/>
+        <result column="PROC_DEF_ID_" property="processDefinitionId" jdbcType="VARCHAR"/>
+        <result column="START_TIME_" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="END_TIME_" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="START_USER_ID_" property="startUserId" jdbcType="VARCHAR"/>
+        <result column="edoc_header_id" property="edocHeaderId" jdbcType="BIGINT"/>
+        <result column="edoc_physical_status" property="edocPhysicalStatus" jdbcType="VARCHAR"/>
+        <result column="h_version" property="hVersion" jdbcType="BIGINT"/>
+        <result column="taskCreateTime" property="taskCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="ASSIGNEE_" property="taskAssingee" jdbcType="VARCHAR"/>
+
+        <result column="edoc_archive_status" property="edocArchiveStatus" jdbcType="INTEGER"/>
+        <result column="edoc_cert_status" property="edocCertStatus" jdbcType="INTEGER"/>
+        <result column="edoc_voucher_status" property="edocVoucherStatus" jdbcType="INTEGER"/>
+
+        <result column="sys_flag" property="sysFlag" jdbcType="VARCHAR"/>
+
+        <result column="upload_finished" property="uploadFinished" jdbcType="VARCHAR"/>
+        <result column="scan_finished" property="scanFinished" jdbcType="VARCHAR"/>
+        <result column="edoc_physical_receiver" property="edocPhysicalReceiver" jdbcType="VARCHAR"/>
+
+        <result column="scan_flag" property="scanFlag" jdbcType="VARCHAR"/>
+        <result column="edoc_voucher_no" property="edocVoucherNo" jdbcType="VARCHAR"/>
+
+        <result column="company_code" property="companyCode" jdbcType="VARCHAR"/>
+        <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
+        <result column="biz_no" property="bizNo" jdbcType="VARCHAR"/>
+        <result column="edoc_tax_code" property="edocTaxCode" jdbcType="VARCHAR"/>
+        <result column="is_abnormal" property="isAbnormal" jdbcType="VARCHAR"/>
+        <result column="abnormal_type" property="abnormalType" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!--<resultMap id="borrowResultMap" type="com.zynsun.platform.edoc.model.AccountingArchivesBorrowModel">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+
+        <id column="edocHeaderId" property="edocHeaderId" jdbcType="BIGINT"/>
+        <result column="edoc_no" property="edocNo" jdbcType="VARCHAR"/>
+        <result column="save_back_time" property="saveBackTime" jdbcType="TIMESTAMP"/>
+        <result column="is_save_back" property="isSaveBack" jdbcType="VARCHAR"/>
+        <result column="is_save_back" property="isSaveBack" jdbcType="VARCHAR"/>
+    </resultMap>-->
+
+
+    <resultMap id="borrowResultMap" type="com.zynsun.platform.edoc.model.AccountingArchivesBorrowModel">
+        <!--<id column="id" property="id" jdbcType="BIGINT"/>-->
+        <!--<result column="edoc_head_id" property="edocHeadId" jdbcType="BIGINT"/>-->
+        <!--<result column="edoc_no" property="edocNo" jdbcType="VARCHAR"/>-->
+        <result column="status" property="status" jdbcType="CHAR"/>
+        <!--<result column="version" property="version" jdbcType="INTEGER"/>-->
+        <result column="deleted" property="deleted" jdbcType="INTEGER"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime"/>
+        <result column="save_back_time" property="saveBackTime"/>
+        <result column="is_save_back" property="isSaveBack" jdbcType="VARCHAR"/>
+        <result column="section_id" property="sectionId"/>
+        <result column="section_no" property="sectionNo"/>
+    </resultMap>
+
+
+
+    <resultMap id="archivedAccountMap" type="com.zynsun.platform.edoc.model.ArchivedAccountModel">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <!--<id column="id" property="id" jdbcType="BIGINT"/>-->
+        <!--<result column="edoc_no" property="edocNo" jdbcType="VARCHAR"/>-->
+        <!--<result column="credentials_no" property="credentialsNo" jdbcType="VARCHAR"/>-->
+        <!--<result column="edoc_type" property="edocType" jdbcType="VARCHAR"/>-->
+        <!--&lt;!&ndash;<result column="id" property="billHeaderId" jdbcType="VARCHAR" />&ndash;&gt;-->
+        <!--<result column="company_name" property="companyName" jdbcType="VARCHAR"/>-->
+        <!--<result column="create_by" property="userName" jdbcType="VARCHAR"/>-->
+        <!--<result column="create_time" property="submitTime" jdbcType="VARCHAR"/>-->
+        <!--<result column="bill_contract" property="billContract" jdbcType="VARCHAR"/>-->
+        <!--<result column="voucher_apno" property="apNo" jdbcType="VARCHAR"/>-->
+        <!--<result column="voucher_glno" property="glNo" jdbcType="VARCHAR"/>-->
+        <!--<result column="box_no" property="boxNo" jdbcType="VARCHAR"/>-->
+        <!--<result column="files_no" property="filesNo" jdbcType="VARCHAR"/>-->
+        <!--<result column="records_no" property="recordsNo" jdbcType="VARCHAR"/>-->
+        <!--<result column="safe_box_code" property="safeBoxCode" jdbcType="VARCHAR"/>-->
+        <!--<result column="proofs" property="payProofNo" jdbcType="VARCHAR"/>-->
+        <!--<result column="archive_year" property="archiveYear" jdbcType="VARCHAR"/>-->
+        <!--<result column="loc_no" property="locNo" jdbcType="VARCHAR"/>-->
+        <!--<result column="status" property="status" jdbcType="VARCHAR"/>-->
+        <!--<result column="credentials_type" property="credentialsType" jdbcType="VARCHAR"/>-->
+        <!--<result column="file_date" property="fileDate" jdbcType="TIMESTAMP"/>-->
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="records_no" property="recordsNo" jdbcType="VARCHAR"/>
+        <result column="box_no" property="boxNo" jdbcType="VARCHAR"/>
+        <result column="safe_box_code" property="safeBoxCode" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="create_time" property="submitTime" jdbcType="VARCHAR"/>
+        <result column="office_name" property="officeName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="edocHeaderMap" type="com.zynsun.platform.edoc.model.EdocHeaderModel">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="credentials_num" property="credentialsNum" jdbcType="VARCHAR"/>
+        <result column="credentials_type" property="credentialsType" jdbcType="VARCHAR"/>
+        <result column="edoc_no" property="edocNo" jdbcType="VARCHAR"/>
+        <result column="voucherCode" property="voucherCode"/>
+        <result column="archivesId" property="archivesId"/>
+    </resultMap>
+
+    <resultMap id="edocReportModelResultMap" type="com.zynsun.platform.edoc.model.EdocReportModel">
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="operation" property="operation" jdbcType="VARCHAR"/>
+        <result column="status_flag" property="statusFlag" jdbcType="VARCHAR"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="edocReportModelResultMapNew" type="com.zynsun.platform.edoc.model.EdocReportModel">
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="status" property="statusFlag" jdbcType="VARCHAR"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        id, edoc_no, edoc_type, edoc_task_status, edoc_is_matched, company_code, company_name,seal,
+        edoc_physical_status, edoc_source, is_locked, remarks, create_by, create_time,
+        last_modify_by, last_modify_time, deleted, version, ext_field1, ext_field2, ext_field3,
+        ext_field4, ext_field5,json_data,fonds_code, edoc_archive_status, edoc_cert_status, edoc_voucher_status
+        ext_field4, ext_field5,json_data,fonds_code, public_type, upload_type, processId, fdModelName, upload_finished, scan_finished,edoc_physical_receiver, scan_flag, edoc_voucher_no,biz_no,edoc_tax_code,is_abnormal,abnormal_type
+    </sql>
+
+    <sql id="Base_Column_List_H">
+        h.id, h.edoc_no, h.public_type, h.edoc_type, h.edoc_task_status, h.edoc_is_matched, h.company_code, h.company_name,h.json_data,
+        h.edoc_physical_status, h.edoc_source, h.is_locked, h.remarks, h.create_by, h.create_time,
+        h.last_modify_by, h.last_modify_time, h.deleted, h.version, h.ext_field1, h.ext_field2, h.ext_field3,
+        h.ext_field4, h.ext_field5, h.edoc_archive_status, h.edoc_cert_status, h.edoc_voucher_status,h.upload_type, h.upload_finished, h.scan_finished, h.edoc_physical_receiver, h.scan_flag
+        ,h.processId,h.fdModelName, h.edoc_voucher_no,h.seal,h.review,h.biz_no,h.edoc_tax_code,h.is_abnormal,h.abnormal_type
+    </sql>
+
+    <select id="callEdocProceDure" statementType="CALLABLE" parameterType="java.util.Map" resultType="java.lang.String">
+        {call img_edoc_no(#{gen_num,mode=OUT,jdbcType=VARCHAR})}
+    </select>
+
+    <select id="queryAllWorkList" resultMap="BaseModelResultMap">
+        SELECT DISTINCT
+        RES.NAME_,RES.ID_,RES.TASK_DEF_KEY_,RES.TENANT_ID_,RES.DESCRIPTION_,e.BUSINESS_KEY_,e.SUSPENSION_STATE_,e.ID_ as executionId,header.*
+        FROM
+        ACT_RU_TASK RES
+        LEFT JOIN ACT_RU_IDENTITYLINK I ON I.TASK_ID_ = RES.ID_
+        LEFT JOIN act_ru_execution e on RES.PROC_INST_ID_ = e.PROC_INST_ID_
+        RIGHT JOIN edoc_header header ON header.id = e.BUSINESS_KEY_
+        WHERE
+        RES.TENANT_ID_ = #{tenantId}
+        AND header.id IS NOT NULL
+        AND header.deleted = 0
+        ORDER BY
+        header.create_time desc
+    </select>
+
+
+    <select id="queryDoneWorkList" resultMap="BaseModelResultMap">
+        SELECT DISTINCT
+        header.* , RES.NAME_ , RES.ID_ , RES.TASK_DEF_KEY_ , RES.TENANT_ID_ , RES.DESCRIPTION_ , e.BUSINESS_KEY_,
+        RES.ASSIGNEE_
+        FROM
+        ACT_HI_TASKINST RES
+        LEFT JOIN act_hi_procinst e on RES.PROC_INST_ID_ = e.PROC_INST_ID_
+        RIGHT JOIN edoc_header header ON header.id = e.BUSINESS_KEY_
+        AND header.deleted = 0
+        WHERE
+        header.id IS NOT NULL
+        AND header.deleted = 0
+        AND RES.END_TIME_ IS NOT NULL
+        <!--        <if test="tenantId != null  and tenantId!='' ">
+                    and RES.TENANT_ID_ = #{tenantId}
+                </if>-->
+        <if test="edocNo!=null and edocNo!=''">
+            and header.edoc_no like CONCAT ('%',#{edocNo},'%')
+        </if>
+        <if test="edocType!=null and edocType!=''">
+            and header.edoc_type = #{edocType}
+        </if>
+        <if test="taskAssingee!=null and taskAssingee!=''">
+            AND RES.ASSIGNEE_ = #{taskAssingee}
+        </if>
+        <if test="createTimeStart != null">
+            and header.create_time &gt;#{createTimeStart}
+        </if>
+        <if test="createTimeEnd != null">
+            and header.create_time &lt;#{createTimeEnd}
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            and RES.NAME_ like CONCAT ('%',#{taskName},'%')
+        </if>
+        ORDER BY
+        header.create_time DESC
+    </select>
+
+    <select id="selectTaskByEdocId" parameterType="com.zynsun.platform.edoc.domain.EdocHeader"
+            resultMap="BaseModelResultMap">
+        SELECT DISTINCT
+        RES.NAME_,
+        RES.ID_,
+        RES.TASK_DEF_KEY_,
+        RES.TENANT_ID_,
+        RES.DESCRIPTION_,
+        e.BUSINESS_KEY_,
+        e.ID_ AS executionId,
+        header.*
+        FROM
+        edoc_header header
+        LEFT JOIN act_ru_execution e ON header.id = e.BUSINESS_KEY_
+        LEFT JOIN ACT_RU_TASK RES ON RES.PROC_INST_ID_ = e.PROC_INST_ID_
+        LEFT JOIN ACT_RU_IDENTITYLINK I ON I.TASK_ID_ = RES.ID_
+        WHERE
+        <!-- RES.TENANT_ID_ = 'AP' -->
+        <if test="id != null">
+            header.ID = #{id}
+        </if>
+
+    </select>
+
+    <select id="queryToBeWorkList" resultMap="BaseModelResultMap">
+        SELECT DISTINCT
+        RES.NAME_, RES.ID_, RES.TASK_DEF_KEY_, RES.TENANT_ID_, RES.DESCRIPTION_,RES.CREATE_TIME_ as taskCreateTime,RES.ASSIGNEE_,
+        e.BUSINESS_KEY_, e.ID_ as executionId, header.*
+        FROM
+        ACT_RU_TASK RES
+        LEFT JOIN ACT_RU_IDENTITYLINK I ON I.TASK_ID_ = RES.ID_
+        LEFT JOIN act_ru_execution e on RES.PROC_INST_ID_ = e.PROC_INST_ID_
+        RIGHT JOIN edoc_header header ON header.id = e.BUSINESS_KEY_
+        WHERE
+        <!--         RES.TENANT_ID_ = #{tenantId} and  -->
+        header.edoc_task_status != '21' and header.edoc_task_status != '01'
+        <if test="edocNo!=null and edocNo!=''">
+            and header.edoc_no like CONCAT ('%',#{edocNo},'%')
+        </if>
+        <if test="edocType!=null and edocType!=''">
+            and header.edoc_type like CONCAT ('%',#{edocType},'%')
+        </if>
+        AND header.id IS NOT NULL
+        AND header.deleted = 0
+        <if test="taskAssingee!=null and taskAssingee!=''">
+            AND (
+            RES.ASSIGNEE_ = #{taskAssingee}
+            OR (
+            RES.ASSIGNEE_ IS NULL
+            AND I.TYPE_ = 'candidate'
+            AND (
+            I.USER_ID_ = #{taskAssingee}
+            /*查询候选组待办，下面表示候选组设置的是组代码*/
+            OR I.GROUP_ID_ IN (
+            SELECT G.GROUP_CODE
+            FROM SYS_GROUP G
+            LEFT JOIN SYS_GROUP_USER GU ON G.ID = GU.GROUP_ID
+            LEFT JOIN SYS_USER U ON GU.USER_ID = U.ID
+            WHERE U.LOGIN_NAME = #{taskAssingee}
+            )
+            )
+            )
+            )
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            and RES.NAME_ like CONCAT ('%',#{taskName},'%')
+        </if>
+        ORDER BY
+        RES.ID_ ASC
+    </select>
+
+    <select id="findDataListByEdocNoAndCategoryCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from edoc_header t
+        WHERE
+        t.edoc_no = #{edocNo} and t.edoc_type = #{categoryCode} and t.edoc_task_status != '21' and t.deleted='0'
+    </select>
+    <select id="selectEdocHeaderList" resultMap="BaseResultMap">
+    SELECT * FROM edoc_header WHERE edoc_type = #{edocType} AND  deleted = 0
+</select>
+
+    <select id="selectEdocHeaderPageTw" resultMap="BaseModelResultMap"
+            parameterType="com.zynsun.platform.edoc.model.EdocHeaderModel">
+        SELECT
+        <include refid="Base_Column_List_H"/>,
+        DATE_FORMAT(h.create_time,'%Y-%m-%d %H:%i:%s') as createTimeStr ,
+        DATE_FORMAT(h.last_modify_time,'%Y-%m-%d %H:%i:%s') as lastModifyTimeStr,
+        /*pi.PROC_INST_ID_ , pi.BUSINESS_KEY_ , pi.PROC_DEF_ID_ , pi.START_TIME_ , pi.END_TIME_ , pi.START_USER_ID_ ,*/
+        RES.NAME_
+        FROM edoc_header h
+        /*LEFT JOIN act_hi_procinst pi ON h.id = pi.BUSINESS_KEY_*/
+        LEFT JOIN act_ru_execution e on e.BUSINESS_KEY_ = h.id
+        LEFT JOIN ACT_RU_TASK RES on RES.PROC_INST_ID_ = e.PROC_INST_ID_
+        <where>
+            h.deleted = 0
+            /*先加上下面的条件解决影像任务页面一个单据出现多次的bug，右后再优化*/
+            /*AND pi.PROC_DEF_ID_ like '%Edoctest%'*/
+            <if test="edocHeaderModel.publicType !=null and edocHeaderModel.publicType !=''">
+                AND h.public_type =#{edocHeaderModel.publicType}
+            </if>
+            <if test="edocHeaderModel.edocIsMatched !=null and edocHeaderModel.edocIsMatched !=''">
+                AND h.edoc_is_matched =#{edocHeaderModel.edocIsMatched}
+            </if>
+            <if test="edocHeaderModel.edocNo !=null and edocHeaderModel.edocNo !=''">
+                AND h.edoc_no like concat(concat('%',#{edocHeaderModel.edocNo}),'%')
+            </if>
+            <if test="edocHeaderModel.edocVoucherNo !=null and edocHeaderModel.edocVoucherNo !=''">
+                AND h.edoc_voucher_no like concat(concat('%',#{edocHeaderModel.edocVoucherNo}),'%')
+            </if>
+            <if test="edocHeaderModel.edocType !=null and edocHeaderModel.edocType !=''">
+                AND h.edoc_type =#{edocHeaderModel.edocType}
+            </if>
+            <if test="edocHeaderModel.companyCode !=null and edocHeaderModel.companyCode !=''">
+                AND h.company_code like concat(concat('%',#{edocHeaderModel.companyCode}),'%')
+            </if>
+            <if test="edocHeaderModel.companyName !=null and edocHeaderModel.companyName !=''">
+                AND h.company_name like concat(concat('%',#{edocHeaderModel.companyName}),'%')
+            </if>
+            <if test="edocHeaderModel.edocTaskStatus !=null and edocHeaderModel.edocTaskStatus !=''">
+                AND h.edoc_task_status = #{edocHeaderModel.edocTaskStatus}
+            </if>
+            <if test="edocHeaderModel.edocPhysicalStatus !=null and edocHeaderModel.edocPhysicalStatus !=''">
+                AND h.edoc_physical_status = #{edocHeaderModel.edocPhysicalStatus}
+            </if>
+            <if test="edocHeaderModel.abnormalType !=null and edocHeaderModel.abnormalType !=''">
+                AND h.abnormal_type = #{edocHeaderModel.abnormalType}
+            </if>
+            <if test="edocHeaderModel.createTimeStart !=null and edocHeaderModel.createTimeStart !=''">
+                AND h.create_time >= #{edocHeaderModel.createTimeStart}
+            </if>
+            <if test="edocHeaderModel.createTimeEnd !=null and edocHeaderModel.createTimeEnd !=''">
+                <![CDATA[and   h.create_time <=#{edocHeaderModel.createTimeEnd}]]>
+            </if>
+            <if test="edocHeaderModel.archiveGroupFlag == 'no'">
+                AND (
+                ${tools.setCondition('h.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+                OR ${tools.setDP('h.company_code', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+            </if>
+        </where>
+        ORDER BY h.create_time DESC
+    </select>
+
+    <select id="selectEdocHeaders" resultMap="BaseModelResultMap"
+            parameterType="com.zynsun.platform.edoc.model.EdocHeaderModel">
+        SELECT
+        <include refid="Base_Column_List_H"/>,
+        DATE_FORMAT(h.create_time,'%Y-%m-%d %H:%i:%s') as createTimeStr ,
+        DATE_FORMAT(h.last_modify_time,'%Y-%m-%d %H:%i:%s') as lastModifyTimeStr
+        <!--  RES.NAME_ -->
+        FROM edoc_header h
+        <!--  LEFT JOIN act_ru_execution e on e.BUSINESS_KEY_ = h.id -->
+        <!-- LEFT JOIN ACT_RU_TASK RES on RES.PROC_INST_ID_ = e.PROC_INST_ID_ -->
+        <where>
+            h.deleted = 0
+            <choose>
+                <when test="edocHeaderModel.edocTaskStatus !=null and edocHeaderModel.edocTaskStatus !=''">
+                    AND h.edoc_task_status = #{edocHeaderModel.edocTaskStatus}
+                </when>
+                <otherwise>
+                    AND h.edoc_task_status != '00'
+                </otherwise>
+            </choose>
+
+            <if test="edocHeaderModel.createBy !=null and edocHeaderModel.createBy !=''">
+                AND h.create_by like concat(concat('%',#{edocHeaderModel.createBy}),'%')
+            </if>
+            <if test="edocHeaderModel.seal !=null and edocHeaderModel.seal !=''">
+                AND h.seal =#{edocHeaderModel.seal}
+            </if>
+            <if test="edocHeaderModel.review !=null and edocHeaderModel.review !=''">
+                AND h.review =#{edocHeaderModel.review}
+            </if>
+            <if test="edocHeaderModel.publicType !=null and edocHeaderModel.publicType !=''">
+                AND h.public_type =#{edocHeaderModel.publicType}
+            </if>
+            <if test="edocHeaderModel.edocIsMatched !=null and edocHeaderModel.edocIsMatched !=''">
+                AND h.edoc_is_matched =#{edocHeaderModel.edocIsMatched}
+            </if>
+            <if test="edocHeaderModel.edocNo !=null and edocHeaderModel.edocNo !=''">
+                AND h.edoc_no like concat(concat('%',#{edocHeaderModel.edocNo}),'%')
+            </if>
+            <if test="edocHeaderModel.edocVoucherNo !=null and edocHeaderModel.edocVoucherNo !=''">
+                AND h.edoc_voucher_no like concat(concat('%',#{edocHeaderModel.edocVoucherNo}),'%')
+            </if>
+            <if test="edocHeaderModel.edocType !=null and edocHeaderModel.edocType !=''">
+                AND h.edoc_type =#{edocHeaderModel.edocType}
+            </if>
+            <if test="edocHeaderModel.companyCode !=null and edocHeaderModel.companyCode !=''">
+                AND h.company_code like concat(concat('%',#{edocHeaderModel.companyCode}),'%')
+            </if>
+            <if test="edocHeaderModel.companyName !=null and edocHeaderModel.companyName !=''">
+                AND h.company_name like concat(concat('%',#{edocHeaderModel.companyName}),'%')
+            </if>
+            <!--<if test="edocHeaderModel.edocTaskStatus !=null and edocHeaderModel.edocTaskStatus !=''">
+                AND h.edoc_task_status = #{edocHeaderModel.edocTaskStatus}
+            </if>-->
+            <if test="edocHeaderModel.edocPhysicalStatus !=null and edocHeaderModel.edocPhysicalStatus !=''">
+                AND h.edoc_physical_status = #{edocHeaderModel.edocPhysicalStatus}
+            </if>
+            <if test="edocHeaderModel.abnormalType !=null and edocHeaderModel.abnormalType !=''">
+                AND h.abnormal_type = #{edocHeaderModel.abnormalType}
+            </if>
+            <if test="edocHeaderModel.isAbnormal !=null and edocHeaderModel.isAbnormal !=''">
+                AND h.is_abnormal = #{edocHeaderModel.isAbnormal}
+            </if>
+            <if test="edocHeaderModel.queryTimeStart !=null and edocHeaderModel.queryTimeStart !=''">
+                AND h.create_time >= #{edocHeaderModel.queryTimeStart}
+            </if>
+            <if test="edocHeaderModel.queryTimeEnd !=null and edocHeaderModel.queryTimeEnd !=''">
+                <![CDATA[and   h.create_time <=#{edocHeaderModel.queryTimeEnd}]]>
+            </if>
+            <!--<if test="edocHeaderModel.archiveGroupFlag == 'no'">
+                AND (
+                ${tools.setCondition('h.create_by', CURRENT_USER.loginName)} &lt;!&ndash; 当前登录用户 &ndash;&gt;
+                OR ${tools.setDP('h.company_code', 'DPT_COMPANY')}) &lt;!&ndash; 公司数据维度 &ndash;&gt;
+            </if>-->
+        </where>
+        ORDER BY h.id DESC
+    </select>
+
+
+    <select id="selectEdocHeaderPage" resultMap="BaseModelResultMap"
+            parameterType="com.zynsun.platform.edoc.model.EdocHeaderModel">
+        SELECT
+        <include refid="Base_Column_List_H"/>,
+        DATE_FORMAT(h.create_time,'%Y-%m-%d %H:%i:%s') as createTimeStr ,
+        DATE_FORMAT(h.last_modify_time,'%Y-%m-%d %H:%i:%s') as lastModifyTimeStr
+      <!--  RES.NAME_ -->
+        FROM edoc_header h
+      <!--  LEFT JOIN act_ru_execution e on e.BUSINESS_KEY_ = h.id -->
+       <!-- LEFT JOIN ACT_RU_TASK RES on RES.PROC_INST_ID_ = e.PROC_INST_ID_ -->
+        <where>
+            h.deleted = 0
+            <choose>
+                <when test="edocHeaderModel.edocTaskStatus !=null and edocHeaderModel.edocTaskStatus !=''">
+                    AND h.edoc_task_status = #{edocHeaderModel.edocTaskStatus}
+                </when>
+                <otherwise>
+                    AND h.edoc_task_status != '00'
+                </otherwise>
+            </choose>
+            <!--<if test="edocHeaderModel.edocTaskStatus !=null and edocHeaderModel.edocTaskStatus !=''">
+                AND h.edoc_task_status = #{edocHeaderModel.edocTaskStatus}
+            </if>-->
+            <if test="edocHeaderModel.createBy !=null and edocHeaderModel.createBy !=''">
+                AND h.create_by like concat(concat('%',#{edocHeaderModel.createBy}),'%')
+            </if>
+            <if test="edocHeaderModel.seal !=null and edocHeaderModel.seal !=''">
+                AND h.seal =#{edocHeaderModel.seal}
+            </if>
+            <if test="edocHeaderModel.review !=null and edocHeaderModel.review !=''">
+                AND h.review =#{edocHeaderModel.review}
+            </if>
+            <if test="edocHeaderModel.publicType !=null and edocHeaderModel.publicType !=''">
+                AND h.public_type =#{edocHeaderModel.publicType}
+            </if>
+            <if test="edocHeaderModel.edocIsMatched !=null and edocHeaderModel.edocIsMatched !=''">
+                AND h.edoc_is_matched =#{edocHeaderModel.edocIsMatched}
+            </if>
+            <if test="edocHeaderModel.edocNo !=null and edocHeaderModel.edocNo !=''">
+                AND h.edoc_no like concat(concat('%',#{edocHeaderModel.edocNo}),'%')
+            </if>
+            <if test="edocHeaderModel.edocVoucherNo !=null and edocHeaderModel.edocVoucherNo !=''">
+                AND h.edoc_voucher_no like concat(concat('%',#{edocHeaderModel.edocVoucherNo}),'%')
+            </if>
+            <if test="edocHeaderModel.edocType !=null and edocHeaderModel.edocType !=''">
+                AND h.edoc_type =#{edocHeaderModel.edocType}
+            </if>
+            <if test="edocHeaderModel.companyCode !=null and edocHeaderModel.companyCode !=''">
+                AND h.company_code like concat(concat('%',#{edocHeaderModel.companyCode}),'%')
+            </if>
+            <if test="edocHeaderModel.companyName !=null and edocHeaderModel.companyName !=''">
+                AND h.company_name like concat(concat('%',#{edocHeaderModel.companyName}),'%')
+            </if>
+
+            <if test="edocHeaderModel.edocPhysicalStatus !=null and edocHeaderModel.edocPhysicalStatus !=''">
+                AND h.edoc_physical_status = #{edocHeaderModel.edocPhysicalStatus}
+            </if>
+            <if test="edocHeaderModel.isAbnormal !=null and edocHeaderModel.isAbnormal !=''">
+                AND h.is_abnormal = #{edocHeaderModel.isAbnormal}
+            </if>
+            <if test="edocHeaderModel.queryTimeStart !=null and edocHeaderModel.queryTimeStart !=''">
+                AND h.create_time >= #{edocHeaderModel.queryTimeStart}
+            </if>
+            <if test="edocHeaderModel.queryTimeEnd !=null and edocHeaderModel.queryTimeEnd !=''">
+                <![CDATA[and   h.create_time <=#{edocHeaderModel.queryTimeEnd}]]>
+            </if>
+
+            <!--<if test="edocHeaderModel.archiveGroupFlag == 'no'">
+                AND (
+                ${tools.setCondition('h.create_by', CURRENT_USER.loginName)} &lt;!&ndash; 当前登录用户 &ndash;&gt;
+                OR ${tools.setDP('h.company_code', 'DPT_COMPANY')}) &lt;!&ndash; 公司数据维度 &ndash;&gt;
+            </if>-->
+        </where>
+        ORDER BY h.id DESC
+    </select>
+
+    <select id="selectEdocHeaderAndFormTemplate" resultMap="BaseModelResultMap">
+        SELECT
+           form_template.form_template
+        FROM edoc_header
+        INNER JOIN biz_type on edoc_header.edoc_type = biz_type.code
+        LEFT JOIN form_template on biz_type.id = form_template.biz_id
+        where edoc_header.edoc_type = #{edocType} and biz_type.deleted = 0
+        LIMIT 1
+    </select>
+
+    <select id="findValidEdocHeader" resultMap="BaseResultMap"
+            parameterType="com.zynsun.platform.edoc.domain.EdocHeader">
+        SELECT
+        <include refid="Base_Column_List_H"/>
+        FROM edoc_header h
+        <where>
+            h.deleted=0
+            <if test="edocHeader.id !=null and edocHeader.id !=''">
+                AND h.id = #{edocHeader.id}
+            </if>
+            <if test="edocHeader.edocNo !=null and edocHeader.edocNo !=''">
+                AND h.edoc_no = #{edocHeader.edocNo}
+            </if>
+            <if test="edocHeader.edocVoucherNo !=null and edocHeader.edocVoucherNo !=''">
+                AND h.edoc_voucher_no like concat(concat('%',#{edocHeader.edocVoucherNo}),'%')
+            </if>
+            <if test="edocHeader.edocType !=null and edocHeader.edocType !=''">
+                AND h.edoc_type =#{edocHeader.edocType}
+            </if>
+            <if test="edocHeader.companyCode !=null and edocHeader.companyCode !=''">
+                AND h.company_code like concat(concat('%',#{edocHeader.companyCode}),'%')
+            </if>
+            <if test="edocHeader.companyName !=null and edocHeader.companyName !=''">
+                AND h.company_name like concat(concat('%',#{edocHeader.companyName}),'%')
+            </if>
+            <if test="edocHeader.edocPhysicalStatus !=null and edocHeader.edocPhysicalStatus !=''">
+                AND h.edoc_physical_status = #{edocHeader.edocPhysicalStatus}
+            </if>
+            AND h.edoc_task_status != 21
+        </where>
+    </select>
+
+    <select id="findBillHeaderToBeSection" resultMap="BaseResultMap"
+            parameterType="com.zynsun.platform.edoc.domain.EdocHeader">
+        SELECT
+        <include refid="Base_Column_List_H"/>
+        FROM edoc_header h
+        <where>
+            h.deleted=0
+            <if test="edocHeader.id !=null and edocHeader.id !=''">
+                AND h.id = #{edocHeader.id}
+            </if>
+            <if test="edocHeader.edocNo !=null and edocHeader.edocNo !=''">
+                AND h.edoc_no like concat(concat('%',#{edocHeader.edocNo}),'%')
+            </if>
+            <if test="edocHeader.edocVoucherNo !=null and edocHeader.edocVoucherNo !=''">
+                AND h.edoc_voucher_no like concat(concat('%',#{edocHeader.edocVoucherNo}),'%')
+            </if>
+            <if test="edocHeader.edocType !=null and edocHeader.edocType !=''">
+                AND h.edoc_type =#{edocHeader.edocType}
+            </if>
+            <if test="edocHeader.companyCode !=null and edocHeader.companyCode !=''">
+                AND h.company_code like concat(concat('%',#{edocHeader.companyCode}),'%')
+            </if>
+            <if test="edocHeader.companyName !=null and edocHeader.companyName !=''">
+                AND h.company_name like concat(concat('%',#{edocHeader.companyName}),'%')
+            </if>
+            <if test="edocHeader.edocPhysicalStatus !=null and edocHeader.edocPhysicalStatus !=''">
+                AND h.edoc_physical_status = #{edocHeader.edocPhysicalStatus}
+            </if>
+            AND h.edoc_task_status = 25
+        </where>
+    </select>
+
+
+    <select id="selectSectionByEdocNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from edoc_header t
+        WHERE
+        t.edoc_no = #{edocNo} and t.edoc_task_status != '21' and t.deleted='0'
+    </select>
+
+    <select id="findSectionByIds" resultMap="BaseResultMap" parameterType="list">
+        select
+        <include refid="Base_Column_List"/>
+        from edoc_header t
+        WHERE
+        t.edoc_task_status = '25' and t.deleted='0'
+        AND
+        id in
+        <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+
+    <select id="selectArchivedAccount" parameterType="com.zynsun.platform.edoc.model.ArchivedAccountModel"
+            resultMap="archivedAccountMap">
+        SELECT DISTINCT section.id,
+        section.records_no,
+        box.box_no,
+        aa.safe_box_code,
+        aa.status ,
+        section.create_time,
+        section.office_name
+        FROM
+        accounting_section section
+        INNER JOIN accounting_box_item boxItem ON boxItem.accounting_section = section.id
+        INNER JOIN accounting_box box ON box.id = boxItem.accounting_box
+        INNER JOIN accounting_archives aa ON aa.records_box_no = box.box_no
+        INNER JOIN accounting_section_item item ON section.id = item.accounting_section
+        INNER JOIN edoc_header h ON item.edoc_id = h.id
+        INNER JOIN edoc_credentials ec ON h.id = ec.edoc_header_id
+
+        WHERE
+        h.edoc_task_status = 28
+        AND h.deleted = 0
+        AND item.deleted = 0
+        AND section.deleted = 0
+        AND boxItem.deleted = 0
+        AND box.deleted = 0
+        AND aa.deleted = 0
+        AND box.box_flag = 1
+        AND ec.deleted = 0
+        <if test="model.recordsNo!=null and model.recordsNo!=''">
+            and section.records_no = #{model.recordsNo}
+        </if>
+        <if test="model.credentialsNo!=null and model.credentialsNo!=''">
+            and ec.credentials_num = #{model.credentialsNo}
+        </if>
+
+        <if test="model.archiveGroupFlag == 'no'">
+            AND (
+            ${tools.setCondition('section.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+            OR ${tools.setDP('section.office_id', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+        </if>
+
+    </select>
+
+    <select id="selectArchivedEdocHeader" parameterType="com.zynsun.platform.edoc.model.EdocHeaderModel" resultMap="edocHeaderMap">
+        SELECT h.id,
+        ec.credentials_num,
+        ec.credentials_type,
+        h.edoc_no,
+        aa.voucher_code as voucherCode,
+        aa.id as archivesId
+        FROM
+        edoc_header h
+        INNER JOIN accounting_section_item item ON item.edoc_id = h.id
+        INNER JOIN edoc_credentials ec ON h.id = ec.edoc_header_id
+        INNER JOIN accounting_section section ON section.id = item.accounting_section
+        INNER JOIN accounting_box_item boxItem ON boxItem.accounting_section = section.id
+        INNER JOIN accounting_box box ON box.id = boxItem.accounting_box
+        INNER JOIN accounting_archives aa ON aa.records_box_no = box.box_no
+        WHERE
+        h.edoc_task_status = 28
+        AND h.deleted = 0
+        AND item.deleted = 0
+        AND section.deleted = 0
+        AND boxItem.deleted = 0
+        AND box.deleted = 0
+        AND aa.deleted = 0
+        AND box.box_flag = 1
+        AND ec.deleted = 0
+        <if test="model.sectionId!=null and model.sectionId!=''">
+            and section.id = #{model.sectionId}
+        </if>
+    </select>
+
+    <select id="queryExmaineToBeWorkList" resultMap="BaseModelResultMap">
+        SELECT DISTINCT
+        RES.NAME_, RES.ID_, RES.TASK_DEF_KEY_, RES.TENANT_ID_, RES.DESCRIPTION_,RES.CREATE_TIME_ as taskCreateTime,
+        e.BUSINESS_KEY_, e.ID_ as executionId, header.* , aa.files_no as filesNo , aa.voucher_code as voucherCode ,
+        DATE_FORMAT(aa.expense_date,'%Y-%m-%d %H:%i:%s') as expenseDate
+        FROM
+        ACT_RU_TASK RES
+        LEFT JOIN ACT_RU_IDENTITYLINK I ON I.TASK_ID_ = RES.ID_
+        LEFT JOIN act_ru_execution e on RES.PROC_INST_ID_ = e.PROC_INST_ID_
+        RIGHT JOIN edoc_header header ON header.id = e.BUSINESS_KEY_
+        LEFT JOIN accounting_section_item item on item.edoc_id = header.id
+        LEFT JOIN accounting_section section on section.id = item.accounting_section
+        LEFT JOIN accounting_box_item boxItem on boxItem.accounting_section = section.id
+        Left JOIN accounting_box box on box.id = boxItem.accounting_box
+        LEFT JOIN accounting_archives aa on aa.records_box_no = box.box_no
+        WHERE
+        header.edoc_task_status != '21' and header.edoc_task_status != '25' and header.edoc_task_status != '01' and
+        e.PROC_DEF_ID_ like 'edocRead%'
+        <if test="edocNo!=null and edocNo!=''">
+            and header.edoc_no like CONCAT ('%',#{edocNo},'%')
+        </if>
+        <if test="edocType!=null and edocType!=''">
+            and header.edoc_type like CONCAT ('%',#{edocType},'%')
+        </if>
+        AND header.id IS NOT NULL
+        AND header.deleted = 0
+        <if test="taskAssingee!=null and taskAssingee!=''">
+            AND (
+            RES.ASSIGNEE_ = #{taskAssingee}
+            OR (
+            RES.ASSIGNEE_ IS NULL
+            AND I.TYPE_ = 'candidate'
+            AND (
+            I.USER_ID_ = #{taskAssingee}
+            /*查询候选组待办，下面表示候选组设置的是组代码*/
+            OR I.GROUP_ID_ IN (
+            SELECT G.GROUP_CODE
+            FROM SYS_GROUP G
+            LEFT JOIN SYS_GROUP_USER GU ON G.ID = GU.GROUP_ID
+            LEFT JOIN SYS_USER U ON GU.USER_ID = U.ID
+            WHERE U.LOGIN_NAME = #{taskAssingee}
+            )
+            )
+            )
+            )
+        </if>
+        <if test="taskName!=null and taskName!=''">
+            and RES.NAME_ like CONCAT ('%',#{taskName},'%')
+        </if>
+        ORDER BY
+        RES.ID_ ASC
+    </select>
+
+    <!--    <select id="queryArchBorrow" resultMap="BaseModelResultMap">
+            SELECT header.* , aa.files_no as filesNo ,aab.status , aab.create_by as borrowCreateBy
+            FROM edoc_header header
+            LEFT JOIN accounting_archives aa on aa.edoc_no = header.edoc_no
+            LEFT JOIN accounting_archives_borrow aab on header.id = aab.edoc_head_id
+            <where>
+                aab.deleted = 0 and aab.create_by=#{loginName}
+            </where>
+        </select>-->
+
+
+    <select id="queryArchBorrow" resultMap="borrowResultMap"  parameterType="com.zynsun.platform.edoc.model.AccountingArchivesBorrowModel">
+        <!--SELECT header.id as edoc_header_id,aab.*-->
+        <!--FROM edoc_header header-->
+        <!--INNER JOIN accounting_archives aa on aa.edoc_no = header.edoc_no-->
+        <!--INNER JOIN accounting_archives_borrow aab on header.id = aab.edoc_head_id-->
+        <!--<where>-->
+            <!--aab.deleted = 0-->
+            <!--<if test="accountingArchivesBorrowModel.sectionId !=null">-->
+                <!--AND  aab.section_id=#{accountingArchivesBorrowModel.sectionId}-->
+            <!--</if>-->
+            <!--<if test="accountingArchivesBorrowModel.sectionNo !=null and accountingArchivesBorrowModel.sectionNo !=''">-->
+                <!--AND aab.section_no like CONCAT ('%', #{accountingArchivesBorrowModel.sectionNo} ,'%')-->
+            <!--</if>-->
+        <!--</where>-->
+
+        <!--SELECT section_id, section_no, create_by, status, create_time, save_back_time, is_save_back, deleted
+         FROM accounting_archives_borrow-->
+         SELECT borrow.section_id, borrow.section_no, borrow.create_by, borrow.status, borrow.create_time, borrow.save_back_time, borrow.is_save_back, borrow.deleted
+         FROM accounting_archives_borrow borrow
+         LEFT JOIN accounting_section  section ON section.records_no = borrow.section_no and section.deleted = 0
+         <where>
+             borrow.deleted = 0
+             <if test="accountingArchivesBorrowModel.sectionId !=null">
+                 AND borrow.section_id=#{accountingArchivesBorrowModel.sectionId}
+             </if>
+             <if test="accountingArchivesBorrowModel.sectionNo !=null and accountingArchivesBorrowModel.sectionNo !=''">
+                 AND borrow.section_no like CONCAT ('%', #{accountingArchivesBorrowModel.sectionNo} ,'%')
+             </if>
+             <if test="accountingArchivesBorrowModel.archiveGroupFlag == 'no'">
+                 AND (
+                 ${tools.setCondition('section.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+                 OR ${tools.setDP('section.office_id', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+             </if>
+         </where>
+
+         GROUP BY borrow.section_id, borrow.section_no, borrow.create_by, borrow.status, borrow.create_time, borrow.save_back_time, borrow.is_save_back, borrow.deleted
+     </select>
+
+
+     <select id="selectWaitEdocByCrete" resultMap="BaseModelResultMap"
+             parameterType="com.zynsun.platform.edoc.model.EdocHeaderModel">
+         select
+         <include refid="Base_Column_List_H"/>
+         from edoc_header h
+         <where>
+             h.deleted = 0 AND h.edoc_task_status='07'
+             <if test="edocHeaderModel.createBy !=null and edocHeaderModel.createBy !=''">
+                 AND h.create_by=#{edocHeaderModel.createBy}
+             </if>
+
+
+             <!--<if test="edocHeaderModel.edocVoucherNo !=null and edocHeaderModel.edocVoucherNo !=''">-->
+            <!--AND h.edoc_voucher_no like concat(concat('%',#{edocHeaderModel.edocVoucherNo}),'%')-->
+            <!--</if>-->
+        </where>
+    </select>
+
+
+    <select id="selectWaitArchive" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from edoc_header
+        <where>
+            deleted = 0 and edoc_type = '01' and edoc_task_status in ('06', '99') /*and edoc_physical_status in ('01', '101')*/ and
+            (edoc_archive_status = 0 or
+            edoc_archive_status is null)
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectExpense" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from edoc_header
+        <where>
+            deleted = 0 and edoc_voucher_status = 1 AND pdf_url is NULL
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectWaitCertEdoc" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from edoc_header
+        <where>
+            deleted = 0 and edoc_type = '01' and edoc_task_status in ('06', '99')
+            AND (edoc_cert_status = 0 or edoc_cert_status is null) and edoc_archive_status = 1
+        </where>
+        order by id desc limit 0, 50
+    </select>
+    <select id="selectNoExpenseVoucher" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from edoc_header
+        <where>
+            deleted = 0 and edoc_type = '01' and edoc_task_status in ('06', '99') and (edoc_voucher_status = 0 or
+            edoc_voucher_status is null) and edoc_archive_status = 1
+        </where>
+        order by id desc
+    </select>
+    <select id="selectNoPayVoucher" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from edoc_header
+        <where>
+            deleted = 0 and edoc_type = '03' and (edoc_voucher_status = 0 or
+            edoc_voucher_status is null)
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectAbNormalEdocHeader" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from edoc_header
+        <where>
+            deleted = 0 and edoc_type = '01' and edoc_task_status in ('01', '07') and edoc_is_matched = '0'
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectExcEdoc" resultMap="BaseModelResultMap">
+        select
+        <include refid="Base_Column_List_H"/>
+        from edoc_header h
+        <where>
+            h.deleted =0 and h.edoc_no like CONCAT ('%','_EXCEPTION','%')
+            <if test="edocHeaderModel.createBy !=null and edocHeaderModel.createBy !=''">
+                AND h.create_by=#{edocHeaderModel.createBy}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectEdocReportNew" resultMap="edocReportModelResultMapNew" parameterType="java.util.HashMap">
+        SELECT
+        <if test="flag !=null and flag !='' and flag=='queryAll'">
+            cnt.*
+        </if>
+        <if test="flag !=null and flag !='' and flag=='queryDistinct'">
+            DISTINCT cnt.operator,cnt.status,cnt.type as type
+        </if>
+        <if test="flag !=null and flag !='' and flag=='querySingleName'">
+            cnt.operator,count(1) as num
+        </if>
+        <if test="flag !=null and flag !='' and flag=='queryCount'">
+            count(*) as num
+        </if>
+FROM
+	(
+		SELECT
+			'rec' type,
+			t.edoc_physical_receiver AS operator,
+			t.edoc_physical_status AS STATUS,
+			t.create_time AS operate_time
+		FROM
+			edoc_header t
+		WHERE
+			t.deleted = 0
+		UNION
+			SELECT
+				'fit' type,
+				t.last_modify_by AS operator,
+				t.task_status AS STATUS,
+				t.last_modify_time AS operate_time
+			FROM
+				fit_check_task t
+			WHERE
+				t.deleted = 0
+			UNION
+				SELECT
+					'arc' type,
+					aa.create_by AS operator,
+					eh.edoc_task_status AS status_flag,
+					aa.create_time AS operate_time
+				FROM
+					accounting_archives aa
+				LEFT JOIN accounting_box ab ON ab.box_no = aa.records_box_no
+				LEFT JOIN accounting_box_item abi ON abi.accounting_box = ab.id
+				LEFT JOIN accounting_section ass ON ass.id = abi.accounting_section
+				LEFT JOIN accounting_section_item assi ON assi.accounting_section = ass.id
+				LEFT JOIN edoc_header eh ON assi.edoc_id = eh.id
+				WHERE
+					aa.deleted = 0
+				AND ab.deleted = 0
+				AND abi.deleted = 0
+				AND ass.deleted = 0
+				AND assi.deleted = 0
+				AND eh.deleted = 0
+				UNION
+					SELECT
+						'arc' type,
+						'' AS operator,
+						t.edoc_task_status AS status_flag,
+						t.last_modify_time AS operate_time
+					FROM
+						edoc_header t
+					WHERE
+						t.deleted = 0
+					AND t.edoc_task_status = '25'
+	) cnt where 1=1
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(cnt.operate_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(cnt.operate_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+
+        <if test="type !=null and type !=''">
+            and cnt.type = #{type}
+        </if>
+        <if test="status !=null and status !=''">
+            and cnt.status = #{status}
+        </if>
+        <if test="flag !=null and flag !='' and flag=='queryCount'">
+            and cnt.operator is not null
+        </if>
+        <if test="flag !=null and flag !='' and flag=='querySingleName'">
+            group by cnt.operator
+        </if>
+    </select>
+
+    <select id="selectEdocReport" resultMap="edocReportModelResultMap" parameterType="java.util.HashMap">
+        SELECT
+        'single' AS type,
+        'rec' AS operation,
+        cnt.status_flag,
+        cnt.operator,
+        cnt.num
+        FROM
+        (
+        SELECT
+        t.edoc_physical_status AS status_flag,
+        t.edoc_physical_receiver AS operator,
+        count(1) AS num
+        FROM
+        edoc_header t
+        WHERE
+        t.deleted = 0
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        GROUP BY
+        t.edoc_physical_status,
+        t.edoc_physical_receiver
+        ) AS cnt
+        UNION
+        SELECT
+        'total_undealed' AS type,
+        'rec' AS operation,
+        '',
+        '',
+        SUM(cnt.num)
+        FROM
+        (
+        SELECT
+        t.edoc_physical_status AS status_flag,
+        t.edoc_physical_receiver AS operator,
+        count(1) AS num
+        FROM
+        edoc_header t
+        WHERE
+        t.deleted = 0
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        GROUP BY
+        t.edoc_physical_status,
+        t.edoc_physical_receiver
+        ) AS cnt
+        WHERE
+        cnt.status_flag = '99'
+        OR cnt.status_flag IS NULL
+        UNION
+        SELECT
+        'total_dealed' AS type,
+        'rec' AS operation,
+        '',
+        '',
+        SUM(cnt.num)
+        FROM
+        (
+        SELECT
+        t.edoc_physical_status AS status_flag,
+        t.edoc_physical_receiver AS operator,
+        count(1) AS num
+        FROM
+        edoc_header t
+        WHERE
+        t.deleted = 0
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        GROUP BY
+        t.edoc_physical_status,
+        t.edoc_physical_receiver
+        ) AS cnt
+        WHERE
+        cnt.status_flag = '01'
+        UNION
+        SELECT
+        'single' AS type,
+        'fitc' AS operation,
+        cnt.status_flag,
+        cnt.operator,
+        cnt.num
+        FROM
+        (
+        SELECT
+        t.task_status AS status_flag,
+        t.last_modify_by AS operator,
+        count(1) AS num
+        FROM
+        fit_check_task t
+        WHERE
+        t.deleted = 0
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        GROUP BY
+        t.task_status,
+        t.last_modify_by
+        ) AS cnt
+        UNION
+        SELECT
+        'total_undealed' AS type,
+        'fitc' AS operation,
+        '',
+        '',
+        SUM(cnt.num)
+        FROM
+        (
+        SELECT
+        t.task_status AS status_flag,
+        t.last_modify_by AS operator,
+        count(1) AS num
+        FROM
+        fit_check_task t
+        WHERE
+        t.deleted = 0
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        GROUP BY
+        t.task_status,
+        t.last_modify_by
+        ) AS cnt
+        WHERE
+        cnt.status_flag = '0'
+        OR cnt.status_flag IS NULL
+        UNION
+        SELECT
+        'total_undealed' AS type,
+        'fitc' AS operation,
+        '',
+        '',
+        SUM(cnt.num)
+        FROM
+        (
+        SELECT
+        t.task_status AS status_flag,
+        t.last_modify_by AS operator,
+        count(1) AS num
+        FROM
+        fit_check_task t
+        WHERE
+        t.deleted = 0
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        GROUP BY
+        t.task_status,
+        t.last_modify_by
+        ) AS cnt
+        WHERE
+        cnt.status_flag = '1'
+        UNION
+        SELECT
+        'single' AS type,
+        'arc' AS operation,
+        cnt.status_flag,
+        cnt.operator,
+        count(1) AS num
+        FROM
+        (
+        SELECT
+        eh.edoc_task_status AS status_flag,
+        aa.create_by AS operator
+        FROM
+        accounting_archives aa
+        LEFT JOIN accounting_box ab ON ab.box_no = aa.records_box_no
+        LEFT JOIN accounting_box_item abi ON abi.accounting_box = ab.id
+        LEFT JOIN accounting_section ass ON ass.id = abi.accounting_section
+        LEFT JOIN accounting_section_item assi ON assi.accounting_section = ass.id
+        LEFT JOIN edoc_header eh ON assi.edoc_id = eh.id
+        WHERE
+        aa.deleted = 0
+        AND ab.deleted = 0
+        AND abi.deleted = 0
+        AND ass.deleted = 0
+        AND assi.deleted = 0
+        AND eh.deleted = 0
+        UNION
+        SELECT
+        t.edoc_task_status AS status_flag,
+        '' AS operator
+        FROM
+        edoc_header t
+        WHERE
+        t.deleted = 0
+        AND t.edoc_task_status = '25'
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        ) AS cnt
+        GROUP BY
+        cnt.status_flag,
+        cnt.operator
+        UNION
+        SELECT
+        'total_dealed' AS type,
+        'arc' AS operation,
+        '' AS status_flag,
+        '' AS operation,
+        count(1) AS num
+        FROM
+        edoc_header t
+        WHERE
+        t.edoc_task_status = '28'
+        AND t.deleted = 0
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        UNION
+        SELECT
+        'total_undealed' AS type,
+        'arc' AS operation,
+        '' AS status_flag,
+        '' AS operation,
+        count(1) AS num
+        FROM
+        edoc_header t
+        WHERE
+        t.edoc_task_status = '25'
+        AND t.deleted = 0
+        <if test="startTime !=null and startTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &gt; DATE_FORMAT(#{startTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%s') &lt; DATE_FORMAT(#{endTime} ,'%Y-%m-%d %H:%i:%s')
+        </if>
+
+
+    </select>
+
+
+    <select id="selectEdocHeaderPageTw_noMatch" resultMap="BaseModelResultMap"
+            parameterType="com.zynsun.platform.edoc.model.EdocHeaderModel">
+        SELECT
+        <include refid="Base_Column_List_H"/>,
+        DATE_FORMAT(h.create_time,'%Y-%m-%d %H:%i:%s') as createTimeStr ,
+        DATE_FORMAT(h.last_modify_time,'%Y-%m-%d %H:%i:%s') as lastModifyTimeStr,
+        RES.NAME_
+        FROM edoc_header h
+
+        LEFT JOIN act_ru_execution e on e.BUSINESS_KEY_ = h.id
+        LEFT JOIN ACT_RU_TASK RES on RES.PROC_INST_ID_ = e.PROC_INST_ID_
+        <where>
+            h.deleted = 0
+            /*先加上下面的条件解决影像任务页面一个单据出现多次的bug，右后再优化*/
+            /*AND pi.PROC_DEF_ID_ like '%Edoctest%'*/
+            <if test="edocHeaderModel.edocNo !=null and edocHeaderModel.edocNo !=''">
+                AND h.edoc_no like concat(concat('%',#{edocHeaderModel.edocNo}),'%')
+            </if>
+            <if test="edocHeaderModel.edocVoucherNo !=null and edocHeaderModel.edocVoucherNo !=''">
+                AND h.edoc_voucher_no like concat(concat('%',#{edocHeaderModel.edocVoucherNo}),'%')
+            </if>
+            <if test="edocHeaderModel.edocType !=null and edocHeaderModel.edocType !=''">
+                AND h.edoc_type =#{edocHeaderModel.edocType}
+            </if>
+            <if test="edocHeaderModel.companyCode !=null and edocHeaderModel.companyCode !=''">
+                AND h.company_code like concat(concat('%',#{edocHeaderModel.companyCode}),'%')
+            </if>
+            <if test="edocHeaderModel.companyName !=null and edocHeaderModel.companyName !=''">
+                AND h.company_name like concat(concat('%',#{edocHeaderModel.companyName}),'%')
+            </if>
+
+            AND h.edoc_task_status in ("01","00","07")
+
+            <if test="edocHeaderModel.edocPhysicalStatus !=null and edocHeaderModel.edocPhysicalStatus !=''">
+                AND h.edoc_physical_status = #{edocHeaderModel.edocPhysicalStatus}
+            </if>
+
+            <if test="edocHeaderModel.edocIsMatched !=null and edocHeaderModel.edocIsMatched !=''">
+                AND h.edoc_is_matched = #{edocHeaderModel.edocIsMatched}
+            </if>
+            <if test="edocHeaderModel.createTimeStart !=null and edocHeaderModel.createTimeStart !=''">
+                AND h.create_time >= #{edocHeaderModel.createTimeStart}
+            </if>
+            <if test="edocHeaderModel.createTimeEnd !=null and edocHeaderModel.createTimeEnd !=''">
+                <![CDATA[and   h.create_time <=#{edocHeaderModel.createTimeEnd}]]>
+            </if>
+            <if test="edocHeaderModel.archiveGroupFlag == 'no'">
+                AND (
+                ${tools.setCondition('h.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+                OR ${tools.setDP('h.company_code', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+            </if>
+        </where>
+        ORDER BY h.create_time DESC
+    </select>
+    <select id="changeNormal" resultMap="BaseModelResultMap"
+            parameterType="com.zynsun.platform.edoc.model.EdocHeaderModel">
+        SELECT
+        <include refid="Base_Column_List_H"/>,
+        DATE_FORMAT(h.create_time,'%Y-%m-%d %H:%i:%s') as createTimeStr ,
+        DATE_FORMAT(h.last_modify_time,'%Y-%m-%d %H:%i:%s') as lastModifyTimeStr,
+        RES.NAME_
+        FROM edoc_header h
+
+        LEFT JOIN act_ru_execution e on e.BUSINESS_KEY_ = h.id
+        LEFT JOIN ACT_RU_TASK RES on RES.PROC_INST_ID_ = e.PROC_INST_ID_
+        <where>
+            h.deleted = 0
+
+            /*先加上下面的条件解决影像任务页面一个单据出现多次的bug，右后再优化*/
+            /*AND pi.PROC_DEF_ID_ like '%Edoctest%'*/
+            <if test="edocHeaderModel.edocNo !=null and edocHeaderModel.edocNo !=''">
+                AND h.edoc_no = #{edocHeaderModel.edocNo}
+            </if>
+            <if test="edocHeaderModel.edocVoucherNo !=null and edocHeaderModel.edocVoucherNo !=''">
+                AND h.edoc_voucher_no like concat(concat('%',#{edocHeaderModel.edocVoucherNo}),'%')
+            </if>
+            <if test="edocHeaderModel.edocType !=null and edocHeaderModel.edocType !=''">
+                AND h.edoc_type =#{edocHeaderModel.edocType}
+            </if>
+            <if test="edocHeaderModel.companyCode !=null and edocHeaderModel.companyCode !=''">
+                AND h.company_code like concat(concat('%',#{edocHeaderModel.companyCode}),'%')
+            </if>
+            <if test="edocHeaderModel.companyName !=null and edocHeaderModel.companyName !=''">
+                AND h.company_name like concat(concat('%',#{edocHeaderModel.companyName}),'%')
+            </if>
+            <if test="edocHeaderModel.archiveGroupFlag == 'no'">
+                AND (
+                ${tools.setCondition('h.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+                OR ${tools.setDP('h.company_code', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+            </if>
+        </where>
+        ORDER BY h.create_time DESC
+    </select>
+
+    <update id="updateEdocNoByEdoc" parameterType="com.zynsun.platform.edoc.model.EdocHeaderModel">
+        UPDATE edoc_image
+        SET
+        edoc_header_id = (select  id from edoc_header  where edoc_no = #{edocHeaderModel.edocNo}  and deleted = 0 )
+        WHERE edoc_header_id =   #{edocHeaderModel.id}  and deleted = 0
+    </update>
+
+    <update id="deleteEdocNoByEdoc" parameterType="Long">
+        UPDATE edoc_header
+        SET
+        deleted = 1
+        WHERE id = #{id}   and deleted = 0
+    </update>
+    <update id="updateEdocNo_HeaderByEdoc" parameterType="com.zynsun.platform.edoc.model.EdocHeaderModel">
+        UPDATE edoc_header
+        SET
+        edoc_task_status = "01",
+        scan_finished = "1"
+          where edoc_no = #{edocHeaderModel.edocNo}  and deleted = 0
+
+    </update>
+
+    <select id="findEdocPhysicalStatus" parameterType="String" resultType="int">
+        SELECT count(*) from edoc_header where edoc_no= #{edocNo} and deleted= 0 and edoc_physical_status  IN (99,11)
+
+    </select>
+
+    <select id="selectEdocNoCheckRealResult" resultMap="BaseModelResultMap" parameterType="String">
+        select <include refid="Base_Column_List"/>
+        from edoc_header
+        <where>
+            deleted=0 and edoc_task_status != '21' and edoc_no = #{edocNo}
+        </where>
+    </select>
+    <select id="getBillImagesByBillHeaderId" resultMap="BillImagesResultMap">
+        SELECT
+            *,bi.id imageId
+        FROM
+            edoc_header h
+        LEFT JOIN edoc_image bi ON bi.edoc_header_id = h.id
+        <where>
+            h.deleted = 0 AND bi.deleted = 0
+            <if test="edocHeaderModel.id !=null and edocHeaderModel.id !=''">
+                AND h.id = #{edocHeaderModel.id}
+            </if>
+            <if test="edocHeaderModel.edocNo !=null and edocHeaderModel.edocNo !=''">
+                AND h.edoc_no = #{edocHeaderModel.edocNo}
+            </if>
+            <if test="edocHeaderModel.edocVoucherNo !=null and edocHeaderModel.edocVoucherNo !=''">
+                AND h.edoc_voucher_no like concat(concat('%',#{edocHeaderModel.edocVoucherNo}),'%')
+            </if>
+            <if test="edocHeaderModel.edocType !=null and edocHeaderModel.edocType !=''">
+                AND h.edoc_type =#{edocHeaderModel.edocType}
+            </if>
+            <if test="edocHeaderModel.companyCode !=null and edocHeaderModel.companyCode !=''">
+                AND h.company_code like concat(concat('%',#{edocHeaderModel.companyCode}),'%')
+            </if>
+            <if test="edocHeaderModel.companyName !=null and edocHeaderModel.companyName !=''">
+                AND h.company_name like concat(concat('%',#{edocHeaderModel.companyName}),'%')
+            </if>
+            <!--<if test="edocHeaderModel.archiveGroupFlag == 'no'">-->
+                <!--AND (-->
+                <!--${tools.setCondition('h.create_by', CURRENT_USER.loginName)} &lt;!&ndash; 当前登录用户 &ndash;&gt;-->
+                <!--OR ${tools.setDP('h.company_code', 'DPT_COMPANY')}) &lt;!&ndash; 公司数据维度 &ndash;&gt;-->
+            <!--</if>-->
+        </where>
+    </select>
+
+
+    <select id="selectEdocHeaderByEdocCredentialsId" parameterType="java.lang.Long" resultMap="BaseModelResultMap">
+        SELECT  <include refid="Base_Column_List_H"/> from edoc_header h
+        LEFT JOIN edoc_header_credentials ehc on ehc.edoc_header_id = h.id
+        LEFT JOIN edoc_credentials ec on ec.id = ehc.edoc_credentials_id
+        <where>
+            ec.deleted=0 and ehc.deleted=0 and h.deleted=0
+            and ec.id = #{edocCredentialsId}
+        </where>
+    </select>
+
+
+
+
+
+</mapper>

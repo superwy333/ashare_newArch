@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://com.eai.soapservice" xmlns:impl="http://com.eai.soapservice"
+                  xmlns:tns2="http://ApiService.soaptypes" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="http://ApiService.soaptypes" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="Input">
+    <sequence>
+     <element name="F_AUTH_TOKEN" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_BODY" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_EXC01" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_EXC02" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_EXC03" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_EXC04" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_EXC05" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_IS_BASE64" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_SERVICE_ID" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_SYSTEM_ID" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_SYSTEM_USER" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_SYSTEM_USER_PASS" nillable="true" minOccurs="0" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Output">
+    <sequence>
+     <element name="F_BODY" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_CALL_CODE" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_CALL_MSG" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_CODE" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_IS_BASE64" nillable="true" minOccurs="0" type="xsd:string"/>
+     <element name="F_MSG" nillable="true" minOccurs="0" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="callApiRequest">
+
+      <wsdl:part name="callApiInput" type="tns2:Input"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="callApiResponse">
+
+      <wsdl:part name="callApiReturn" type="tns2:Output"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ApiService_callApi">
+
+      <wsdl:operation name="callApi" parameterOrder="callApiInput">
+
+         <wsdl:input message="impl:callApiRequest" name="callApiRequest"/>
+
+         <wsdl:output message="impl:callApiResponse" name="callApiResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ApiService" type="impl:ApiService_callApi">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="callApi">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="callApiRequest">
+
+            <wsdlsoap:body namespace="http://com.eai.soapservice" use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="callApiResponse">
+
+            <wsdlsoap:body namespace="http://com.eai.soapservice" use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ApiService_callApiService">
+
+      <wsdl:port binding="impl:ApiService" name="BISSendPort">
+
+         <wsdlsoap:address location="http://118.122.93.246:8082/NewHope/EAIServer?Invoke=BizSoapService%7CApiService%7CcallApi"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

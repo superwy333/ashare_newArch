@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions name="ILbpmextWebserviceServiceService" targetNamespace="http://lpmext.fsext.kmss.landray.com/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://lpmext.fsext.kmss.landray.com/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://lpmext.fsext.kmss.landray.com/" xmlns:tns="http://lpmext.fsext.kmss.landray.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:complexType name="Exception">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="message" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="Exception" type="tns:Exception"/>
+<xsd:element name="approveProcess" type="tns:approveProcess"/>
+<xsd:complexType name="approveProcess">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="arg0" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="approveProcessResponse" type="tns:approveProcessResponse"/>
+<xsd:complexType name="approveProcessResponse">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="return" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:schema>
+
+  </wsdl:types>
+  <wsdl:message name="approveProcessResponse">
+    <wsdl:part element="tns:approveProcessResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="approveProcess">
+    <wsdl:part element="tns:approveProcess" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ILbpmextWebserviceService">
+    <wsdl:operation name="approveProcess">
+      <wsdl:input message="tns:approveProcess" name="approveProcess">
+    </wsdl:input>
+      <wsdl:output message="tns:approveProcessResponse" name="approveProcessResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ILbpmextWebserviceServiceServiceSoapBinding" type="tns:ILbpmextWebserviceService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="approveProcess">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="approveProcess">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="approveProcessResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ILbpmextWebserviceServiceService">
+    <wsdl:port binding="tns:ILbpmextWebserviceServiceServiceSoapBinding" name="ILbpmextWebserviceServicePort">
+      <soap:address location="http://testcoa.newhopegroup.com:8080/sys/webservice/lbpmextWebserviceService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

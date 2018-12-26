@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.ArchiveIdentifiesMapper">
+    <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.ArchiveIdentifies">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="edoc_header_id" property="edocHeaderId" jdbcType="BIGINT"/>
+        <result column="identifies_flag" property="identifiesFlag" jdbcType="TINYINT"/>
+        <result column="identifies_archive_year" property="identifiesArchiveYear" jdbcType="VARCHAR"/>
+        <result column="identifier" property="identifier" jdbcType="VARCHAR"/>
+        <result column="identifies_time" property="identifiesTime" jdbcType="VARCHAR"/>
+        <result column="office_id" property="companyName" jdbcType="VARCHAR"/>
+        <result column="office_name" property="edocTaskStatus" jdbcType="VARCHAR"/>
+        <result column="remarks" property="edocPhysicalStatus" jdbcType="VARCHAR"/>
+        <result column="files_no" property="edocIsMatched" jdbcType="CHAR"/>
+        <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
+        <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
+        <result column="ext_field3" property="extField3" jdbcType="VARCHAR"/>
+        <result column="ext_field4" property="extField4" jdbcType="VARCHAR"/>
+        <result column="ext_field5" property="extField5" jdbcType="VARCHAR"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+
+
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+
+    </resultMap>
+
+
+    <resultMap id="ArchiveIdentifiesBaseResultMap" type="com.zynsun.platform.edoc.model.ArchiveIdentifiesModel">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="edoc_header_id" property="edocHeaderId" jdbcType="BIGINT"/>
+        <result column="identifies_flag" property="identifiesFlag" jdbcType="TINYINT"/>
+        <result column="identifies_archive_year" property="identifiesArchiveYear" jdbcType="VARCHAR"/>
+        <result column="identifier" property="identifier" jdbcType="VARCHAR"/>
+        <result column="identifies_time" property="identifiesTime" jdbcType="VARCHAR"/>
+        <result column="office_id" property="officeId" jdbcType="VARCHAR"/>
+        <result column="office_name" property="officeName" jdbcType="VARCHAR"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <result column="files_no" property="filesNo" jdbcType="CHAR"/>
+        <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
+        <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
+        <result column="ext_field3" property="extField3" jdbcType="VARCHAR"/>
+        <result column="ext_field4" property="extField4" jdbcType="VARCHAR"/>
+        <result column="ext_field5" property="extField5" jdbcType="VARCHAR"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+
+
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="submitTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+        <result column="file_date" property="fileDate" jdbcType="TIMESTAMP"/>
+
+        <result column="idenId" property="idenId" jdbcType="VARCHAR"/>
+        <result column="credentials_type" property="credentialsType" jdbcType="VARCHAR"/>
+        <result column="credentials_no" property="credentialsNo" jdbcType="VARCHAR"/>
+        <result column="edoc_no" property="edocNo" jdbcType="VARCHAR"/>
+        <result column="box_no" property="boxNo" jdbcType="VARCHAR"/>
+        <result column="records_no" property="recordsNo" jdbcType="VARCHAR"/>
+        <result column="safe_box_code" property="safeBoxCode" jdbcType="VARCHAR"/>
+        <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
+        <result column="archive_year" property="archiveYear" jdbcType="VARCHAR"/>
+        <result column="edoc_type" property="edocType" jdbcType="VARCHAR"/>
+        <result column="loc_no" property="locNo" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+
+
+    <select id="archivedIdentifiesList" parameterType="com.zynsun.platform.edoc.model.ArchiveIdentifiesModel"
+            resultMap="ArchiveIdentifiesBaseResultMap">
+        SELECT
+        h.id,
+        h.edoc_no,
+        h.company_name,
+        box.box_no,
+        aa.files_no,
+        section.records_no,
+        aa.safe_box_code,
+        h.create_time,
+        h.create_by,
+        h.edoc_type,
+        aa.id as archivesId,
+        aa.archive_year,
+        aa.loc_no,
+        aa.status,
+        ec.credentials_num AS credentials_no,
+        ec.credentials_type,
+        iden.id AS idenId,
+        iden.identifies_flag,
+        iden.identifies_archive_year,
+        iden.identifier,
+        date_format(iden.identifies_time, '%Y-%m-%d')  as identifies_time,
+        iden.office_name,
+        iden.remarks,
+        date_format(aa.file_date, '%Y-%m-%d') as file_date
+
+        FROM
+        edoc_header h
+        LEFT JOIN accounting_section_item item on item.edoc_id = h.id
+        LEFT JOIN accounting_section section on section.id = item.accounting_section
+        LEFT JOIN accounting_box_item boxItem on boxItem.accounting_section = section.id
+        Left JOIN accounting_box box on box.id = boxItem.accounting_box
+        LEFT JOIN accounting_archives aa on aa.records_box_no = box.box_no
+        LEFT JOIN edoc_credentials ec on h.id = ec.edoc_header_id
+        LEFT JOIN accounting_archives_identifies iden on h.id = iden.edoc_header_id AND iden.deleted = 0
+        WHERE
+        h.edoc_task_status = 28
+        AND h.deleted = 0
+        AND item.deleted = 0
+        AND section.deleted = 0
+        AND boxItem.deleted = 0
+        AND box.deleted = 0
+        AND aa.deleted = 0
+        AND box.box_flag = 1
+        AND ec.deleted = 0
+
+        <if test="archiveIdentifiesModel.credentialsType!=null and archiveIdentifiesModel.credentialsType!=''">
+            and ec.credentials_type = #{archiveIdentifiesModel.credentialsType}
+        </if>
+        <if test="archiveIdentifiesModel.credentialsNum!=null and archiveIdentifiesModel.credentialsNum!=''">
+            and ec.credentials_num = #{archiveIdentifiesModel.credentialsNum}
+        </if>
+        <if test="archiveIdentifiesModel.companyName!=null and archiveIdentifiesModel.companyName!=''">
+            and h.company_name like concat(concat('%',#{archiveIdentifiesModel.companyName}),'%')
+        </if>
+        <if test="archiveIdentifiesModel.edocNo!=null and archiveIdentifiesModel.edocNo!=''">
+            and h.edoc_no like concat(concat('%',#{archiveIdentifiesModel.edocNo}),'%')
+        </if>
+
+        <if test="archiveIdentifiesModel.edocType!=null and archiveIdentifiesModel.edocType!=''">
+            and a.edoc_type = #{archiveIdentifiesModel.edocType}
+        </if>
+
+        <if test="archiveIdentifiesModel.archiveGroupFlag == 'no'">
+            AND (
+            ${tools.setCondition('h.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+            OR ${tools.setDP('h.company_code', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+        </if>
+
+        ORDER BY h.company_name/*,d.voucher_apno*/ ASC
+    </select>
+
+
+    <select id="queryByEdocHearderId" parameterType="java.lang.Long" resultMap="ArchiveIdentifiesBaseResultMap">
+
+         SELECT * FROM  accounting_archives_identifies where edoc_header_id = #{edocHeaderId} AND  deleted = 0
+    </select>
+
+
+
+</mapper>

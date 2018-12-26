@@ -1,0 +1,3 @@
+rootProject.name = 'platform-product'
+// 子项目引入依赖的写法
+include('platform-product-edoc-common','platform-product-edoc-biz','platform-product-edoc-api-impl','platform-product-edoc-api')

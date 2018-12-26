@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+                            http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+                            http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <!-- dubbo基本配置 -->
+    <dubbo:application name="ashare-platform-edoc-impl-provider" version="${dubbo.service.version}" logger="slf4j" />
+
+    <dubbo:registry protocol="${registry.protocol}" address="${registry.url}" check="false"></dubbo:registry>
+
+    <dubbo:protocol name="dubbo" host="${dubbo.host}" port="${dubbo.port}" threads="${dubbo.threads}"/>
+
+    <dubbo:protocol name="rest" port="8005" contextpath="edoc"/>
+
+    <!--<dubbo:protocol name="rest" server="tomcat" port="8005" />-->
+
+    <dubbo:provider filter="platformContextFilter" proxy="tccJavassist"/>
+
+    <!-- 定义dubbo协议、rest协议 -->
+<!--    <dubbo:protocol name="rest" port="${dubbo.rest.port}" />-->
+
+    <!--<dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.EdocAttachFacade" ref="edocAttachFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.bizManage.BillTypeFacade" ref="billTypeFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.bizManage.BizTypeFacade" ref="bizTypeFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.bizManage.BillTypeAttrFacade" ref="billTypeAttrFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.BillAccountFacade" ref="billAccountFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.InvoiceFacade" ref="invoiceFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.ReviewFacade" ref="reviewFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    &lt;!&ndash; 水印 &ndash;&gt;
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.watermarkManage.SysWatermarkFacade" ref="sysWatermarkFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.EdocHeaderFacade" ref="edocHeaderFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.EdocImageFacade" ref="edocImageFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    &lt;!&ndash;客户端上传影像相关服务 Start&ndash;&gt;
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.edocClient.EdocClientBeforeUploadFacade" ref="edocClientBeforeUploadFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.edocClient.EdocClientUploadFacade" ref="edocClientUploadFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.InvoiceFacade" ref="invoiceFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+
+    &lt;!&ndash;动态表单 Start&ndash;&gt;
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.dynamicFormManage.FormFieldFacade" ref="formFieldFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.dynamicFormManage.FormAreaFacade" ref="formAreaFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    &lt;!&ndash;动态表单 End&ndash;&gt;
+
+    &lt;!&ndash;实物签收管理 Start&ndash;&gt;
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.BillWorkTodoFacade" ref="billWorkTodoFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    &lt;!&ndash;实物签收管理 End&ndash;&gt;
+
+    &lt;!&ndash;重扫补扫备注 Start&ndash;&gt;
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.EdocScanRemarksFacade" ref="edocScanRemarksFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    &lt;!&ndash;重扫补扫备注 End&ndash;&gt;
+
+
+    &lt;!&ndash;档案管理 Start&ndash;&gt;
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.AccountingSectionFacade" ref="accountingSectionFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.ArchiveHeaderFacade" ref="archiveHeaderFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.ArchiveCompanyFacade" ref="archiveCompanyFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.AccountingBoxFacade" ref="accountingBoxFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.EdocCredentialsFacade" ref="edocCredentialsFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.ArchiveMoveFacade" ref="archiveMoveFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.AccountingFileStoreFacade" ref="accountingFileStoreFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.AccountingLocFacade" ref="accountingLocFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.AccountingArchivesBorrowFacade" ref="accountingArchivesBorrowFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.ArchiveIdentifiesFacade" ref="archiveIdentifiesFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    &lt;!&ndash;档案管理 End&ndash;&gt;
+
+    &lt;!&ndash;操作统计 Start&ndash;&gt;
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.OperationRecordFacade" ref="operationRecordFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    &lt;!&ndash;操作统计 End&ndash;&gt;
+
+    &lt;!&ndash;影像批注 Start&ndash;&gt;
+    <dubbo:service interface="com.zynsun.platform.edoc.facade.scanTaskManage.EdocImageMarkFacade" ref="edocImageMarkFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    &lt;!&ndash;影像批注 End&ndash;&gt;-->
+
+    <!--rest start-->
+    <!--<dubbo:service protocol="rest" interface="com.zynsun.platform.edoc.facade.restApi.CommonRestApi" ref="CommonRestApi"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service protocol="rest" interface="com.zynsun.platform.edoc.facade.restApi.EdocRestApi" ref="EdocHeaderRestApi"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>-->
+
+
+    <dubbo:service protocol="rest" interface="com.zynsun.platform.edoc.facade.scanTaskManage.EdocHeaderFacade" ref="edocHeaderFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <dubbo:service protocol="rest" interface="com.zynsun.platform.edoc.facade.scanTaskManage.EdocImageFacade" ref="edocImageFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service protocol="rest" interface="com.zynsun.platform.edoc.facade.scanTaskManage.InvoiceFacade" ref="invoiceFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service protocol="rest" interface="com.zynsun.platform.edoc.facade.scanTaskManage.EdocCredentialsFacade" ref="edocCredentialsFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service protocol="rest" interface="com.zynsun.platform.edoc.facade.edocClient.EdocClientRestFacade" ref="edocClientRestFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service protocol="rest" interface="com.zynsun.platform.edoc.facade.scanTaskManage.ReviewInfoFacade" ref="reviewInfoFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service protocol="rest" interface="com.zynsun.platform.edoc.dubboRestApi.web.CommonWebApi" ref="commonWebApi"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+
+    <dubbo:service protocol="rest" interface="com.zynsun.platform.edoc.facade.httpForeignInterManage.HttpForeignInterFacade" ref="httpForeignInterFacade"
+                   timeout="${dubbo.default.timeout}" version="${dubbo.service.version}"/>
+    <!--rest end-->
+
+
+
+</beans>

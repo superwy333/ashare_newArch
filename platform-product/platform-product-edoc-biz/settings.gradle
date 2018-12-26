@@ -1,0 +1,2 @@
+rootProject.name = 'platform-product-edoc-biz'
+includeFlat('platform-product-edoc-common','platform-product-edoc-api')

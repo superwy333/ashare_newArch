@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.ArchiveCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.ArchiveCompany" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="archive_id" property="archiveId" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentId" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+  </resultMap>
+
+  <resultMap id="modelResultMap" extends="BaseResultMap" type="com.zynsun.platform.edoc.model.CompanyModel">
+    <result column="archive_code" property="archiveCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, archive_id, company_id, company_code, company_name, parentId, remarks, deleted, 
+    create_by, create_time, last_modify_by, last_modify_time, version
+  </sql>
+
+  <update id="deleteByArchiveId" parameterType="java.lang.String"  >
+    UPDATE archive_company  set deleted=1 where archive_id=#{archiveId} AND deleted = 0;
+  </update>
+  
+  <select id="selectCompanyByName" parameterType="String" resultMap="modelResultMap">
+    select a.*,h.header_code as archive_code from archive_company a left join archive_header h on a.archive_id = h.id where a.deleted = 0 and h.deleted = 0 and a.company_name = #{companyName}
+  </select>
+
+</mapper>

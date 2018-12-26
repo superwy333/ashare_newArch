@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.AccountingArchivesBorrowMapper" >
+
+  <!--<resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.model.AccountingArchivesBorrowModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="edoc_head_id" property="edocHeadId" jdbcType="BIGINT" />
+    <result column="edoc_no" property="edocNo" jdbcType="VARCHAR" />
+    <result column="accounting_archives_id" property="accountingArchivesId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime"/>
+    <result column="save_back_time" property="saveBackTime"/>
+    <result column="is_save_back" property="isSaveBack" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, edoc_head_id, edoc_no, accounting_archives_id, status, version, deleted, create_by, create_time,is_save_back,save_back_time
+  </sql>
+
+
+  <select id="queryList" parameterType="com.zynsun.platform.edoc.model.AccountingArchivesBorrowModel" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    from accounting_archives_borrow
+    where deleted = 0
+    <if test="accountingArchivesModel.createBy!=null and accountingArchivesModel.createBy!=''">
+      and create_by = #{createBy}
+    </if>
+
+    ORDER BY create_time DESC
+  </select>
+
+  <select id="queryArchModelList" parameterType="com.zynsun.platform.edoc.model.AccountingArchivesBorrowModel" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    from accounting_archives_borrow
+    where deleted = 0
+    <if test="createBy!=null and createBy!=''">
+      and create_by = #{createBy}
+    </if>
+    <if test="edocHeadId != null and edocHeadId !=''">
+      and edoc_head_id = #{edocHeadId}
+    </if>
+    ORDER BY create_time DESC
+  </select>
+
+  <update id="updateCreateTime">
+    update accounting_archives_borrow set create_time = #{createtime} where section_id = #{sectionId}
+  </update>
+
+  <update id="updateSaveBackTime">
+    update accounting_archives_borrow set save_back_time = #{createtime} where section_id = #{sectionId}
+  </update>-->
+</mapper>

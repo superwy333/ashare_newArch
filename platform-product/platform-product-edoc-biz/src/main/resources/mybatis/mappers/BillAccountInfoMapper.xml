@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.BillAccountInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.BillAccountInfo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="edoc_no" property="edocNo" jdbcType="VARCHAR" />
+    <result column="edoc_type" property="edocType" jdbcType="VARCHAR" />
+    <result column="submitter" property="submitter" jdbcType="VARCHAR" />
+    <result column="submitter_code" property="submitterCode" jdbcType="VARCHAR" />
+    <result column="submitter_time" property="submitterTime" jdbcType="DATE" />
+    <result column="bill_amount_total" property="billAmountTotal" jdbcType="DECIMAL" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="ModelResultMap" type="com.zynsun.platform.edoc.model.BillAccountModel" extends="BaseResultMap">
+    <result column="PROC_INST_ID_" property="processInstanceId" jdbcType="VARCHAR"/>
+    <result column="BUSINESS_KEY_" property="businessKey" jdbcType="VARCHAR"/>
+    <result column="PROC_DEF_ID_" property="processDefinitionId" jdbcType="VARCHAR"/>
+    <result column="START_TIME_" property="startTime" jdbcType="TIMESTAMP"/>
+    <result column="END_TIME_" property="endTime" jdbcType="TIMESTAMP"/>
+    <result column="START_USER_ID_" property="startUserId" jdbcType="VARCHAR"/>
+    <result column="edoc_header_id" property="edocHeaderId" jdbcType="BIGINT"/>
+    <result column="edoc_physical_status" property="edocPhysicalStatus" jdbcType="VARCHAR"/>
+    <result column="h_version" property="hVersion" jdbcType="BIGINT"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, edoc_no, edoc_type, submitter, submitter_code, submitter_time, bill_amount_total, 
+    remarks, create_by, create_time, last_modify_by, last_modify_time, deleted, version, 
+    ext_field1, ext_field2, ext_field3, ext_field4, ext_field5
+  </sql>
+
+  <sql id="Model_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    acc.id, acc.edoc_no, acc.edoc_type, acc.submitter, acc.submitter_code, acc.submitter_time, acc.bill_amount_total,
+    acc.remarks, acc.create_by, acc.create_time, acc.last_modify_by, acc.last_modify_time, acc.deleted, acc.version,
+    acc.ext_field1, acc.ext_field2, acc.ext_field3, acc.ext_field4, acc.ext_field5,h.id as edoc_header_id,h.edoc_physical_status,h.version as h_version,pi.PROC_INST_ID_,pi.BUSINESS_KEY_,
+    pi.PROC_DEF_ID_,pi.START_TIME_,pi.END_TIME_,pi.START_USER_ID_
+  </sql>
+
+  <select id="selectBillAccountPageList" parameterType="com.zynsun.platform.edoc.model.BillAccountModel" resultMap="ModelResultMap">
+    SELECT
+      <include refid="Model_Column_List"/>
+    FROM edoc_header h
+    LEFT JOIN bill_account_info acc ON h.edoc_no=acc.edoc_no
+    LEFT JOIN act_hi_procinst pi ON h.id=pi.BUSINESS_KEY_
+    <where>
+      h.deleted=0 AND acc.deleted=0
+      <if test="edocNo!=null and edocNo!=''">
+        AND h.edoc_no = #{edocNo}
+      </if>
+      <if test="edocType !=null and edocType != ''">
+        and acc.edoc_type = #{edocType}
+      </if>
+      <choose>
+        <when test="finish !=null and finish=='1'.toString()">
+          AND pi.END_TIME_ IS NOT NULL
+        </when>
+        <otherwise>
+          <choose>
+            <when test="finish !=null and finish=='0'.toString()">
+              AND pi.END_TIME_ IS NULL
+            </when>
+          </choose>
+        </otherwise>
+      </choose>
+      ORDER BY pi.START_TIME_ DESC
+    </where>
+  </select>
+</mapper>

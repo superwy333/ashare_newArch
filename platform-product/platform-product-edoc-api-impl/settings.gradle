@@ -1,0 +1,3 @@
+rootProject.name = 'platform-product-edoc-api-impl'
+// 平级项目引入依赖的写法
+includeFlat('platform-product-edoc-biz','platform-product-edoc-common','platform-product-edoc-api')

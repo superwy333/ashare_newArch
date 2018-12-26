@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.BillManualInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.BillManualInfo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="edoc_no" property="edocNo" jdbcType="VARCHAR" />
+    <result column="vou_bookcode" property="vouBookcode" jdbcType="VARCHAR" />
+    <result column="vou_no" property="vouNo" jdbcType="VARCHAR" />
+    <result column="voucher_puno" property="voucherPuno" jdbcType="VARCHAR" />
+    <result column="voucher_orig_no" property="voucherOrigNo" jdbcType="VARCHAR" />
+    <result column="voucher_con_no" property="voucherConNo" jdbcType="VARCHAR" />
+    <result column="vou_date" property="vouDate" jdbcType="DATE" />
+    <result column="vou_batchname" property="vouBatchname" jdbcType="VARCHAR" />
+    <result column="vou_journalname" property="vouJournalname" jdbcType="VARCHAR" />
+    <result column="vou_maker_name" property="vouMakerName" jdbcType="VARCHAR" />
+    <result column="vou_maker_code" property="vouMakerCode" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, edoc_no, vou_bookcode, vou_no, voucher_puno, voucher_orig_no, voucher_con_no, 
+    vou_date, vou_batchname, vou_journalname, vou_maker_name, vou_maker_code, remarks, 
+    create_by, create_time, last_modify_by, last_modify_time, deleted, version, ext_field1, 
+    ext_field2, ext_field3, ext_field4, ext_field5
+  </sql>
+</mapper>

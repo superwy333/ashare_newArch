@@ -1,0 +1,1071 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.InvoiceMapper" >
+  <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.Invoice" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="edoc_image_id" property="edocImageId" jdbcType="BIGINT" />
+    <result column="inv_type" property="invType" jdbcType="CHAR" />
+    <result column="inv_child_type" property="invChildType" jdbcType="CHAR" />
+    <result column="inv_machine_no" property="invMachineNo" jdbcType="VARCHAR" />
+    <result column="inv_code" property="invCode" jdbcType="VARCHAR" />
+    <result column="inv_no" property="invNo" jdbcType="VARCHAR" />
+    <result column="inv_date" property="invDate" jdbcType="VARCHAR" />
+    <result column="inv_amount" property="invAmount" jdbcType="VARCHAR" />
+    <result column="inv_tax" property="invTax" jdbcType="VARCHAR" />
+    <result column="inv_total" property="invTotal" jdbcType="VARCHAR" />
+    <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
+    <result column="buyer_tax_code" property="buyerTaxCode" jdbcType="VARCHAR" />
+    <result column="saler_tax_code" property="salerTaxCode" jdbcType="VARCHAR" />
+    <result column="saler_name" property="salerName" jdbcType="VARCHAR" />
+    <result column="check_code" property="checkCode" jdbcType="VARCHAR" />
+    <result column="check_status" property="checkStatus" jdbcType="VARCHAR" />
+    <result column="check_details" property="checkDetails" jdbcType="VARCHAR" />
+    <result column="check_real" property="checkReal" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="VARCHAR" />
+    <result column="physical_status" property="physicalStatus" jdbcType="VARCHAR" />
+    <result column="check_certification" property="checkCertification" jdbcType="VARCHAR" />
+    <result column="ciphertext_area" property="ciphertextArea" jdbcType="VARCHAR" />
+    <result column="ciphertext_type" property="ciphertextType" jdbcType="VARCHAR" />
+    <result column="edoc_header_id" property="edocHeaderId" jdbcType="VARCHAR" />
+    <result column="bit_operation_results" property="bitOperationResults" jdbcType="VARCHAR" />
+    <result column="check_certifite_time" property="checkCertifiteTime" jdbcType="DATE" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="is_stamp" property="isStamp" jdbcType="CHAR" />
+    <result column="inv_source" property="invSource" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+    <result column="act_certification_value" property="actCertificationValue" jdbcType="VARCHAR" />
+
+    <result column="dept" property="dept" jdbcType="VARCHAR" />
+    <result column="cost_type" property="costType" jdbcType="VARCHAR" />
+    <result column="check_real_operator" property="checkRealOperator" jdbcType="VARCHAR" />
+
+    <result column="buyer_bank_account" property="buyerBankAccount" jdbcType="VARCHAR" />
+    <result column="buyer_address" property="buyerAddress" jdbcType="VARCHAR" />
+    <result column="saler_bank_account" property="salerBankAccount" jdbcType="VARCHAR" />
+    <result column="saler_address" property="salerAddress" jdbcType="VARCHAR" />
+
+   <!-- <result column="warn_Day" property="warnDay" jdbcType="VARCHAR" />
+    <result column="if_Warn_Day" property="ifWarnDay" jdbcType="VARCHAR" />-->
+
+  </resultMap>
+
+  <resultMap id="BaseResultModelMap"  type="com.zynsun.platform.edoc.model.InvoiceModel">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="edoc_image_id" property="edocImageId" jdbcType="BIGINT" />
+    <result column="inv_type" property="invType" jdbcType="CHAR" />
+    <result column="inv_child_type" property="invChildType" jdbcType="CHAR" />
+    <result column="inv_machine_no" property="invMachineNo" jdbcType="VARCHAR" />
+    <result column="inv_code" property="invCode" jdbcType="VARCHAR" />
+    <result column="inv_no" property="invNo" jdbcType="VARCHAR" />
+    <result column="inv_date" property="invDate" jdbcType="VARCHAR" />
+    <result column="inv_amount" property="invAmount" jdbcType="VARCHAR" />
+    <result column="inv_tax" property="invTax" jdbcType="VARCHAR" />
+    <result column="inv_total" property="invTotal" jdbcType="VARCHAR" />
+    <result column="inv_source" property="invSource" jdbcType="VARCHAR" />
+    <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
+    <result column="buyer_tax_code" property="buyerTaxCode" jdbcType="VARCHAR" />
+    <result column="saler_tax_code" property="salerTaxCode" jdbcType="VARCHAR" />
+    <result column="saler_name" property="salerName" jdbcType="VARCHAR" />
+    <result column="check_code" property="checkCode" jdbcType="VARCHAR" />
+    <result column="check_status" property="checkStatus" jdbcType="VARCHAR" />
+    <result column="check_details" property="checkDetails" jdbcType="VARCHAR" />
+    <result column="check_real" property="checkReal" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="VARCHAR" />
+    <result column="physical_status" property="physicalStatus" jdbcType="VARCHAR" />
+    <result column="check_certification" property="checkCertification" jdbcType="VARCHAR" />
+    <result column="ciphertext_area" property="ciphertextArea" jdbcType="VARCHAR" />
+    <result column="ciphertext_type" property="ciphertextType" jdbcType="VARCHAR" />
+    <result column="edoc_header_id" property="edocHeaderId" jdbcType="VARCHAR" />
+    <result column="bit_operation_results" property="bitOperationResults" jdbcType="VARCHAR" />
+    <result column="check_certifite_time" property="checkCertifiteTime" jdbcType="DATE" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="is_stamp" property="isStamp" jdbcType="CHAR" />
+    <result column="inv_source" property="invSource" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+    <result column="act_certification_value" property="actCertificationValue" jdbcType="VARCHAR" />
+
+    <result column="dept" property="dept" jdbcType="VARCHAR" />
+    <result column="cost_type" property="costType" jdbcType="VARCHAR" />
+    <result column="check_real_operator" property="checkRealOperator" jdbcType="VARCHAR" />
+    <result column="edoc_no" property="edocNo" jdbcType="VARCHAR" />
+    <result column="edoc_type" property="edocType" jdbcType="VARCHAR" />
+    <result column="red_or_blue" property="redOrBule" jdbcType="VARCHAR" />
+    <result column="buyer_bank_account" property="buyerBankAccount" jdbcType="VARCHAR" />
+    <result column="buyer_address" property="buyerAddress" jdbcType="VARCHAR" />
+    <result column="saler_bank_account" property="salerBankAccount" jdbcType="VARCHAR" />
+    <result column="saler_address" property="salerAddress" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <resultMap id="InvoiceModelDataGrid" type="com.zynsun.platform.edoc.model.InvoiceModel">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="edoc_image_id" property="edocImageId" jdbcType="BIGINT" />
+    <result column="inv_type" property="invType" jdbcType="CHAR" />
+    <result column="inv_child_type" property="invChildType" jdbcType="CHAR" />
+    <result column="inv_machine_no" property="invMachineNo" jdbcType="VARCHAR" />
+    <result column="inv_code" property="invCode" jdbcType="VARCHAR" />
+    <result column="inv_no" property="invNo" jdbcType="VARCHAR" />
+    <result column="inv_date" property="invDate" jdbcType="VARCHAR" />
+    <result column="inv_amount" property="invAmount" jdbcType="VARCHAR" />
+    <result column="inv_tax" property="invTax" jdbcType="VARCHAR" />
+    <result column="inv_total" property="invTotal" jdbcType="VARCHAR" />
+    <result column="inv_source" property="invSource" jdbcType="VARCHAR" />
+    <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
+    <result column="buyer_tax_code" property="buyerTaxCode" jdbcType="VARCHAR" />
+    <result column="saler_tax_code" property="salerTaxCode" jdbcType="VARCHAR" />
+    <result column="saler_name" property="salerName" jdbcType="VARCHAR" />
+    <result column="check_code" property="checkCode" jdbcType="VARCHAR" />
+    <result column="check_status" property="checkStatus" jdbcType="VARCHAR" />
+    <result column="check_details" property="checkDetails" jdbcType="VARCHAR" />
+    <result column="check_real" property="checkReal" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="VARCHAR" />
+    <result column="physical_status" property="physicalStatus" jdbcType="VARCHAR" />
+    <result column="check_certification" property="checkCertification" jdbcType="VARCHAR" />
+    <result column="ciphertext_area" property="ciphertextArea" jdbcType="VARCHAR" />
+    <result column="ciphertext_type" property="ciphertextType" jdbcType="VARCHAR" />
+    <result column="edoc_header_id" property="edocHeaderId" jdbcType="VARCHAR" />
+    <result column="bit_operation_results" property="bitOperationResults" jdbcType="VARCHAR" />
+    <result column="check_certifite_time" property="checkCertifiteTime" jdbcType="DATE" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="is_stamp" property="isStamp" jdbcType="CHAR" />
+    <result column="inv_source" property="invSource" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+    <result column="act_certification_value" property="actCertificationValue" jdbcType="VARCHAR" />
+
+    <result column="dept" property="dept" jdbcType="VARCHAR" />
+    <result column="cost_type" property="costType" jdbcType="VARCHAR" />
+    <result column="check_real_operator" property="checkRealOperator" jdbcType="VARCHAR" />
+    <result column="edoc_no" property="edocNo" jdbcType="VARCHAR" />
+    <result column="edoc_type" property="edocType" jdbcType="VARCHAR" />
+    <result column="red_or_blue" property="redOrBule" jdbcType="VARCHAR" />
+    <result column="buyer_bank_account" property="buyerBankAccount" jdbcType="VARCHAR" />
+    <result column="buyer_address" property="buyerAddress" jdbcType="VARCHAR" />
+    <result column="saler_bank_account" property="salerBankAccount" jdbcType="VARCHAR" />
+    <result column="saler_address" property="salerAddress" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+
+
+
+  <resultMap id="inputInvoiceTaxPageResult" type="com.zynsun.platform.edoc.model.InvoiceModel" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="edoc_no" property="edocNo" jdbcType="VARCHAR" />
+    <result column="edoc_type" property="edocType" jdbcType="VARCHAR" />
+    <result column="edoc_image_id" property="edocImageId" jdbcType="BIGINT" />
+    <result column="inv_type" property="invType" jdbcType="CHAR" />
+    <result column="inv_machine_no" property="invMachineNo" jdbcType="VARCHAR" />
+    <result column="inv_code" property="invCode" jdbcType="VARCHAR" />
+    <result column="inv_no" property="invNo" jdbcType="VARCHAR" />
+    <result column="inv_date" property="invDate" jdbcType="VARCHAR" />
+    <result column="inv_amount" property="invAmount" jdbcType="VARCHAR" />
+    <result column="inv_tax" property="invTax" jdbcType="VARCHAR" />
+    <result column="inv_total" property="invTotal" jdbcType="VARCHAR" />
+    <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
+    <result column="buyer_tax_code" property="buyerTaxCode" jdbcType="VARCHAR" />
+    <result column="saler_tax_code" property="salerTaxCode" jdbcType="VARCHAR" />
+    <result column="saler_name" property="salerName" jdbcType="VARCHAR" />
+    <result column="check_code" property="checkCode" jdbcType="VARCHAR" />
+    <result column="check_status" property="checkStatus" jdbcType="VARCHAR" />
+    <result column="check_details" property="checkDetails" jdbcType="VARCHAR" />
+    <result column="check_real" property="checkReal" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="VARCHAR" />
+    <result column="physical_status" property="physicalStatus" jdbcType="VARCHAR" />
+    <result column="check_certification" property="checkCertification" jdbcType="VARCHAR" />
+    <result column="ciphertext_area" property="ciphertextArea" jdbcType="VARCHAR" />
+    <result column="ciphertext_type" property="ciphertextType" jdbcType="VARCHAR" />
+    <result column="edoc_header_id" property="edocHeaderId" jdbcType="VARCHAR" />
+    <result column="bit_operation_results" property="bitOperationResults" jdbcType="VARCHAR" />
+    <result column="check_certifite_time" property="checkCertifiteTime" jdbcType="DATE" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="is_stamp" property="isStamp" jdbcType="CHAR" />
+    <result column="inv_source" property="invSource" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_byEdoc" property="createByEdoc" jdbcType="VARCHAR"/>
+    <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+    <result column="act_certification_value" property="actCertificationValue" jdbcType="VARCHAR" />
+    <result column="certification_warn" property="certificationWarn" jdbcType="VARCHAR" />
+    <result column="dept" property="dept" jdbcType="VARCHAR" />
+    <result column="cost_type" property="costType" jdbcType="VARCHAR" />
+    <result column="check_real_operator" property="checkRealOperator" jdbcType="VARCHAR" />
+    <result column="inv_child_type" property="invChildType" jdbcType="VARCHAR" />
+    <result column="credentials_num" property="credentialsNum" jdbcType="VARCHAR" />
+    <result column="creDate" property="creDate" jdbcType="TIMESTAMP" />
+    <result column="item_name" property="itemNames" jdbcType="VARCHAR" />
+    <result column="item_amount" property="itemAmount" jdbcType="VARCHAR" />
+    <result column="item_tax" property="itemTax" jdbcType="VARCHAR" />
+    <result column="item_total" property="itemTotal" jdbcType="VARCHAR" />
+    <result column="item_tax_rate" property="itemTaxRates" jdbcType="VARCHAR" />
+    <result column="extFieldItem5" property="extFieldItem5" jdbcType="VARCHAR" />
+    <result column="extFieldItem3" property="extFieldItem3" jdbcType="VARCHAR" />
+    <result column="invOut" property="invOut" jdbcType="VARCHAR" />
+    <!--<result column="createDate" property="createDate" jdbcType="VARCHAR" />-->
+    <result column="buyer_bank_account" property="buyerBankAccount" jdbcType="VARCHAR" />
+    <result column="buyer_address" property="buyerAddress" jdbcType="VARCHAR" />
+    <result column="saler_bank_account" property="salerBankAccount" jdbcType="VARCHAR" />
+    <result column="saler_address" property="salerAddress" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+
+
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id,  edoc_image_id,  edoc_header_id,  inv_type,  inv_machine_no,  inv_code,  inv_no,  inv_date,  inv_amount,
+    inv_tax,  inv_total,  buyer_name,  buyer_tax_code,  saler_tax_code,  saler_name,  check_code, 
+    check_status,  check_details,  check_real,  check_time,  check_certification,  check_certifite_time,  ciphertext_area, ciphertext_type, bit_operation_results, 
+    period,  is_stamp,  remarks,  create_by,  create_time,  last_modify_by,  last_modify_time, 
+    deleted,  version,  ext_field1,  ext_field2,  ext_field3,  ext_field4,  ext_field5, physical_status, inv_source, act_certification_value, dept, cost_type,check_real_operator,inv_child_type,buyer_bank_account,buyer_address,saler_bank_account,saler_address
+  </sql>
+
+  <sql id="Inv_Base_Column_List" >
+    inv.id, inv.edoc_image_id, inv.edoc_header_id, inv.inv_type,inv.inv_child_type, inv.inv_machine_no, inv.inv_code, inv.inv_no, inv.inv_date, inv.inv_amount,inv.check_real_operator,
+    inv_tax, inv.inv_total, inv.buyer_name, inv.buyer_tax_code, inv.saler_tax_code, inv.saler_name, inv.check_code, inv.
+    check_status, inv.check_details, inv.check_real, inv.check_time, inv.check_certification, inv.check_certifite_time, inv.ciphertext_area, inv.ciphertext_type, inv.bit_operation_results, 
+    period, inv.is_stamp, inv.remarks, inv.create_by, inv.create_time, inv.last_modify_by, inv.last_modify_time, inv.
+    deleted, inv.version, inv.ext_field1, inv.ext_field2, inv.ext_field3, inv.ext_field4, inv.ext_field5, inv.act_certification_value, inv.dept, inv.cost_type,inv.inv_source,inv.red_or_blue,inv.buyer_bank_account,inv.buyer_address,inv.saler_bank_account,inv.saler_address
+  </sql>
+
+  <sql id="Input_Inv_Tax_Column_List" >
+    eh.edoc_no,eh.edoc_type,inv.id, inv.edoc_image_id, inv.edoc_header_id, inv.inv_type, inv.inv_machine_no, inv.inv_code, inv.inv_no, inv.inv_date, inv.inv_amount,
+    inv_tax, inv.inv_total, inv.buyer_name, inv.buyer_tax_code, inv.saler_tax_code, inv.saler_name, inv.check_code, inv.
+    check_status, inv.check_details, inv.check_real, inv.check_time, inv.check_certification, inv.check_certifite_time, inv.ciphertext_area, inv.ciphertext_type, inv.bit_operation_results,
+    period, inv.is_stamp, inv.remarks, inv.create_by, inv.create_time, inv.last_modify_by, inv.last_modify_time, inv.
+    deleted, inv.version, inv.ext_field1, inv.ext_field2, inv.ext_field3, inv.ext_field4, inv.ext_field5,inv.certification_warn,inv.check_real_operator, inv.dept, inv.cost_type,inv.buyer_bank_account,inv.buyer_address,inv.saler_bank_account,inv.saler_address
+  </sql>
+
+
+
+  <delete id="deleteInvoiceByEdocHeaderId">
+    update invoice set deleted = 1 where edoc_header_id = #{edocHeaderId}
+  </delete>
+
+
+  <select id="queryInvoicesDataGrid" parameterType="com.zynsun.platform.edoc.model.InvoiceModel" resultMap="InvoiceModelDataGrid">
+    select <include refid="Inv_Base_Column_List"/>,h.edoc_no,h.edoc_type from invoice inv
+    LEFT JOIN edoc_image ei on ei.id = inv.edoc_image_id
+    LEFT JOIN edoc_header h on h.id = ei.edoc_header_id
+    <where>
+      inv.deleted=0 and ei.deleted=0 and h.deleted=0
+      <if test="invoiceModel.isDataGrid !=null and invoiceModel.isDataGrid !=''">
+        and (inv.check_status ='11' OR inv.check_status ='12')
+      </if>
+      <if test="invoiceModel.checkStatus !=null and invoiceModel.checkStatus !=''">
+        and inv.check_status = #{invoiceModel.checkStatus}
+      </if>
+      <if test="invoiceModel.checkDetails !=null and invoiceModel.checkDetails !=''">
+        and inv.check_details = #{invoiceModel.checkDetails}
+      </if>
+      <if test="invoiceModel.checkReal !=null and invoiceModel.checkReal !=''">
+        and inv.check_real = #{invoiceModel.checkReal}
+      </if>
+      <if test="invoiceModel.invCode !=null and invoiceModel.invCode !=''">
+        and inv.inv_code like concat(concat('%',#{invoiceModel.invCode},'%'))
+      </if>
+      <if test="invoiceModel.invNo !=null and invoiceModel.invNo !=''">
+        and inv.inv_no like concat(concat('%',#{invoiceModel.invNo},'%'))
+      </if>
+
+      <if test="invoiceModel.invType !=null and invoiceModel.invType !=''">
+        and inv.inv_type = #{invoiceModel.invType}
+      </if>
+
+      <if test="invoiceModel.invSource !=null and invoiceModel.invSource !=''">
+        and inv.inv_source = #{invoiceModel.invSource}
+      </if>
+      <if test="invoiceModel.buyerName !=null and invoiceModel.buyerName !=''">
+        and inv.buyer_name = #{invoiceModel.buyerName}
+      </if>
+      <if test="invoiceModel.buyerTaxCode !=null and invoiceModel.buyerTaxCode !=''">
+        and inv.buyer_tax_code = #{invoiceModel.buyerTaxCode}
+      </if>
+      <if test="invoiceModel.salerName !=null and invoiceModel.salerName !=''">
+        and inv.saler_name = #{invoiceModel.salerName}
+      </if>
+      <if test="invoiceModel.salerTaxCode !=null and invoiceModel.salerTaxCode !=''">
+        and inv.saler_tax_code = #{invoiceModel.salerTaxCode}
+      </if>
+      <if test="invoiceModel.redOrBule !=null and invoiceModel.redOrBule !=''">
+        and inv.red_or_blue = #{invoiceModel.redOrBule}
+      </if>
+
+      <if test="invoiceModel.createTimeStart !=null and invoiceModel.createTimeStart !=''">
+        and inv.create_time >= DATE_FORMAT(#{invoiceModel.createTimeStart},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.createTimeEnd !=null and invoiceModel.createTimeEnd !=''">
+        and inv.create_time &lt;= DATE_FORMAT(#{invoiceModel.createTimeEnd},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.invDateStart !=null and invoiceModel.invDateStart !=''">
+        and inv.inv_date >= DATE_FORMAT(#{invoiceModel.invDateStart},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.invDateEnd !=null and invoiceModel.invDateEnd !=''">
+        and inv.inv_date &lt;= DATE_FORMAT(#{invoiceModel.invDateEnd},'%Y-%m-%d')
+      </if>
+
+      <if test="invoiceModel.invAmount !=null and invoiceModel.invAmount !=''">
+        and inv.inv_amount = #{invoiceModel.invAmount}
+      </if>
+
+      <if test="invoiceModel.edocType !=null and invoiceModel.edocType !=''">
+        and h.edoc_type = #{invoiceModel.edocType}
+      </if>
+
+      <if test="invoiceModel.edocNo !=null and invoiceModel.edocNo !=''">
+        and h.edoc_no like concat(concat('%',#{invoiceModel.edocNo},'%'))
+      </if>
+
+      <if test="invoiceModel.edocHeaderId !=null and invoiceModel.edocHeaderId !=''">
+        and h.id = #{invoiceModel.edocHeaderId}
+      </if>
+
+
+
+    </where>
+
+
+
+
+  </select>
+
+  <select id="queryInvoicesNoPage" parameterType="com.zynsun.platform.edoc.model.InvoiceModel" resultMap="BaseResultModelMap">
+    select <include refid="Inv_Base_Column_List"/>,h.edoc_no AS edoc_no,h.edoc_type AS edoc_type from invoice inv
+    LEFT JOIN edoc_image ei on ei.id = inv.edoc_image_id
+    LEFT JOIN edoc_header h on h.id = ei.edoc_header_id
+    <where>
+    inv.deleted=0 and ei.deleted=0 and h.deleted=0
+      <if test="invoiceModel.isDataGrid !=null and invoiceModel.isDataGrid !=''">
+        and (inv.check_status ='11' OR inv.check_status ='12')
+      </if>
+      <if test="invoiceModel.checkStatus !=null and invoiceModel.checkStatus !=''">
+        and inv.check_status = #{invoiceModel.checkStatus}
+      </if>
+      <if test="invoiceModel.edocImageId !=null and invoiceModel.edocImageId !=''">
+        and inv.edoc_image_id = #{invoiceModel.edocImageId}
+      </if>
+    <if test="invoiceModel.checkDetails !=null and invoiceModel.checkDetails !=''">
+      and inv.check_details = #{invoiceModel.checkDetails}
+    </if>
+      <if test="invoiceModel.invType !=null and invoiceModel.invType !=''">
+        and inv.inv_type = #{invoiceModel.invType}
+      </if>
+    <if test="invoiceModel.checkReal !=null and invoiceModel.checkReal !=''">
+      and inv.check_real = #{invoiceModel.checkReal}
+    </if>
+    <if test="invoiceModel.invCode !=null and invoiceModel.invCode !=''">
+      and inv.inv_code = #{invoiceModel.invCode}
+    </if>
+    <if test="invoiceModel.invNo !=null and invoiceModel.invNo !=''">
+      and inv.inv_no = #{invoiceModel.invNo}
+    </if>
+
+    <if test="invoiceModel.invSource !=null and invoiceModel.invSource !=''">
+      and inv.inv_source = #{invoiceModel.invSource}
+    </if>
+    <if test="invoiceModel.buyerName !=null and invoiceModel.buyerName !=''">
+      and inv.buyer_name = #{invoiceModel.buyerName}
+    </if>
+    <if test="invoiceModel.buyerTaxCode !=null and invoiceModel.buyerTaxCode !=''">
+      and inv.buyer_tax_code = #{invoiceModel.buyerTaxCode}
+    </if>
+    <if test="invoiceModel.salerName !=null and invoiceModel.salerName !=''">
+      and inv.saler_name = #{invoiceModel.salerName}
+    </if>
+    <if test="invoiceModel.salerTaxCode !=null and invoiceModel.salerTaxCode !=''">
+      and inv.saler_tax_code = #{invoiceModel.salerTaxCode}
+    </if>
+    <if test="invoiceModel.redOrBule !=null and invoiceModel.redOrBule !=''">
+      and inv.red_or_blue = #{invoiceModel.redOrBule}
+    </if>
+
+    <if test="invoiceModel.createTimeStart !=null and invoiceModel.createTimeStart !=''">
+      and inv.create_time >= DATE_FORMAT(#{invoiceModel.createTimeStart},'%Y-%m-%d')
+    </if>
+    <if test="invoiceModel.createTimeEnd !=null and invoiceModel.createTimeEnd !=''">
+      and inv.create_time &lt;= DATE_FORMAT(#{invoiceModel.createTimeEnd},'%Y-%m-%d')
+    </if>
+    <if test="invoiceModel.invDateStart !=null and invoiceModel.invDateStart !=''">
+      and inv.inv_date >= DATE_FORMAT(#{invoiceModel.invDateStart},'%Y-%m-%d')
+    </if>
+    <if test="invoiceModel.invDateEnd !=null and invoiceModel.invDateEnd !=''">
+      and inv.inv_date &lt;= DATE_FORMAT(#{invoiceModel.invDateEnd},'%Y-%m-%d')
+    </if>
+
+    <if test="invoiceModel.invAmount !=null and invoiceModel.invAmount !=''">
+      and inv.inv_amount = #{invoiceModel.invAmount}
+    </if>
+
+    <if test="invoiceModel.edocType !=null and invoiceModel.edocType !=''">
+      and h.edoc_type = #{invoiceModel.edocType}
+    </if>
+
+    <if test="invoiceModel.edocNo !=null and invoiceModel.edocNo !=''">
+      and h.edoc_no like concat(concat('%',#{invoiceModel.edocNo},'%'))
+    </if>
+    <if test="invoiceModel.edocHeaderId !=null and invoiceModel.edocHeaderId !=''">
+      and h.id = #{invoiceModel.edocHeaderId}
+    </if>
+    </where>
+  </select>
+
+
+
+  <select id="queryInvoices" parameterType="com.zynsun.platform.edoc.model.InvoiceModel" resultMap="BaseResultModelMap">
+    select <include refid="Inv_Base_Column_List"/>, inv1.ifWarnDay ifWarnDay,inv2.warnDay warnDay,cre.credentials_num credentialsNum,cre.create_time creDate
+    from invoice inv
+    left join  (SELECT id, IF(TIMESTAMPDIFF(DAY,inv_date,CURDATE())<![CDATA[<]]>180,0,1) ifWarnDay   FROM invoice  ) inv1 on inv.id=inv1.id
+    left join  (SELECT id,TIMESTAMPDIFF(DAY,inv_date,CURDATE())  warnDay FROM invoice  ) inv2 on inv1.id=inv2.id
+    LEFT JOIN edoc_image image on image.id=inv.edoc_image_id and image.deleted=0
+    LEFT JOIN edoc_credentials cre ON  credentials_type=1 AND cre.edoc_header_id = image.edoc_header_id AND cre.deleted=0
+    LEFT JOIN edoc_header h on image.edoc_header_id = h.id
+    <where>
+      inv.deleted=0
+
+      <if test="invoiceModel.checkDetails !=null and invoiceModel.checkDetails !=''">
+        and inv.check_details = #{invoiceModel.checkDetails}
+      </if>
+
+      <if test="invoiceModel.credentialsNum !=null and invoiceModel.credentialsNum !=''">
+        and cre.credentials_num = #{invoiceModel.credentialsNum}
+      </if>
+      <if test="invoiceModel.edocImageId !=null and invoiceModel.edocImageId !=''">
+        and inv.edoc_image_id = #{invoiceModel.edocImageId}
+      </if>
+      <if test="invoiceModel.checkStatus !=null and invoiceModel.checkStatus !=''">
+        and inv.check_status = #{invoiceModel.checkStatus}
+      </if>
+      <if test="invoiceModel.checkReal !=null and invoiceModel.checkReal !=''">
+        and inv.check_real = #{invoiceModel.checkReal}
+      </if>
+      <if test="invoiceModel.invType !=null and invoiceModel.invType !=''">
+        and inv.inv_type = #{invoiceModel.invType}
+      </if>
+      <if test="invoiceModel.invCode !=null and invoiceModel.invCode !=''">
+        and inv.inv_code like concat(concat('%',#{invoiceModel.invCode},'%'))
+      </if>
+      <if test="invoiceModel.invNo !=null and invoiceModel.invNo !=''">
+        and inv.inv_no like concat(concat('%',#{invoiceModel.invNo},'%'))
+      </if>
+      <if test="invoiceModel.creDateStart !=null and invoiceModel.creDateStart !=''">
+        and cre.create_time >= DATE_FORMAT(#{invoiceModel.creDateStart},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.creDateEnd !=null and invoiceModel.creDateEnd !=''">
+        and cre.create_time &lt;= DATE_FORMAT(#{invoiceModel.creDateEnd},'%Y-%m-%d')
+      </if>
+      <!--<if test="invoiceModel.invDateStart !=null and invoiceModel.invDateStart !=''">-->
+        <!--and inv.inv_date &gt;= DATE_FORMAT(#{invoiceModel.invDateStart},'%Y-%m-%d')-->
+      <!--</if>-->
+      <!--<if test="invoiceModel.invDateEnd !=null and invoiceModel.invDateEnd !=''">-->
+        <!--and inv.inv_date &lt;=DATE_FORMAT(#{invoiceModel.invDateEnd},'%Y-%m-%d')-->
+      <!--</if>-->
+      <if test="invoiceModel.createTimeStart !=null and invoiceModel.createTimeStart !=''">
+        and inv.create_time >= DATE_FORMAT(#{invoiceModel.createTimeStart},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.createTimeEnd !=null and invoiceModel.createTimeEnd !=''">
+        and inv.create_time &lt;= DATE_FORMAT(#{invoiceModel.createTimeEnd},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.invSource !=null and invoiceModel.invSource !=''">
+        and inv.inv_source = #{invoiceModel.invSource}
+      </if>
+      <if test="invoiceModel.checkCertification !=null and invoiceModel.checkCertification !=''">
+        and inv.check_certification = #{invoiceModel.checkCertification}
+      </if>
+      <if test="invoiceModel.buyerTaxCode !=null and invoiceModel.buyerTaxCode !=''">
+        and inv.buyer_tax_code = #{invoiceModel.buyerTaxCode}
+      </if>
+      <if test="invoiceModel.salerTaxCode !=null and invoiceModel.salerTaxCode !=''">
+        and inv.saler_tax_code = #{invoiceModel.salerTaxCode}
+      </if>
+
+      <if test="invoiceModel.checkTimeStart !=null and invoiceModel.checkTimeStart !=''">
+        <![CDATA[ AND inv.check_time >= #{invoiceModel.checkTimeStart}]]>
+      </if>
+      <if test="invoiceModel.checkTimeEnd !=null and invoiceModel.checkTimeEnd !=''">
+        <![CDATA[and   inv.check_time <=#{invoiceModel.checkTimeEnd}]]>
+      </if>
+      <if test="invoiceModel.archiveGroupFlag == 'no'">
+        AND (
+        ${tools.setCondition('h.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+        OR ${tools.setDP('h.company_code', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+      </if>
+    </where>
+  </select>
+
+
+  <select id="queryInvoicesByEdocNo" parameterType="java.lang.String" resultMap="BaseResultModelMap">
+    select <include refid="Inv_Base_Column_List"/> from invoice inv
+    LEFT JOIN edoc_image ei ON inv.edoc_image_id = ei.id
+    LEFT JOIN edoc_header eh ON eh.id = ei.edoc_header_id
+    where eh.edoc_no = #{edocNo}
+    and ei.deleted = 0 and eh.deleted = 0 and inv.deleted = 0
+  </select>
+
+  <select id="queryInvoicesByEdocNoForCheck" parameterType="com.zynsun.platform.edoc.model.InvoiceModel" resultMap="BaseResultModelMap">
+    select <include refid="Inv_Base_Column_List"/> from invoice inv
+    LEFT JOIN edoc_image ei ON inv.edoc_image_id = ei.id
+    LEFT JOIN edoc_header eh ON eh.id = ei.edoc_header_id
+    where eh.edoc_no = #{invoiceModel.edocNo}
+    and ei.deleted = 0 and eh.deleted = 0 and inv.deleted = 0
+    and inv.inv_type != '10'
+
+  </select>
+
+  <select id="selectByImgId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    invoice
+    <where>
+      deleted = 0
+      and edoc_image_id = #{imgId}
+    </where>
+  </select>
+
+  <select id="selectInvoiceListByImgId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    invoice
+    <where>
+      deleted = 0
+      and edoc_image_id = #{imgId}
+    </where>
+  </select>
+
+  <select id="queryRepeatInvList" parameterType="com.zynsun.platform.edoc.domain.Invoice" resultMap="BaseResultMap">
+      SELECT
+      <include refid="Inv_Base_Column_List"/>
+      FROM invoice inv
+      left join edoc_image bi on bi.id=inv.edoc_image_id
+      LEFT join edoc_Header h ON bi.edoc_header_id = h.id
+      <where>
+        inv.deleted='0' AND h.edoc_task_status != '21' AND h.deleted = '0' and bi.deleted='0' and inv.check_status = '11'
+        <if test="inv.id != null">
+          AND inv.id != #{inv.id}
+        </if>
+        <if test="inv.invCode != null and inv.invCode != ''">
+          AND inv.inv_code = #{inv.invCode}
+        </if>
+        <if test="inv.invNo != null and inv.invNo != ''">
+          AND inv.inv_no = #{inv.invNo}
+        </if>
+        <if test="inv.invType != null and inv.invType != ''">
+          AND inv.inv_type = #{inv.invType}
+        </if>
+      </where>
+  </select>
+
+  <select id="queryRepeatInvListForMaualCheckStatus" parameterType="com.zynsun.platform.edoc.domain.Invoice" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Inv_Base_Column_List"/>
+    FROM invoice inv
+    left join edoc_image bi on bi.id=inv.edoc_image_id
+    LEFT join edoc_Header h ON bi.edoc_header_id = h.id
+    <where>
+      inv.deleted='0' AND h.edoc_task_status != '21' AND h.deleted = '0' and bi.deleted='0' /*and inv.check_status = '11'*/
+      <if test="inv.id != null">
+        AND inv.id != #{inv.id}
+      </if>
+      <if test="inv.invCode != null and inv.invCode != ''">
+        AND inv.inv_code = #{inv.invCode}
+      </if>
+      <if test="inv.invNo != null and inv.invNo != ''">
+        AND inv.inv_no = #{inv.invNo}
+      </if>
+      <if test="inv.invType != null and inv.invType != ''">
+        AND inv.inv_type = #{inv.invType}
+      </if>
+    </where>
+  </select>
+
+
+
+
+  <select id="queryInputInvoiceTaxPage" parameterType="com.zynsun.platform.edoc.model.InvoiceModel" resultMap="inputInvoiceTaxPageResult">
+    select <include refid="Input_Inv_Tax_Column_List"/>,eh.create_by create_byEdoc,cs.credentials_num,cs.create_time creDate from invoice inv
+    LEFT JOIN edoc_image ei ON inv.edoc_image_id = ei.id
+    LEFT JOIN edoc_header eh ON ei.edoc_header_id = eh.id
+    LEFT JOIN edoc_credentials cs on cs.edoc_header_id = eh.id AND cs.deleted=0
+    /*LEFT JOIN invoice_item ii ON inv.id = ii.inv_id*/
+    <where>
+      inv.deleted = 0
+      AND ei.deleted = 0
+      AND eh.deleted = 0
+
+      and  inv.check_status = 11
+      and  (inv.check_details != 12 and   inv.check_details IS NOT NULL		AND inv.check_details != '')
+
+      AND (
+      (inv.inv_type = '1')
+      OR (
+      (
+      (
+      inv.ext_field5 IS NOT NULL
+      AND inv.ext_field5 != ''
+      )
+      AND (
+      CAST(
+      IFNULL(inv.ext_field5, 0) AS DECIMAL (18, 2)
+      ) &lt; CAST(
+      IFNULL(inv.inv_tax, 0) AS DECIMAL (18, 2)
+      )
+      )
+      )
+      OR (
+      (
+      (
+      inv.ext_field3 IS NOT NULL
+      AND inv.ext_field3 != ''
+      )
+      AND (
+      CAST(
+      IFNULL(inv.ext_field3, 0) AS DECIMAL (18, 2)
+      ) &lt; CAST(
+      IFNULL(inv.inv_total, 0) AS DECIMAL (18, 2)
+      )
+      )
+      )
+      )
+      OR (
+      inv.dept IS NOT NULL
+      AND inv.dept != ''
+      )
+      OR (
+      inv.cost_type IS NOT NULL
+      AND inv.cost_type != ''
+      )
+      )
+      )
+
+      <if test="invoiceModel.salerTaxCode !=null and invoiceModel.salerTaxCode !=''">
+        and inv.saler_tax_code = #{invoiceModel.salerTaxCode}
+      </if>
+
+      <if test="invoiceModel.buyerTaxCode !=null and invoiceModel.buyerTaxCode !=''">
+        and inv.buyer_tax_code = #{invoiceModel.buyerTaxCode}
+      </if>
+
+      <if test="invoiceModel.id !=null and invoiceModel.id !=''">
+        and inv.id = #{invoiceModel.id}
+      </if>
+      <if test="invoiceModel.edocNo !=null and invoiceModel.edocNo !=''">
+        and eh.edoc_no = #{invoiceModel.edocNo}
+      </if>
+      <if test="invoiceModel.salerName !=null and invoiceModel.salerName !=''">
+        and inv.saler_name like concat(concat('%',#{invoiceModel.salerName},'%'))
+      </if>
+      <if test="invoiceModel.invTotal !=null and invoiceModel.invTotal !=''">
+        and inv.inv_total = #{invoiceModel.invTotal}
+      </if>
+      <if test="invoiceModel.invDate !=null and invoiceModel.invDate !=''">
+        and inv.inv_date = #{invoiceModel.invDate}
+      </if>
+      <if test="invoiceModel.edocImageId !=null">
+        and inv.edoc_image_id = #{invoiceModel.edocImageId}
+      </if>
+      <if test="invoiceModel.checkStatus !=null and invoiceModel.checkStatus !=''">
+        and inv.check_status = #{invoiceModel.checkStatus}
+      </if>
+      <if test="invoiceModel.checkReal !=null and invoiceModel.checkReal !=''">
+        and inv.check_real = #{invoiceModel.checkReal}
+      </if>
+      <if test="invoiceModel.invType !=null and invoiceModel.invType !=''">
+        and inv.inv_type = #{invoiceModel.invType}
+      </if>
+      <if test="invoiceModel.invCode !=null and invoiceModel.invCode !=''">
+        and inv.inv_code like concat(concat('%',#{invoiceModel.invCode},'%'))
+      </if>
+      <if test="invoiceModel.invNo !=null and invoiceModel.invNo !=''">
+        and inv.inv_no like concat(concat('%',#{invoiceModel.invNo},'%'))
+      </if>
+      <if test="invoiceModel.credentialsNum !=null and invoiceModel.credentialsNum !=''">
+        and cs.credentials_num like concat(concat('%',#{invoiceModel.credentialsNum},'%'))
+      </if>
+      <!--<if test="invoiceModel.invDateStart !=null and invoiceModel.invDateStart !=''">-->
+        <!--and inv.inv_date &gt;= DATE_FORMAT(#{invoiceModel.invDateStart},'%Y-%m-%d')-->
+      <!--</if>-->
+      <!--<if test="invoiceModel.invDateEnd !=null and invoiceModel.invDateEnd !=''">-->
+        <!--and inv.inv_date &lt;= DATE_FORMAT(#{invoiceModel.invDateEnd},'%Y-%m-%d')-->
+      <!--</if>-->
+      <if test="invoiceModel.creDateStart !=null and invoiceModel.creDateStart !=''">
+        and cs.create_time >= DATE_FORMAT(#{invoiceModel.creDateStart},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.creDateEnd !=null and invoiceModel.creDateEnd !=''">
+        and cs.create_time &lt;= DATE_FORMAT(#{invoiceModel.creDateEnd},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.createTimeStart !=null and invoiceModel.createTimeStart !=''">
+        and inv.create_time >= DATE_FORMAT(#{invoiceModel.createTimeStart},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.createTimeEnd !=null and invoiceModel.createTimeEnd !=''">
+        and inv.create_time &lt;= DATE_FORMAT(#{invoiceModel.createTimeEnd},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.invSource !=null and invoiceModel.invSource !=''">
+        and inv.inv_source = #{invoiceModel.invSource}
+      </if>
+      <if test="invoiceModel.checkCertification !=null and invoiceModel.checkCertification !=''">
+        and inv.check_certification = #{invoiceModel.checkCertification}
+      </if>
+
+      <if test="invoiceModel.itemName !=null and invoiceModel.itemName !=''">
+        and inv.id in (select DISTINCT ii.inv_id
+        from invoice_item ii
+        where ii.item_name like concat(concat('%',#{invoiceModel.itemName},'%'))
+        )
+      </if>
+      <if test="invoiceModel.itemTaxRate !=null and invoiceModel.itemTaxRate !=''">
+        and inv.id in (select DISTINCT ii.inv_id
+        from invoice_item ii
+        where ii.item_tax_rate = #{invoiceModel.itemTaxRate}
+        )
+      </if>
+      <if test="invoiceModel.archiveGroupFlag == 'no'">
+        AND (
+        ${tools.setCondition('eh.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+        OR ${tools.setDP('eh.company_code', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+      </if>
+    </where>
+  </select>
+
+  <select id="queryInputInvoiceItem" parameterType="com.zynsun.platform.edoc.model.InvoiceModel" resultMap="inputInvoiceTaxPageResult">
+    select <include refid="Input_Inv_Tax_Column_List"/>,eh.create_by create_byEdoc,cs.credentials_num,cs.create_time creDate,
+    ii.item_name,ii.item_amount,ii.item_tax,ii.item_total,ii.item_tax_rate,ii.ext_field5 extFieldItem5,ii.ext_field3 extFieldItem3,
+    FORMAT(ii.item_tax - ii.ext_field5,2) invOut from invoice inv
+    LEFT JOIN edoc_image ei ON inv.edoc_image_id = ei.id
+    LEFT JOIN edoc_header eh ON ei.edoc_header_id = eh.id
+    LEFT JOIN edoc_credentials cs on cs.edoc_header_id = eh.id AND cs.deleted=0
+    LEFT JOIN invoice_item ii ON inv.id = ii.inv_id AND ii.deleted = 0
+    <where>
+      inv.deleted = 0
+      AND ei.deleted = 0
+      AND eh.deleted = 0
+
+      and  inv.check_status = 11
+      and  (inv.check_details != 12 and   inv.check_details IS NOT NULL		AND inv.check_details != '')
+
+      AND (
+      (inv.inv_type = '1')
+      OR (
+      (
+      (
+      inv.ext_field5 IS NOT NULL
+      AND inv.ext_field5 != ''
+      )
+      AND (
+      CAST(
+      IFNULL(inv.ext_field5, 0) AS DECIMAL (18, 2)
+      ) &lt; CAST(
+      IFNULL(inv.inv_tax, 0) AS DECIMAL (18, 2)
+      )
+      )
+      )
+      OR (
+      (
+      (
+      inv.ext_field3 IS NOT NULL
+      AND inv.ext_field3 != ''
+      )
+      AND (
+      CAST(
+      IFNULL(inv.ext_field3, 0) AS DECIMAL (18, 2)
+      ) &lt; CAST(
+      IFNULL(inv.inv_total, 0) AS DECIMAL (18, 2)
+      )
+      )
+      )
+      )
+      OR (
+      inv.dept IS NOT NULL
+      AND inv.dept != ''
+      )
+      OR (
+      inv.cost_type IS NOT NULL
+      AND inv.cost_type != ''
+      )
+      )
+      )
+
+      <if test="invoiceModel.salerTaxCode !=null and invoiceModel.salerTaxCode !=''">
+        and inv.saler_tax_code = #{invoiceModel.salerTaxCode}
+      </if>
+
+      <if test="invoiceModel.buyerTaxCode !=null and invoiceModel.buyerTaxCode !=''">
+        and inv.buyer_tax_code = #{invoiceModel.buyerTaxCode}
+      </if>
+
+      <if test="invoiceModel.id !=null and invoiceModel.id !=''">
+        and inv.id = #{invoiceModel.id}
+      </if>
+      <if test="invoiceModel.edocNo !=null and invoiceModel.edocNo !=''">
+        and eh.edoc_no = #{invoiceModel.edocNo}
+      </if>
+      <if test="invoiceModel.salerName !=null and invoiceModel.salerName !=''">
+        and inv.saler_name like concat(concat('%',#{invoiceModel.salerName},'%'))
+      </if>
+      <if test="invoiceModel.invTotal !=null and invoiceModel.invTotal !=''">
+        and inv.inv_total = #{invoiceModel.invTotal}
+      </if>
+      <if test="invoiceModel.invDate !=null and invoiceModel.invDate !=''">
+        and inv.inv_date = #{invoiceModel.invDate}
+      </if>
+      <if test="invoiceModel.edocImageId !=null">
+        and inv.edoc_image_id = #{invoiceModel.edocImageId}
+      </if>
+      <if test="invoiceModel.checkStatus !=null and invoiceModel.checkStatus !=''">
+        and inv.check_status = #{invoiceModel.checkStatus}
+      </if>
+      <if test="invoiceModel.checkReal !=null and invoiceModel.checkReal !=''">
+        and inv.check_real = #{invoiceModel.checkReal}
+      </if>
+      <if test="invoiceModel.invType !=null and invoiceModel.invType !=''">
+        and inv.inv_type = #{invoiceModel.invType}
+      </if>
+      <if test="invoiceModel.invCode !=null and invoiceModel.invCode !=''">
+        and inv.inv_code like concat(concat('%',#{invoiceModel.invCode},'%'))
+      </if>
+      <if test="invoiceModel.invNo !=null and invoiceModel.invNo !=''">
+        and inv.inv_no like concat(concat('%',#{invoiceModel.invNo},'%'))
+      </if>
+      <if test="invoiceModel.credentialsNum !=null and invoiceModel.credentialsNum !=''">
+        and cs.credentials_num like concat(concat('%',#{invoiceModel.credentialsNum},'%'))
+      </if>
+      <!--<if test="invoiceModel.invDateStart !=null and invoiceModel.invDateStart !=''">-->
+        <!--and inv.inv_date &gt;= DATE_FORMAT(#{invoiceModel.invDateStart},'%Y-%m-%d')-->
+      <!--</if>-->
+      <!--<if test="invoiceModel.invDateEnd !=null and invoiceModel.invDateEnd !=''">-->
+        <!--and inv.inv_date &lt;= DATE_FORMAT(#{invoiceModel.invDateEnd},'%Y-%m-%d')-->
+      <!--</if>-->
+      <if test="invoiceModel.creDateStart !=null and invoiceModel.creDateStart !=''">
+        and cs.create_time >= DATE_FORMAT(#{invoiceModel.creDateStart},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.creDateEnd !=null and invoiceModel.creDateEnd !=''">
+        and cs.create_time &lt;= DATE_FORMAT(#{invoiceModel.creDateEnd},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.createTimeStart !=null and invoiceModel.createTimeStart !=''">
+        and inv.create_time >= DATE_FORMAT(#{invoiceModel.createTimeStart},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.createTimeEnd !=null and invoiceModel.createTimeEnd !=''">
+        and inv.create_time &lt;= DATE_FORMAT(#{invoiceModel.createTimeEnd},'%Y-%m-%d')
+      </if>
+      <if test="invoiceModel.invSource !=null and invoiceModel.invSource !=''">
+        and inv.inv_source = #{invoiceModel.invSource}
+      </if>
+      <if test="invoiceModel.checkCertification !=null and invoiceModel.checkCertification !=''">
+        and inv.check_certification = #{invoiceModel.checkCertification}
+      </if>
+
+      <if test="invoiceModel.itemName !=null and invoiceModel.itemName !=''">
+        and inv.id in (select DISTINCT ii.inv_id
+        from invoice_item ii
+        where ii.item_name like concat(concat('%',#{invoiceModel.itemName},'%'))
+        )
+      </if>
+      <if test="invoiceModel.itemTaxRate !=null and invoiceModel.itemTaxRate !=''">
+        and inv.id in (select DISTINCT ii.inv_id
+        from invoice_item ii
+        where ii.item_tax_rate = #{invoiceModel.itemTaxRate}
+        )
+      </if>
+      <if test="invoiceModel.archiveGroupFlag == 'no'">
+        AND (
+        ${tools.setCondition('eh.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+        OR ${tools.setDP('eh.company_code', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+      </if>
+    </where>
+  </select>
+
+  <select id="queryInvCheckRealList" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    invoice
+    <where>
+      deleted = 0
+      and (check_real is null OR check_real = '')
+    </where>
+  </select>
+
+
+  <select id="queryByInvId_sum" parameterType="java.lang.Long" resultType="com.zynsun.platform.edoc.domain.InvoiceItem">
+    SELECT sum(CAST(IFNULL(ext_field5, 0) AS DECIMAL (18 , 2 ))   ) extField5  ,   sum(CAST(IFNULL(ext_field3, 0) AS DECIMAL (18 , 2 ))  )  extField3    FROM invoice_item
+     where inv_id= #{invId} and deleted=0
+
+
+  </select>
+
+  <select id="exportWaitCertInv_Part" parameterType="com.zynsun.platform.edoc.model.InvoiceModel" resultMap="inputInvoiceTaxPageResult">
+    select <include refid="Input_Inv_Tax_Column_List"/>,cre.credentials_num credentialsNum,cre.create_time creDate from invoice inv
+    LEFT JOIN edoc_image ei ON inv.edoc_image_id = ei.id
+    LEFT JOIN edoc_header eh ON ei.edoc_header_id = eh.id
+    LEFT JOIN edoc_credentials cre ON  credentials_type=1 AND cre.edoc_header_id = ei.edoc_header_id AND cre.deleted=0
+    <where>
+    inv.deleted = 0
+    AND ei.deleted = 0
+    AND eh.deleted = 0
+
+    <if test="invoiceModel.id !=null and invoiceModel.id !=''">
+      and inv.id = #{invoiceModel.id}
+    </if>
+    <if test="invoiceModel.edocNo !=null and invoiceModel.edocNo !=''">
+      and eh.edoc_no = #{invoiceModel.edocNo}
+    </if>
+    </where>
+  </select>
+
+  <select id="exportWaitCertInv_All" parameterType="com.zynsun.platform.edoc.model.InvoiceModel" resultMap="inputInvoiceTaxPageResult">
+    select <include refid="Input_Inv_Tax_Column_List"/>,cre.credentials_num credentialsNum,cre.create_time creDate from invoice inv
+    LEFT JOIN edoc_image ei ON inv.edoc_image_id = ei.id
+    LEFT JOIN edoc_header eh ON ei.edoc_header_id = eh.id
+    LEFT JOIN edoc_credentials cre ON  credentials_type=1 AND cre.edoc_header_id = ei.edoc_header_id AND cre.deleted=0
+    <where>
+      inv.deleted = 0
+      AND ei.deleted = 0
+      AND eh.deleted = 0
+
+      <if test="invoiceModel.id !=null and invoiceModel.id !=''">
+        and inv.id = #{invoiceModel.id}
+      </if>
+      <if test="invoiceModel.edocNo !=null and invoiceModel.edocNo !=''">
+        and eh.edoc_no = #{invoiceModel.edocNo}
+      </if>
+      <if test="invoiceModel.edocImageId !=null">
+        and inv.edoc_image_id = #{invoiceModel.edocImageId}
+      </if>
+      <if test="invoiceModel.checkStatus !=null and invoiceModel.checkStatus !=''">
+        and inv.check_status = #{invoiceModel.checkStatus}
+      </if>
+      <if test="invoiceModel.checkReal !=null and invoiceModel.checkReal !=''">
+        and inv.check_real = #{invoiceModel.checkReal}
+      </if>
+      <if test="invoiceModel.invType !=null and invoiceModel.invType !=''">
+        and inv.inv_type = #{invoiceModel.invType}
+      </if>
+      <if test="invoiceModel.invCode !=null and invoiceModel.invCode !=''">
+        and inv.inv_code like concat(concat('%',#{invoiceModel.invCode},'%'))
+      </if>
+      <if test="invoiceModel.invNo !=null and invoiceModel.invNo !=''">
+        and inv.inv_no like concat(concat('%',#{invoiceModel.invNo},'%'))
+      </if>
+      <if test="invoiceModel.invDateStart !=null and invoiceModel.invDateStart !=''">
+        and inv.inv_date &gt;=#{invoiceModel.invDateStart}
+      </if>
+      <if test="invoiceModel.invDateEnd !=null and invoiceModel.invDateEnd !=''">
+        and inv.inv_date &lt;=#{invoiceModel.invDateEnd}
+      </if>
+      <if test="invoiceModel.invSource !=null and invoiceModel.invSource !=''">
+        and inv.inv_source = #{invoiceModel.invSource}
+      </if>
+      <if test="invoiceModel.checkCertification !=null and invoiceModel.checkCertification !=''">
+        and inv.check_certification = #{invoiceModel.checkCertification}
+      </if>
+
+      <if test="invoiceModel.checkTimeStart !=null and invoiceModel.checkTimeStart !=''">
+        <![CDATA[ AND inv.check_time >= #{invoiceModel.checkTimeStart}]]>
+      </if>
+      <if test="invoiceModel.checkTimeEnd !=null and invoiceModel.checkTimeEnd !=''">
+        <![CDATA[and   inv.check_time <=#{invoiceModel.checkTimeEnd}]]>
+      </if>
+    </where>
+  </select>
+
+  <update id="deleteInvoiceByImageId">
+    update invoice set deleted = 1 where edoc_image_id= #{imageId} and deleted =0
+  </update>
+
+  <select id="queryInvsByEdocHeaderId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    invoice
+    <where>
+      deleted = 0
+     and ext_field1 LIKE concat(concat('%',#{edocNo},'%'))
+
+    </where>
+  </select>
+
+  <select id="selectWaitCheckRealInv" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from invoice
+    <where>
+      deleted = 0
+      and check_real = '1' and check_status = '11'
+    </where>
+  </select>
+
+  <select id="selectInvByEdocHeader" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+    <include refid="Inv_Base_Column_List"/>
+    from invoice inv
+    LEFT JOIN edoc_image e ON e.id = inv.edoc_image_id
+    LEFT JOIN edoc_header h ON h.id = e.edoc_header_id
+    <where>
+      inv.deleted = 0 and e.deleted = 0 and h.deleted = 0
+      and h.id = #{edocHeaderId}
+    </where>
+  </select>
+
+
+  <select id="getEdocHeaderIdByInvId" resultType="java.lang.Long" parameterType="java.lang.Long">
+    select
+    h.id
+    from invoice inv
+    LEFT JOIN edoc_image e ON e.id = inv.edoc_image_id
+    LEFT JOIN edoc_header h ON h.id = e.edoc_header_id
+    <where>
+      inv.deleted = 0 and e.deleted = 0 and h.deleted = 0
+      and inv.id = #{invId}
+    </where>
+  </select>
+</mapper>

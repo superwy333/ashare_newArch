@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zynsun.platform.edoc.mapper.ArchiveMoveMapper">
+
+    <resultMap id="BaseResultMap" type="com.zynsun.platform.edoc.domain.ArchiveMove">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="archives_id" property="archiveId" jdbcType="VARCHAR"/>
+        <result column="archive_no" property="archiveNo" jdbcType="VARCHAR"/>
+        <result column="archive_type" property="archiveType" jdbcType="VARCHAR"/>
+        <result column="to_company" property="toCompany" jdbcType="VARCHAR"/>
+        <result column="to_header" property="toArchiveHeaderName" jdbcType="VARCHAR"/>
+        <result column="from_company" property="fromCompany" jdbcType="VARCHAR"/>
+        <result column="from_header" property="fromArchiveHeaderName" jdbcType="VARCHAR"/>
+        <result column="from_charge_person" property="fromChargePerson" jdbcType="VARCHAR"/>
+        <result column="to_charge_person" property="toChargePerson" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="process_status" property="processStatus" jdbcType="CHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="move_date" property="moveDate" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <resultMap id="WorkFlowResultMap" type="com.zynsun.platform.edoc.model.ArchiveMoveModel">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="archives_id" property="archiveId" jdbcType="VARCHAR"/>
+        <result column="archive_no" property="archiveNo" jdbcType="VARCHAR"/>
+        <result column="archive_type" property="archiveType" jdbcType="VARCHAR"/>
+        <result column="to_company" property="toCompany" jdbcType="VARCHAR"/>
+        <result column="to_header" property="toArchiveHeaderName" jdbcType="VARCHAR"/>
+        <result column="from_company" property="fromCompany" jdbcType="VARCHAR"/>
+        <result column="from_header" property="fromArchiveHeaderName" jdbcType="VARCHAR"/>
+        <result column="from_charge_person" property="fromChargePerson" jdbcType="VARCHAR"/>
+        <result column="to_charge_person" property="toChargePerson" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="process_status" property="processStatus" jdbcType="CHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="move_date" property="moveDate" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_by" property="lastModifyBy" jdbcType="VARCHAR"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+
+        <result column="NAME_" property="taskName" jdbcType="VARCHAR"/>
+        <result column="ID_" property="taskId" jdbcType="VARCHAR"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_KEY_" property="businessKey" jdbcType="VARCHAR"/>
+        <result column="ASSIGNEE_" property="taskAssingee" jdbcType="VARCHAR"/>
+        <result column="TASK_DEF_KEY_" property="taskKey" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+
+    <select id="queryArchiveMoveList" parameterType="com.zynsun.platform.edoc.model.ArchiveMoveModel"
+            resultMap="WorkFlowResultMap">
+        SELECT
+        aam.id,
+        aam.archives_id,
+        aam.archive_no,
+        aam.archive_type,
+        aam.remark,
+        aam.to_company,
+        aam.to_header,
+        aam.from_company,
+        aam.from_header,
+        aam.from_charge_person,
+        aam.to_charge_person,
+        aam.status,
+        aam.process_status,
+        aam.move_date,
+        aam.version,
+        aam.deleted,
+        aam.create_by,
+        aam.create_time,
+        aam.last_modify_by,
+        aam.last_modify_time
+
+        FROM
+        accounting_archives_move aam
+        LEFT JOIN accounting_box box ON aam.archive_no = box.box_no
+        AND box.deleted = 0
+        <where>
+            aam.deleted = 0
+            <if test="archiveMove.archiveNo != null and archiveMove.archiveNo != ''">
+                AND  aam.archive_no = #{archiveMove.archiveNo}
+            </if>
+        </where>
+        <if test="archiveMove.archiveGroupFlag == 'no'">
+            AND (
+            ${tools.setCondition('box.create_by', CURRENT_USER.loginName)} <!-- 当前登录用户 -->
+            OR ${tools.setDP('box.company_code', 'DPT_COMPANY')}) <!-- 公司数据维度 -->
+        </if>
+        ORDER BY aam.create_time DESC
+    </select>
+
+    <select id="queryToBeWorkList" parameterType="com.zynsun.platform.edoc.model.ArchiveMoveModel"
+            resultMap="WorkFlowResultMap">
+        SELECT DISTINCT
+        RES.NAME_, RES.ID_, RES.TASK_DEF_KEY_, RES.TENANT_ID_, /*RES.DESCRIPTION_,*//*RES.CREATE_TIME_ as taskCreateTime,*/
+        e.BUSINESS_KEY_, RES.ASSIGNEE_ ,/*e.ID_ as executionId,*/ move.*/*,ab.box_no as archive_no*/
+        FROM
+        ACT_RU_TASK RES
+        LEFT JOIN ACT_RU_IDENTITYLINK I ON I.TASK_ID_ = RES.ID_
+        LEFT JOIN act_ru_execution e on RES.PROC_INST_ID_ = e.PROC_INST_ID_
+        RIGHT JOIN accounting_archives_move move ON move.id = e.BUSINESS_KEY_
+        LEFT JOIN accounting_box ab on ab.id = move.archives_id
+        WHERE
+        move.deleted = 0 AND ab.deleted = 0
+        AND move.id IS NOT NULL
+            AND (
+            RES.ASSIGNEE_ = #{taskAssingee}
+            OR (
+            RES.ASSIGNEE_ IS NULL
+            AND I.TYPE_ = 'candidate'
+            AND (
+            I.USER_ID_ = #{taskAssingee}
+            OR I.GROUP_ID_ IN (
+            SELECT G.GROUP_CODE
+            FROM SYS_GROUP G
+            LEFT JOIN SYS_GROUP_USER GU ON G.ID = GU.GROUP_ID
+            LEFT JOIN SYS_USER U ON GU.USER_ID = U.ID
+            WHERE U.LOGIN_NAME = #{taskAssingee}
+            )
+            )
+            )
+            )
+        ORDER BY
+        RES.ID_ ASC
+    </select>
+
+    <select id="queryDoenWorkList" parameterType="com.zynsun.platform.edoc.model.ArchiveMoveModel"
+            resultMap="WorkFlowResultMap">
+        SELECT DISTINCT
+        move.* , RES.NAME_ , RES.ID_ , RES.TASK_DEF_KEY_ , RES.TENANT_ID_ ,/* RES.DESCRIPTION_ ,*/ e.BUSINESS_KEY_,
+        RES.ASSIGNEE_/*,ab.box_no as archive_no*/
+        FROM
+        ACT_HI_TASKINST RES
+        LEFT JOIN act_hi_procinst e on RES.PROC_INST_ID_ = e.PROC_INST_ID_
+        RIGHT JOIN accounting_archives_move move ON move.id = e.BUSINESS_KEY_
+        LEFT JOIN accounting_box ab on ab.id = move.archives_id
+        AND move.deleted = 0 AND ab.deleted = 0
+        WHERE
+        move.id IS NOT NULL
+        AND move.deleted = 0
+        AND RES.END_TIME_ IS NOT NULL
+            and RES.TENANT_ID_ = 'AP'
+            and RES.ASSIGNEE_ = #{taskAssingee}
+        ORDER BY
+        move.create_time DESC
+    </select>
+
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="INFO" monitorInterval="1800">
+	<appenders>
+		<!-- Console -->
+		<Console name="Console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level [%c{1.}:%L (%M)] - %msg%xEx%n" />
+		</Console>
+
+		<!-- File INFO -->
+		<RollingFile name="RollingFile" fileName="${sys:user.home}/logs/platform/edoc-api-impl.log"
+					 filePattern="${sys:user.home}/logs/$${date:yyyyMM}/platform/edoc-api-impl-%d{yyyy-MM-dd}-%i.log">
+			<!--
+            <Filters>
+                <ThresholdFilter level="INFO"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            -->
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level [%c{1.}:%L (%M)] - %msg%xEx%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy/>
+				<SizeBasedTriggeringPolicy size="50MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="30"/>
+		</RollingFile>
+
+	</appenders>
+
+	<loggers>
+
+		<logger name="com.jeesuite" level="ERROR"></logger>
+		<logger name="com.zynsun" level="INFO"></logger>
+		<logger name="org.springframework" level="ERROR"></logger>
+		<!--<logger name="org.apache.kafka" level="DEBUG"></logger>-->
+		<!--<logger name="kafka" level="DEBUG"></logger>-->
+		<logger name="org.apache.commons.beanutils" level="ERROR" />
+
+		<logger name="org.apache.ibatis" level="ERROR">
+			<appender-ref ref="Console"/>
+		</logger>
+		<logger name="java.sql" level="ERROR">
+			<appender-ref ref="Console"/>
+		</logger>
+
+		<root level="INFO">
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingFile" />
+		</root>
+	</loggers>
+
+</configuration>
